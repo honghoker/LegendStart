@@ -21,15 +21,18 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
 
     private void init(){
-        addressEditText = findViewById(R.id.editText1);
-        detailAdressEditText = findViewById(R.id.editText2);
-        floatingActionButton = findViewById(R.id.floatingActionButton);
         SqliteDBHelper dbHelper = new SqliteDBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
+
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new SqliteAdapter(this, getAllItems()); // recyclerView 를 가져옴
         recyclerView.setAdapter(mAdapter);
+        addressEditText = findViewById(R.id.editText1);
+        detailAdressEditText = findViewById(R.id.editText2);
+        floatingActionButton = findViewById(R.id.floatingActionButton);
+
+
     }
 
     private void clearEditText(){
@@ -41,8 +44,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addItem();
+            }
+        });
     }
-    private void floatingAddButton(View view){ //add item
+    private void addItem(){ //add item
         if(addressEditText.getText().toString().trim().length() == 0)
             return;
         String address = addressEditText.getText().toString();
