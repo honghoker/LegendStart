@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/actionCalender"
+        android:enabled="true"
+        android:icon="@drawable/ic_check_black_24dp"
+        android:title="Calendar"/>
+
+    <item
+        android:id="@+id/actionToDoList"
+        android:enabled="true"
+        android:icon="@drawable/ic_check_black_24dp"
+        android:title="ToDoList"/>
+
+    <item
+        android:id="@+id/actionMaps"
+        android:enabled="true"
+        android:icon="@drawable/ic_check_black_24dp"
+        android:title="Maps"/>
+    <item
+        android:id="@+id/actionList"
+        android:enabled="true"
+        android:icon="@drawable/ic_check_black_24dp"
+        android:title="List"/>
+
+</menu>
