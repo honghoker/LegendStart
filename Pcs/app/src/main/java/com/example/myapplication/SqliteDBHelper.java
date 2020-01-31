@@ -19,8 +19,8 @@ public class SqliteDBHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_SQLITELIST_TABLE = "CREATE TABLE " +
                 SqliteEntry.TABLE_NAME + " (" +
                 SqliteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                SqliteEntry.COLUM_NAME + " TEXT NOT NULL, "+
-                SqliteEntry.COLUMN_AMOUNT + " INTEGER NOT NULL, " +
+                SqliteEntry.COLUM_ADDRESS + " TEXT NOT NULL, "+
+                SqliteEntry.COLUMN_DETAILADDRESS + " TEXT NOT NULL, " +
                 SqliteEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                 ");";
         db.execSQL(SQL_CREATE_SQLITELIST_TABLE);
