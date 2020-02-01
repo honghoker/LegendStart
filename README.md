@@ -1,9 +1,13 @@
 # LegendStart
 
-a Legend written by four men
-##Kim Sung hoon
-##Kim Myeong su
-##Park Chan seop
-##Hong Eun pyo
+## a Legend written by four men
 
-It's starting now.
+### Kim Sung hoon
+
+### Kim Myeong su
+
+### Park Chan seop
+
+### Hong Eun pyo
+
+# It's starting now.
