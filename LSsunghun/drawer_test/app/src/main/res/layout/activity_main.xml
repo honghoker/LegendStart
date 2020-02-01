@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout"
     tools:context=".MainActivity"
+    android:id="@+id/drawer_layout"
     tools:openDrawer="start">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -23,39 +21,10 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:background="@color/colorPrimary"
             android:elevation="4dp"/>
-
         <FrameLayout
-            android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-        </FrameLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnMain"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:icon="@drawable/ic_map"
-                android:onClick="onButtonClicked"
-                android:text="MAP" />
-
-            <Button
-                android:id="@+id/btnMenu"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:icon="@drawable/ic_list"
-                android:onClick="onButtonClicked"
-                android:text="LIST" />
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container"/>
 
     </LinearLayout>
 
@@ -64,6 +33,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:id="@+id/nav_view"
-        app:menu="@menu/drawer_menu_list"
+        app:menu="@menu/menu_list"
         app:headerLayout="@layout/nav_header"/>
+
 </androidx.drawerlayout.widget.DrawerLayout>

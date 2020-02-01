@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyFragment1</string>
+    <string name="app_name">drawer_test</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
 </resources>
