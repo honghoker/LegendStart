@@ -4,22 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 
 public class MainActivity extends Activity {
-    ArrayList<String> Hashtagar = new ArrayList<String>();
     private List<String> list;
+    EditText Location_Name;
+    EditText Location_Address;
+    EditText Location_DetailAddress;
+    EditText Location_Number;
+    EditText Location_Comment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,16 @@ public class MainActivity extends Activity {
     }
 
     public void init() {
+        Location_Name = findViewById(R.id.Text_Name);
+        Location_Address = findViewById(R.id.Text_Addr);
+        Location_DetailAddress = findViewById(R.id.Text_DetailAddr);
+        Location_Number = findViewById(R.id.Text_Number);
+        Location_Comment = findViewById(R.id.Text_Comment);
+
+        for(String s : HashTag.getHashTagar()){
+            // 어레이리스트 값 가져올때 사용
+        }
+
         final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.clearable_edit);
 
         autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, list)); // 글자 자동완성
@@ -64,40 +76,23 @@ public class MainActivity extends Activity {
         if(HashText.getText().toString().trim().equals("")){
             Toast.makeText(getApplicationContext(), "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
         }
-        else if(Hashtagar.contains(Hash)){
+        else if(HashTag.getHashTagar().contains(Hash)){
             Toast.makeText(getApplicationContext(), "이미 추가한 태그입니다.", Toast.LENGTH_SHORT).show();
             HashText.setText(HashText.getText().toString().trim());
         }
-        else if(Hashtagar.size() == 5){
+        else if(HashTag.getHashTagar().size() == 5){
             Toast.makeText(getApplicationContext(), "태그는 5개까지 추가할 수 있습니다.", Toast.LENGTH_SHORT).show();
         }
         else {
-            TextView text = new TextView(this);
-            text.setText("#"+Hash);
-
-            Drawable x = getResources().getDrawable(R.drawable.x);
-            x.setBounds(0, 0, 40, 40);
-            text.setCompoundDrawables(null, null, x, null);
-
-            text.setTextColor(Color.parseColor("#3F729B")); // 인스타 태그 컬러
-            text.setBackgroundResource(R.drawable.hashtag); // 라운드 테두리
-            text.setId(Hashtagar.size());
-
             FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(20, 20);
+            HashTag hashtag = new HashTag(this);
 
+            hashtag.init(Hash, "#3F729B", R.drawable.hashtagborder, params);
 
-            text.setLayoutParams(params);
-            ((FlowLayout)findViewById(R.id.flowlayout)).addView(text);
+            ((FlowLayout)findViewById(R.id.flowlayout)).addView(hashtag);
 
             HashText.setText("");
-            Hashtagar.add(Hash);
-        }
-    }
-
-    public void onButtondeleteclicked(View v){
-        if(!Hashtagar.isEmpty()) {
-            ((FlowLayout) findViewById(R.id.flowlayout)).removeView(findViewById(Hashtagar.size() - 1));
-            Hashtagar.remove(Hashtagar.size() - 1);
+            HashTag.getHashTagar().add(Hash);
         }
     }
 }
