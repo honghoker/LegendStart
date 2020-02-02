@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/menu_one"
-        android:title="one"
+        android:title="three"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/menu_two"
-        android:title="two"
+        android:title="four"
         app:showAsAction="ifRoom"/>
 
 </menu>
