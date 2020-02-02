@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,9 +15,6 @@ import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
-
-    private SQLiteDatabase lsDataBase;
-    private LSDBHelper dbHelper;
     private List<String> list;
     EditText Location_Name;
     EditText Location_Address;
@@ -33,7 +28,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        settingDB();
         listinit();
         init();
     }
@@ -46,11 +40,6 @@ public class MainActivity extends Activity {
         list.add("닭고기");
         list.add("양고기");
         list.add("개고기");
-    }
-
-    private void settingDB(){
-        dbHelper = new LSDBHelper(this);
-        lsDataBase = dbHelper.getWritableDatabase();
     }
 
     public void init() {
@@ -77,25 +66,22 @@ public class MainActivity extends Activity {
     }
 
     public void onButtonHashTagAddClicked(View v) {
-        hashtag_Add(((AutoCompleteTextView)findViewById(R.id.clearable_edit)).getText().toString().trim());
+        hashtag_Add(((AutoCompleteTextView)findViewById(R.id.clearable_edit)).getText().toString());
     }
+
 
     public void hashtag_Add(String Hash){
         AutoCompleteTextView HashText = findViewById(R.id.clearable_edit);
 
         if(HashText.getText().toString().trim().equals("")){
             Toast.makeText(getApplicationContext(), "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
-            HashText.setText(Hash);
         }
         else if(HashTag.getHashTagar().contains(Hash)){
             Toast.makeText(getApplicationContext(), "이미 추가한 태그입니다.", Toast.LENGTH_SHORT).show();
-            HashText.setText(Hash);
-            HashText.setSelection(HashText.length());
+            HashText.setText(HashText.getText().toString().trim());
         }
         else if(HashTag.getHashTagar().size() == 5){
             Toast.makeText(getApplicationContext(), "태그는 5개까지 추가할 수 있습니다.", Toast.LENGTH_SHORT).show();
-            HashText.setText(Hash);
-            HashText.setSelection(HashText.length());
         }
         else {
             FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(20, 20);
@@ -109,12 +95,4 @@ public class MainActivity extends Activity {
             HashTag.getHashTagar().add(Hash);
         }
     }
-    public void btnSaveOnClick(View view){
-        String name = Location_Name.getText().toString();
-        ContentValues cv = new ContentValues();
-
-
-
-    }
-
 }
