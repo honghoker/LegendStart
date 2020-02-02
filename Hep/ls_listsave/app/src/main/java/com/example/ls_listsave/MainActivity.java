@@ -66,22 +66,25 @@ public class MainActivity extends Activity {
     }
 
     public void onButtonHashTagAddClicked(View v) {
-        hashtag_Add(((AutoCompleteTextView)findViewById(R.id.clearable_edit)).getText().toString());
+        hashtag_Add(((AutoCompleteTextView)findViewById(R.id.clearable_edit)).getText().toString().trim());
     }
-
 
     public void hashtag_Add(String Hash){
         AutoCompleteTextView HashText = findViewById(R.id.clearable_edit);
 
         if(HashText.getText().toString().trim().equals("")){
             Toast.makeText(getApplicationContext(), "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            HashText.setText(Hash);
         }
         else if(HashTag.getHashTagar().contains(Hash)){
             Toast.makeText(getApplicationContext(), "이미 추가한 태그입니다.", Toast.LENGTH_SHORT).show();
-            HashText.setText(HashText.getText().toString().trim());
+            HashText.setText(Hash);
+            HashText.setSelection(HashText.length());
         }
         else if(HashTag.getHashTagar().size() == 5){
             Toast.makeText(getApplicationContext(), "태그는 5개까지 추가할 수 있습니다.", Toast.LENGTH_SHORT).show();
+            HashText.setText(Hash);
+            HashText.setSelection(HashText.length());
         }
         else {
             FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(20, 20);

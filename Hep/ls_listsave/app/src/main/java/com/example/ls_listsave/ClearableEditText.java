@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 /**
@@ -47,6 +48,7 @@ public class ClearableEditText extends RelativeLayout {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             //에디트 텍스트 안 내용이 변경될 때마다 호출되는 메소드
@@ -62,7 +64,7 @@ public class ClearableEditText extends RelativeLayout {
             @Override
             public void afterTextChanged(Editable s) {
                 if(s.toString().contains(" ")){
-                    ((MainActivity)mContext).hashtag_Add(s.toString());
+                    ((MainActivity)mContext).hashtag_Add(s.toString().replaceAll(" ", "").trim());
                 }
             }
         });
