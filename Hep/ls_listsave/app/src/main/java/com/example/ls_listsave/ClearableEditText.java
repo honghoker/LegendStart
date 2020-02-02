@@ -21,24 +21,14 @@ public class ClearableEditText extends RelativeLayout {
     Button btnClear;
     public static Context mContext;
 
-    public ClearableEditText(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        setLayout();
-    }
-
     public ClearableEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         setLayout();
         mContext = context;
     }
 
-    public ClearableEditText(Context context) {
-        super(context);
-        setLayout();
-    }
-
     private void setLayout() {
-//레이아웃을 설정
+        //레이아웃을 설정
         inflater = (LayoutInflater) getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.clearable_edit_text, this, true);
@@ -53,7 +43,7 @@ public class ClearableEditText extends RelativeLayout {
 
     //X버튼이 나타났다 사라지게하는 메소드
     private void showHideClearButton() {
-//TextWatcher를 사용해 에디트 텍스트 내용이 변경 될 때 동작할 코드를 입력
+        //TextWatcher를 사용해 에디트 텍스트 내용이 변경 될 때 동작할 코드를 입력
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -78,7 +68,6 @@ public class ClearableEditText extends RelativeLayout {
         });
     }
 
-    //에디트 텍스트의 내용을 없애는 메소드
     private void clearText() {
         btnClear.setOnClickListener(new OnClickListener() {
             @Override
@@ -87,11 +76,4 @@ public class ClearableEditText extends RelativeLayout {
             }
         });
     }
-
-    //메소드 호출 시 에디트 텍스트 내용을 받아올 수 있는 메소드도 만들어놓는다
-    public Editable getText() {
-        Editable text = editText.getText();
-        return text;
-    }
-
 }
