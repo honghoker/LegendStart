@@ -182,7 +182,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:onClick="btnSaveOnClick"
             android:text="저장" />
 
     </LinearLayout>

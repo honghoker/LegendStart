@@ -2,7 +2,7 @@
 
 ## a Legend written by four men
 
-### - Kim Sung hoon
+### - Kim Sung hun
 
 ### - Kim Myeong su
 
