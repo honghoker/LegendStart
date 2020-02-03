@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,12 +43,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentManager fragmentManager;
     private Fragment fa, fb = null;
 
+
+    //툴바 변경 플래그
+    private boolean toolbarFlag = true;
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_list,menu);
+        //inflater.inflate(R.menu.menu_list,menu);
+
+        //프래그먼트에 따른 툴바 변경
+        if(toolbarFlag){
+            inflater.inflate(R.menu.menu_list, menu);//xml로 메뉴를 만드는 부분
+
+        }else{
+            inflater.inflate(R.menu.menu_list2, menu);//xml로 메뉴를 만드는 부분
+
+        }
+
+
+
+        출처: https://gakari.tistory.com/entry/안드로이다-실행-중에-메뉴를-교체하기 [가카리의 공부방]
+
         return true;
     }
+
+    //추가된 소스, ToolBar에 추가된 항목의 select 이벤트를 처리하는 함수
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_one:
+                // User chose the "Settings" item, show the app settings UI...
+                Toast.makeText(getApplicationContext(), "환경설정 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                Toast.makeText(getApplicationContext(), "나머지 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +101,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragment2 = new MenuFragment();
         onFragmentChange(0);
 */
+
+        //툴바 생성
         toolbar = findViewById(R.id.toolbar);
 //        setActionBar(toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
 
+
+
+
+        //드로워레이아웃
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
@@ -72,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+
+
         //프래그먼트 유지
 
         fragmentManager = getSupportFragmentManager();
@@ -95,6 +146,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onButtonClicked(View v) {
         switch (v.getId()) {
             case R.id.btnMain:
+                toolbarFlag = true;
+                invalidateOptionsMenu();//여기서 onCreateOptionsMenu 메소드를 다시 부르게됨 / https://gakari.tistory.com/entry/안드로이다-실행-중에-메뉴를-교체하기
+
+
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment1).commit();/*프래그먼트 매니저가 프래그먼트를 담당한다!*/
                 if (fa == null) {
                     Toast.makeText(this, "맵 생성 전", Toast.LENGTH_SHORT).show();
@@ -111,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.btnMenu:
+                toolbarFlag = false;
+                invalidateOptionsMenu();
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment2).commit();/replace 는 닫고 새로 열어주는 거
                 if (fb == null) {
                     Toast.makeText(this, "리스트 생성 전", Toast.LENGTH_SHORT).show();
@@ -143,6 +200,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment2).commit();
         }
     }
+
+
+
 
     @Override
     public void onBackPressed() {
