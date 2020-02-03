@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 
 /**
  * Created by TonyChoi on 2016. 4. 4..
