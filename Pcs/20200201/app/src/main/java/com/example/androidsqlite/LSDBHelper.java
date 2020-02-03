@@ -1,11 +1,11 @@
 package com.example.androidsqlite;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import com.example.androidsqlite.LSSQLContract.*;
+        import android.database.sqlite.SQLiteDatabase;
+        import android.database.sqlite.SQLiteOpenHelper;
+        import com.example.androidsqlite.LSSQLContract.*;
 
-import androidx.annotation.Nullable;
+        import androidx.annotation.Nullable;
 
 public class LSDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME ="LSSQL.db";

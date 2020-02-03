@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -66,22 +69,23 @@ public class MainActivity extends Activity {
     }
 
     public void onButtonHashTagAddClicked(View v) {
-        hashtag_Add(((AutoCompleteTextView)findViewById(R.id.clearable_edit)).getText().toString());
+        hashtag_Add(((AutoCompleteTextView)findViewById(R.id.clearable_edit)).getText().toString().trim());
     }
-
 
     public void hashtag_Add(String Hash){
         AutoCompleteTextView HashText = findViewById(R.id.clearable_edit);
 
         if(HashText.getText().toString().trim().equals("")){
             Toast.makeText(getApplicationContext(), "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
-        }
-        else if(HashTag.getHashTagar().contains(Hash)){
-            Toast.makeText(getApplicationContext(), "이미 추가한 태그입니다.", Toast.LENGTH_SHORT).show();
-            HashText.setText(HashText.getText().toString().trim());
+            hashtext_set(Hash);
         }
         else if(HashTag.getHashTagar().size() == 5){
             Toast.makeText(getApplicationContext(), "태그는 5개까지 추가할 수 있습니다.", Toast.LENGTH_SHORT).show();
+            hashtext_set(Hash);
+        }
+        else if(HashTag.getHashTagar().contains(Hash)){
+            Toast.makeText(getApplicationContext(), "이미 추가한 태그입니다.", Toast.LENGTH_SHORT).show();
+            hashtext_set(Hash);
         }
         else {
             FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(20, 20);
@@ -94,5 +98,31 @@ public class MainActivity extends Activity {
             HashText.setText("");
             HashTag.getHashTagar().add(Hash);
         }
+    }
+
+    public void hashtext_set(String Hash){
+        ((AutoCompleteTextView)findViewById(R.id.clearable_edit)).setText(Hash);
+        ((AutoCompleteTextView)findViewById(R.id.clearable_edit)).setSelection(((AutoCompleteTextView)findViewById(R.id.clearable_edit)).length());
+    }
+
+    public void onPersonAddClicked(View v){
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        startActivityForResult(intent, 0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK)
+        {
+            Cursor cursor = getContentResolver().query(data.getData(),
+                    new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                            ContactsContract.CommonDataKinds.Phone.NUMBER}, null, null, null);
+            cursor.moveToFirst();
+            ((TextView)findViewById(R.id.Text_Name)).setText(cursor.getString(0));        //0은 이름을 얻어옵니다.
+            ((TextView)findViewById(R.id.Text_Number)).setText(cursor.getString(1));   //1은 번호를 받아옵니다.
+            cursor.close();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
