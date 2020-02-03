@@ -188,7 +188,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
+            android:onClick="btnSaveOnClick"
             android:text="저장" />
+
+        <Button
+            android:id="@+id/listShowButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="listshowOnButton"
+            android:text="List보러가기" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
