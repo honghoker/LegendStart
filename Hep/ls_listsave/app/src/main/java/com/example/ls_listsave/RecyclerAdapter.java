@@ -63,6 +63,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         holder.itemView.setTag(id);
     }
 
+    public Cursor returnCursor(){
+        return mCursor;
+    }
+
     @Override
     public int getItemCount() {
         return mCursor.getCount();

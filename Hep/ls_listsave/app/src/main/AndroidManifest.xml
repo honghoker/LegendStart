@@ -16,7 +16,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".LocationList"/>
+        <activity android:name=".UndoPopup" android:theme="@style/AppTheme.UndoPop"></activity>
+
     </application>
+
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 </manifest>
