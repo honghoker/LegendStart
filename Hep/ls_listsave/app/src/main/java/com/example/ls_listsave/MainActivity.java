@@ -173,7 +173,6 @@
         return false;
     }
 
-
     public void listshowOnButton(View view){
         Intent intent = new Intent(getApplicationContext(),LocationList.class);
         startActivityForResult(intent,GET_LOCATION_LIST_REQUEST_CODE);

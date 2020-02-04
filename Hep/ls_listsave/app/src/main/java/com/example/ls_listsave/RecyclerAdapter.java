@@ -56,9 +56,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
         //name에는 Cursor가 가리키는 행의 String을 가져옴(행의 인덱스 번호로 찾아서 이름을 검색)
         String name = mCursor.getString(mCursor.getColumnIndex(LSSQLContract.LocationTable.COLUMN_NAME));
+        long id = mCursor.getLong(mCursor.getColumnIndex(LSSQLContract.LocationTable._ID));
         //String test = mCursor.getString(mCursor.getColumnIndex(LSSQLContract.TagTable.COLUMN_TAG_1));
         holder.nameText.setText(name);
         //holder.textView.setText(test);
+        holder.itemView.setTag(id);
     }
 
     @Override
