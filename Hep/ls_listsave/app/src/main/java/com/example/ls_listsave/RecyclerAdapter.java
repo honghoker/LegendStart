@@ -22,8 +22,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         mContext = context;
         mCursor = cursor;
     }
-
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder{
+    //1. ViewHolder란?
+    //한마디로 설명하면 각 뷰를 보관하는 Holder 객체로 이야기 할 수 있습니다.
+    //  "ListView / RecyclerView 는 inflate를 최소화 하기 위해서 뷰를 재활용 하는데, 이 때 각 뷰의 내용을 업데이트 하기 위해 findViewById 를 매번 호출 해야합니다.
+    //  이로 인해 성능저하가 일어남에 따라 ItemView의 각 요소를 바로 엑세스 할 수 있도록 저장해두고 사용하기 위한 객체입니다."
+    public static class RecyclerViewHolder extends RecyclerView.ViewHolder{
         public TextView nameText;
         public TextView textView;
         public RecyclerViewHolder(@NonNull View itemView) {

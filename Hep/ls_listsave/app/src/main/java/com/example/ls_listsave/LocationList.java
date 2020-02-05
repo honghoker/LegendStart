@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
 import java.util.Stack;
 
 public class LocationList extends AppCompatActivity {
@@ -33,6 +34,8 @@ public class LocationList extends AppCompatActivity {
     private RecyclerView recyclerView; //For recyclerview
     private Button disSortingButton, updatedSortingButton, nameSortingButton; //For sorting
     private String sortingCondition = LSSQLContract.LocationTable.COLUMN_TIMESTAMP + " DESC"; //For sorting
+    private ItemTouchHelper swipeLeftDismiss;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,8 +43,8 @@ public class LocationList extends AppCompatActivity {
         setContentView(R.layout.list_layout);
         initDB();
         init();
-
-        //Item Swipe method (Left or Right)
+        /*
+        //Item Swipe method (Left)
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -67,7 +70,10 @@ public class LocationList extends AppCompatActivity {
 
             }
         }).attachToRecyclerView(recyclerView);
+
+         */
     }
+
 
 
     //Recyclerview Swipe 해서 지우는 메소드
@@ -92,8 +98,25 @@ public class LocationList extends AppCompatActivity {
         disSortingButton = findViewById(R.id.sort_distanceButton);
         updatedSortingButton = findViewById(R.id.sort_recently);
         nameSortingButton = findViewById(R.id.sort_name);
-
+        swipeLeftDismiss = new ItemTouchHelper(simpleCallback);
+        swipeLeftDismiss.attachToRecyclerView(recyclerView);
     }
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            setUndoStack(recyclerAdapter.returnCursor());
+            removeItem((long) viewHolder.itemView.getTag());
+            startActivity(new Intent(getApplicationContext(),UndoPopup.class));
+        }
+    };
+
+
     private void recyclerViewSortingMethod(String condition){
         Cursor databaseQuery = databaseSortingQueryMethod(condition);
         recyclerAdapter = new RecyclerAdapter(this, databaseQuery);
@@ -164,5 +187,8 @@ public class LocationList extends AppCompatActivity {
             if(mDatabase.insert(LocationTable.TABLE_NAME,null,temp) >0)
                 Toast.makeText(getApplicationContext(), "되돌리기 성공", Toast.LENGTH_SHORT).show();
         }
+    }
+    public void deleteOnClick(View view){
+        simpleCallback.onSwiped();
     }
 }
