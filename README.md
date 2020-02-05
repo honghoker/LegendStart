@@ -6,7 +6,7 @@
 
 ### - Kim Myeong su
 
-### - Park Chan seop
+### - Park Chan seob
 
 ### - Hong Eun pyo
 
