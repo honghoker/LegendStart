@@ -162,7 +162,6 @@
                 listshowOnButton(view);
             }
             //recyclerAdapter.swapCursor(getAllItems());
-
     }
 
     private boolean checkEditText(){

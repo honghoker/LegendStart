@@ -1,8 +1,13 @@
 package com.example.ls_listsave;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.strictmode.SqliteObjectLeakedViolation;
+
 import com.example.ls_listsave.LSSQLContract.*;
 
 import androidx.annotation.Nullable;
@@ -48,6 +53,8 @@ public class LSDBHelper extends SQLiteOpenHelper {
                         "(" + LocationTable._ID + "));";
         db.execSQL(SQL_CREATE_TAG_TABLE);
     }
+
+
 
 
     @Override

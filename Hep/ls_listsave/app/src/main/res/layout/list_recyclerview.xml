@@ -26,15 +26,14 @@
         android:textSize="30sp" />
 
     <ImageView
-        android:id="@+id/deleteButton"
+        android:id="@+id/recyclerview_dismissButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="19dp"
         android:layout_marginBottom="25dp"
-        app:srcCompat="@drawable/ic_delete_black_50dp"
         android:clickable="true"
-        android:onClick="deleteOnClick"/>
+        app:srcCompat="@drawable/ic_delete_black_50dp" />
 
 </RelativeLayout>

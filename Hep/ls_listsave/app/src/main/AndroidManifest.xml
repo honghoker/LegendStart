@@ -16,7 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".LocationList"/>
-        <activity android:name=".UndoPopup" android:theme="@style/AppTheme.UndoPop"></activity>
 
     </application>
 
