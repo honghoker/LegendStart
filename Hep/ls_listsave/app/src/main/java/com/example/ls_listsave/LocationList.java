@@ -34,10 +34,14 @@ public class LocationList extends AppCompatActivity{
     private RecyclerView recyclerView; //For recyclerview
     private Button disSortingButton, updatedSortingButton, nameSortingButton; //For sorting
     private String sortingCondition = LSSQLContract.LocationTable.COLUMN_TIMESTAMP + " DESC"; //For sorting
+
+    //swipe이전
     private ItemTouchHelper swipeLeftDismiss;
     private TemporaryStoreData temporaryStoreData;
 
-
+    //Swipe 작업중
+    private RecyclerviewSwipeHelper recyclerviewSwipeHelper;
+    private ItemTouchHelper itemTouchHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class LocationList extends AppCompatActivity{
         initDB();
         init();
     }
+/*
 
     ItemTouchHelper.SimpleCallback simpleCallback1 = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
@@ -83,6 +88,8 @@ public class LocationList extends AppCompatActivity{
         }
     };
 
+
+ */
     //Recyclerview Swipe 해서 지우는 메소드
     private void removeItem(long id){
         //id는 swipe하는 행을 말합니다.
@@ -105,8 +112,16 @@ public class LocationList extends AppCompatActivity{
         disSortingButton = findViewById(R.id.sort_distanceButton);
         updatedSortingButton = findViewById(R.id.sort_recently);
         nameSortingButton = findViewById(R.id.sort_name);
+        /*
         swipeLeftDismiss = new ItemTouchHelper(simpleCallback1);
         swipeLeftDismiss.attachToRecyclerView(recyclerView);
+
+         */
+
+        //swipe 작업중
+        recyclerviewSwipeHelper = new RecyclerviewSwipeHelper();
+        itemTouchHelper = new ItemTouchHelper(recyclerviewSwipeHelper);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
     /*
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -164,6 +179,7 @@ public class LocationList extends AppCompatActivity{
     }
 
     public void AddOnClick(View view){
+        mDatabase.close();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(intent, GET_ADD_LOCATION_REQUEST_CODE);
     }
