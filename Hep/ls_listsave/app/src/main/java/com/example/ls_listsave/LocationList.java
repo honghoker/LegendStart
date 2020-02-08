@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ public class LocationList extends AppCompatActivity{
 
     private Stack<ContentValues> undoStack = new Stack<>(); //For Undo
     private static final int GET_ADD_LOCATION_REQUEST_CODE = 200; //For intent
-    private RecyclerAdapter recyclerAdapter; //For recyclerview
+    public RecyclerAdapter recyclerAdapter; //For recyclerview
     private SQLiteDatabase mDatabase; //For recyclerview
     private RecyclerView recyclerView; //For recyclerview
     private Button disSortingButton, updatedSortingButton, nameSortingButton; //For sorting
@@ -40,7 +41,7 @@ public class LocationList extends AppCompatActivity{
     private TemporaryStoreData temporaryStoreData;
 
     //Swipe 작업중
-    private RecyclerviewSwipeHelper recyclerviewSwipeHelper;
+    private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
     private ItemTouchHelper itemTouchHelper;
 
     @Override
@@ -108,6 +109,7 @@ public class LocationList extends AppCompatActivity{
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(recyclerAdapter);
         recyclerViewSortingMethod(sortingCondition);
         disSortingButton = findViewById(R.id.sort_distanceButton);
         updatedSortingButton = findViewById(R.id.sort_recently);
@@ -119,10 +121,54 @@ public class LocationList extends AppCompatActivity{
          */
 
         //swipe 작업중
-        recyclerviewSwipeHelper = new RecyclerviewSwipeHelper();
+        setupSwipe();
+    }
+
+    private void setupSwipe(){
+        recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(new SwipeAction() {
+            @Override
+            public void onRightClicked(RecyclerView.ViewHolder viewHolder, int position) {
+                long click_primaryKey = (long)viewHolder.itemView.getTag();
+                temporaryStoreData = new TemporaryStoreData();
+                final TemporaryStoreData temp = temporaryStoreData.recoverDataMethod(mDatabase, click_primaryKey);
+                removeItem(click_primaryKey);
+                recyclerAdapter.notifyItemRemoved(position);
+                Snackbar.make(recyclerView, "이거고쳐야함", Snackbar.LENGTH_LONG)
+                        .setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ContentValues cv = temporaryStoreData.undoDataContentValue(temp);
+                                if(mDatabase.insert(LSSQLContract.LocationTable.TABLE_NAME, null, cv) > 0) {
+                                    recyclerAdapter.swapCursor(databaseSortingQueryMethod(sortingCondition));
+                                    Toast.makeText(getApplicationContext(), "Undo Success", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }).show();
+            }
+
+            @Override
+            public void onLeftClicked(RecyclerView.ViewHolder viewHolder, int position) {
+                Snackbar.make(recyclerView, "일정에 추가되었습니다", Snackbar.LENGTH_LONG)
+                        .setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(getApplicationContext(),"취소되었습니다",Toast.LENGTH_SHORT).show();
+                            }
+                        }).show();
+            }
+        });
+
         itemTouchHelper = new ItemTouchHelper(recyclerviewSwipeHelper);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                recyclerviewSwipeHelper.onDraw(c);
+            }
+        });
     }
+
     /*
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
@@ -142,6 +188,8 @@ public class LocationList extends AppCompatActivity{
 
 
      */
+
+
 
     private void recyclerViewSortingMethod(String condition){
         Cursor databaseQuery = databaseSortingQueryMethod(condition);

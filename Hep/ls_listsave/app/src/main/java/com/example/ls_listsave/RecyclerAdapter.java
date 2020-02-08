@@ -13,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ls_listsave.LSSQLContract;
-import com.example.ls_listsave.R;
 import com.example.ls_listsave.LSSQLContract.*;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
