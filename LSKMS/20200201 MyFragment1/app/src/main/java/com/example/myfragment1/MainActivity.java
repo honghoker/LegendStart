@@ -1,5 +1,6 @@
 package com.example.myfragment1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,6 +14,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //툴바 변경 플래그
     private boolean toolbarFlag = true;
 
+
     //스피너 ex
     Spinner spinners;
 
@@ -60,10 +64,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private boolean directoryFlag = false;
     ImageView ibtn;
 
-    //메뉴 서치
-    MenuItem mSearch;
 
+    View mView; //디렉토리를 위해 뷰를 추가해줌
 
+    //서치 누르면 상단 탭 교체
+    private boolean searchFlag = false;
+
+    private EditText searchBar;
     @Override //메뉴 생성 메소드
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -74,32 +81,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (toolbarFlag) {
             inflater.inflate(R.menu.menu_list, menu);//xml로 메뉴를 만드는 부분
 
-            //서치 바 길이 설정
-            SearchView searchView = (SearchView) menu.findItem(R.id.menu_one).getActionView();
-            searchView.setMaxWidth(Integer.MAX_VALUE); //서치 바 길이 최대
-            searchView.setQueryHint("저장된 장소를 검색하세요."); //검색 힌트
-            //검색 리스너 추가
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
-                //검색어 입력시 이벤트 제어
-                @Override
-                public boolean onQueryTextChange(String s) {
-                    Toast.makeText(getApplicationContext(), "입력중입니다.", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-                //검색어 완료시 이벤트 제어 --> 간단하게 Toast 메세지 출력으로
-                @Override
-                public boolean onQueryTextSubmit(String s) {
-                    Toast.makeText(getApplicationContext(), "검색을 완료했습니다.", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-            });
-
-
         } else {
             inflater.inflate(R.menu.menu_list2, menu);//xml로 메뉴를 만드는 부분
 
         }
+        if (searchFlag) {
+            inflater.inflate(R.menu.menu_list, menu);//xml로 메뉴를 만드는 부분
 
+        }
 
         //출처: https: gakari.tistory.com/entry/안드로이다-실행-중에-메뉴를-교체하기 [가카리의 공부방]
 
@@ -110,49 +99,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         //return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
+
             case R.id.menu_one:
                 // User chose the "Settings" item, show the app settings UI...
                 Toast.makeText(getApplicationContext(), "오픈", Toast.LENGTH_LONG).show();
-
-                directoryFlag = true;
-
+                //서치 뷰 포커스 제거?
                 // 임시
-                Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide); //애니메이션 디렉토리의 애니종류 xml 선택
-                ibtn.setAnimation(animationH); //각 버튼에 애니메이션 세팅
-                ibtn.setVisibility(mView.GONE);
+//                Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide); //애니메이션 디렉토리의 애니종류 xml 선택
+//                ibtn.setAnimation(animationH); //각 버튼에 애니메이션 세팅
+//                ibtn.setVisibility(mView.GONE);
 
+                Toast.makeText(this, "i wanna go home. .2 . ", Toast.LENGTH_SHORT).show();
+                //툴바 제거
+                if (getSupportActionBar().isShowing()) {
+                    searchFlag = true;
+                    getSupportActionBar().hide();
+                    imm.showSoftInput(searchBar, 0);
+                }
                 return true;
+
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 Toast.makeText(getApplicationContext(), "나머지 버튼 클릭됨", Toast.LENGTH_LONG).show();
 
                 //임시
-                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate); //애니메이션 디렉토리의 애니종류 xml 선택
-                ibtn.setAnimation(animation); //각 버튼에 애니메이션 세팅
-                ibtn.setVisibility(mView.VISIBLE);
+//                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate); //애니메이션 디렉토리의 애니종류 xml 선택
+//                ibtn.setAnimation(animation); //각 버튼에 애니메이션 세팅
+//                ibtn.setVisibility(mView.VISIBLE);
 
                 return super.onOptionsItemSelected(item);
 
         }
     }
 
-/*
-    public void downDirectory(boolean directoryFlag, View v) {
-        if (directoryFlag == true) { //디렉토리 떠있으면 업앰
-            Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.translatehide); //애니메이션 디렉토리의 애니종류 xml 선택
-            ibtn.setAnimation(animationH); //각 버튼에 애니메이션 세팅
-            ibtn.setVisibility(mView.GONE);
-        }
-        else {
-            Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.translate); //애니메이션 디렉토리의 애니종류 xml 선택
-            ibtn.setAnimation(animation); //각 버튼에 애니메이션 세팅
-            ibtn.setVisibility(v.VISIBLE);
-        }
-    }
-*/
-
-    View mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,9 +203,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ibtn = findViewById(R.id.imageButton);
 
+        //백 프레스 클래스 가져옴
+        backPressedForFinish = new BackPressedForFinish(this);
+
+        //포커스 주기
+        searchBar = findViewById(R.id.editTextSearch);
+        searchBar.requestFocus();
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+
 
     }
+    InputMethodManager imm;
 
+    public boolean showSoftInput(View view, int flags) {
+        throw new RuntimeException("Stub!");
+    }
 
     public void onButtonClicked(View v) {
         switch (v.getId()) {
@@ -267,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     fragmentManager.beginTransaction().show(fb).commit();
 
                 }
-
+                break;
 
             case R.id.floatingActionButton:
                 Toast.makeText(this, "i wanna go home. . . ", Toast.LENGTH_SHORT).show();
@@ -287,13 +281,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    private BackPressedForFinish backPressedForFinish;
+
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        // BackPressedForFinish 클래시의 onBackPressed() 함수를 호출한다.
+        if(searchFlag == false)
+        backPressedForFinish.onBackPressed();
+
+        //서치상태 아닐때만 종료 가능
+        if (drawerLayout.isDrawerOpen(GravityCompat.START) && searchFlag == false) {
             drawerLayout.closeDrawers();
-        } else {
-            super.onBackPressed();
         }
+
+        else if(searchFlag == true) {
+            getSupportActionBar().show();
+        searchFlag = false;
+        }
+
+
+
     }
 
     @Override
