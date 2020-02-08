@@ -4,14 +4,21 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Layout;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.BinderThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,16 +27,27 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 import maes.tech.intentanim.CustomIntent;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    Toolbar toolbar;
+        DrawerLayout drawerLayout;
+        NavigationView navigationView;
+        Toolbar toolbar;
+        Spinner spinner;
+        RecyclerView recyclerView;
+        Adapter adapter;
+        ArrayList<String> items;
+        ArrayList<String> items_des;
+        boolean recyFrag = false;
+        boolean test_btnFrag = false;
 
 //    private FragmentManager fragmentManager;
     private Fragment fc, fd;
@@ -43,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //프래그먼트 유지
     private FragmentManager fragmentManager;
     private Fragment fa, fb = null;
+    View mView;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,9 +71,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //프래그먼트는 뷰와 다르게 context를 매개변수로 넣어줄 필요가 없다.
 /*
@@ -63,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         onFragmentChange(0);
 */
         toolbar = findViewById(R.id.toolbar);
+        spinner = findViewById(R.id.spinner);
 //        setActionBar(toolbar);
         toolbar.setTitle("여기는 됌?");
         setSupportActionBar(toolbar);
@@ -81,6 +102,74 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fa = new MainFragment();
         fragmentManager.beginTransaction().replace(R.id.frameLayout, fa).commit();
 
+
+        items = new ArrayList<>();
+        items_des = new ArrayList<>();
+        items.add("Frist");
+        items.add("Two");
+        items.add("Third");
+        items.add("Four");
+        items.add("FIve");
+        items_des.add("Frist");
+        items_des.add("Two");
+        items_des.add("Third");
+        items_des.add("Four");
+        items_des.add("FIve");
+
+        recyclerView = findViewById(R.id.recyclerView);
+        //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,true));
+        recyclerView.scrollToPosition(items.size()-1);
+        adapter = new Adapter(getApplicationContext(), items,items_des);
+        recyclerView.setAdapter(adapter);
+
+        mView = findViewById(R.id.frameLayout);
+        recyclerView.setVisibility(mView.GONE);
+        final Button btn = (Button)findViewById(R.id.btn_test);
+        btn.setVisibility(mView.GONE);
+        spinner.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == false){
+                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.translate);
+                    recyclerView.setAnimation(animation);
+                    btn.setAnimation(animation);
+                    recyclerView.setVisibility(mView.VISIBLE);
+                    btn.setVisibility(mView.VISIBLE);
+                    Toast.makeText(getApplicationContext(),"spinner 터치",Toast.LENGTH_LONG).show();
+                    recyFrag = true;
+                }
+                else if(event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == true){
+                    Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.translatehide);
+                    recyclerView.setAnimation(animationH);
+                    btn.setAnimation(animationH);
+                    recyclerView.setVisibility(mView.GONE);
+                    btn.setVisibility(mView.GONE);
+                    Toast.makeText(getApplicationContext(),"spinner 터치",Toast.LENGTH_LONG).show();
+                    recyFrag = false;
+                }
+
+//                Intent intent = new Intent(this, homeActivity.class);
+//                startActivity(intent);
+//                CustomIntent.customType(this,"left-to-right");
+
+////
+//                if(event.getAction() == MotionEvent.ACTION_DOWN){
+//                }
+                return true;
+            }
+        });
+
+//        toolbar.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//                if(event.getAction() == MotionEvent.ACTION_DOWN){
+//                    Toast.makeText(getApplicationContext(),"toolabr 터치",Toast.LENGTH_LONG).show();
+//                }
+//                return true;
+//            }
+//        });
 
         //상단 메뉴
 //

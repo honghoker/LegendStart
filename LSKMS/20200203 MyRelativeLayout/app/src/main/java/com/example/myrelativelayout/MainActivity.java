@@ -16,23 +16,14 @@ public class MainActivity extends AppCompatActivity {
     ImageView ibtn;
     LinearLayout lout;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    ibtn = findViewById(R.id.imageButton);
-    lout = findViewById(R.id.LinearLayout);
-
-
-        //view.startAnimation(animation);
-
-
-
-
-
+        ibtn = findViewById(R.id.imageButton);
+        lout = findViewById(R.id.LinearLayout);
+        ibtn.getRootView().setVisibility(View.INVISIBLE);
+//        view.startAnimation(animation);
     }
     public void onClickButtoned(View v){
         switch (v.getId()){
@@ -49,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
               //  lout.setAnimation(animation);
                 ibtn.setVisibility(v.VISIBLE);
              //   lout.setVisibility(v.VISIBLE);
-
 
                 break;
                 default: break;
