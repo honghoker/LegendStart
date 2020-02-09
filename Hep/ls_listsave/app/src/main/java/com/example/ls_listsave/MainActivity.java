@@ -176,4 +176,5 @@
         Intent intent = new Intent(getApplicationContext(),LocationList.class);
         startActivityForResult(intent,GET_LOCATION_LIST_REQUEST_CODE);
     }
-}
+
+    }

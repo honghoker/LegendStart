@@ -1,7 +1,4 @@
 package com.example.ls_listsave;
-
-import android.app.Activity;
-import android.app.Application;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -124,8 +121,8 @@ public class LocationList extends AppCompatActivity{
         setupSwipe();
     }
 
-    private void setupSwipe(){
-        recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(new SwipeAction() {
+    public void setupSwipe(){
+        recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(new SwipeActionInterface() {
             @Override
             public void onRightClicked(RecyclerView.ViewHolder viewHolder, int position) {
                 long click_primaryKey = (long)viewHolder.itemView.getTag();
@@ -211,6 +208,7 @@ public class LocationList extends AppCompatActivity{
 
 
     public void recentSortingOnClick(View view){
+        recyclerviewSwipeHelper.getButtonGone(true);
         sortingCondition = LSSQLContract.LocationTable.COLUMN_TIMESTAMP + " DESC";
         recyclerViewSortingMethod(sortingCondition);
     }
@@ -222,6 +220,7 @@ public class LocationList extends AppCompatActivity{
     }
 
     public void nameSortingOnClick(View view){
+        recyclerviewSwipeHelper.getButtonGone(true);
         sortingCondition = LSSQLContract.LocationTable.COLUMN_NAME + " ASC";
         recyclerViewSortingMethod(sortingCondition);
     }

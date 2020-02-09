@@ -24,15 +24,17 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/buttonLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_bright"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/sort_distanceButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:background="@drawable/recyclerview_sortingbutton"
                 android:onClick="distanceSortingOnClick"
                 android:text="거리순" />
 
@@ -40,7 +42,7 @@
                 android:id="@+id/sort_recently"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:background="@drawable/recyclerview_sortingbutton"
                 android:onClick="recentSortingOnClick"
                 android:text="최신순" />
 
@@ -48,7 +50,7 @@
                 android:id="@+id/sort_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:background="@drawable/recyclerview_sortingbutton"
                 android:onClick="nameSortingOnClick"
                 android:text="이름순" />
 
