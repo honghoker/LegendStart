@@ -38,14 +38,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
             nameText = itemView.findViewById(R.id.list_recyclerview_nametextView);
             textView = itemView.findViewById(R.id.list_recyclerview_textView2);
-            dismissButton = itemView.findViewById(R.id.recyclerview_dismissButton);
 
-            dismissButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
         }
 
     }

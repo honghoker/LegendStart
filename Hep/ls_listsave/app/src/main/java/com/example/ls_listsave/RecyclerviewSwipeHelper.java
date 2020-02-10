@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android .content.res.Resources;
@@ -36,7 +37,6 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
     private static final float buttonWidth = 200;
     private RectF buttonInstance = null;
     private RecyclerView.ViewHolder currentItemViewHolder = null;
-    private float swipeTreshold = 0.5f;
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
