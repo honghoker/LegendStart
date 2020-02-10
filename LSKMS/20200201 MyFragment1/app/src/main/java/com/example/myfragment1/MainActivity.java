@@ -1,6 +1,9 @@
 package com.example.myfragment1;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,6 +12,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -25,9 +31,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
-
-
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -60,8 +68,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private EditText searchBar;
 
+    InputMethodManager imm; //키보드 설정 위한
 
-    ClearEditText clearedittext;
+    ClearableEditText editText;
+    AutoCompleteTextView clearbleText;
+
+    //일단 리스트뷰
+    private List<String> list;
+    EditText Location_Name;
+    EditText Location_Address;
+    EditText Location_DetailAddress;
+    EditText Location_Number;
+    EditText Location_Comment;
 
     @Override //메뉴 생성 메소드
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -97,7 +115,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (getSupportActionBar().isShowing()) {
                     searchFlag = true;
                     getSupportActionBar().hide();
-                    imm.showSoftInput(searchBar, 0);
+                    //editText.setFocusable(true);
+                    //editText.setFocusableInTouchMode(true);
+                    Log.d("오류", "requestFocus 오류",null);
+                    //clearbleText.requestFocus();
+                    Log.d("오류2", "requestFocus 오류",null);
+                    imm.showSoftInput(editText, 0);
                 }
                 return true;
             default:
@@ -105,9 +128,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return super.onOptionsItemSelected(item);
         }
     }
+    public void listinit() {
+        list = new ArrayList<String>();
+        list.add("소고기");
+        list.add("돼지고기");
+        list.add("오리고기");
+        list.add("닭고기");
+        list.add("양고기");
+        list.add("개고기");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //리스트
+        listinit();
+
+
+
+        //임시
+        editText = findViewById(R.id.editTextSearch);
+        clearbleText = findViewById(R.id.clearable_edit);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mView = findViewById(R.id.frameLayout);
@@ -161,24 +203,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //백 프레스 클래스 가져옴
         backPressedForFinish = new BackPressedForFinish(this);
 
+        //우선 clearable edittext 값 받아오고 포커스 줌
+
+
+
         //포커스 주기
-        searchBar = findViewById(R.id.editTextSearch);
-        searchBar.requestFocus();
-        searchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH){
 
-                    return true;
-                }
-                return false;
-            }
-        });
+//        searchBar.requestFocus();
+//        searchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+//
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
 
-        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); //키보드-시스템서비스
+
+
+
+        final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.clearable_edit);
+        autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line,  list ));
+
     }
-    InputMethodManager imm;
 
 
 
@@ -201,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.btnListfrag:
                 toolbarFlag = false;
-                invalidateOptionsMenu();
+                invalidateOptionsMenu(); //메뉴 재호출
                 if (fb == null) {
                     fb = new MenuFragment();
                     fragmentManager.beginTransaction().add(R.id.frameLayout, fb).commit();
@@ -212,10 +264,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.floatingActionButton:
                 Toast.makeText(this, "i wanna go home. . . ", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.editTextClear :
-                Toast.makeText(this, "삭제됨", Toast.LENGTH_LONG).show();
-                searchBar.setText("");
+                Intent intent = new Intent(MainActivity.this, SubActivity.class);
+                startActivity(intent); break;
             default:
                 break;
         }
