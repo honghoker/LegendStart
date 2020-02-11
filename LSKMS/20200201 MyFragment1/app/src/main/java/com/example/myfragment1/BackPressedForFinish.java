@@ -1,12 +1,7 @@
 package com.example.myfragment1;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
-
-/**
- * Created by Administrator on 2017-08-11.
- */
 
 public class BackPressedForFinish {
     private long backKeyPressedTime = 0;    // '뒤로' 버튼을 클릭했을 때의 시간
@@ -20,7 +15,6 @@ public class BackPressedForFinish {
 
     // 종료할 액티비티에서 호출할 함수
     public void onBackPressed() {
-
         // '뒤로' 버튼 클릭 시간과 현재 시간을 비교 게산한다.
 
         // 마지막 '뒤로'버튼 클릭 시간이 이전 '뒤로'버튼 클릭시간과의 차이가 TIME_INTERVAL(여기서는 2초)보다 클 때 true

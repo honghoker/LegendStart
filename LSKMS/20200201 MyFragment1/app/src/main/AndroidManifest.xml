@@ -23,6 +23,7 @@
                 android:resource="@xml/searchable"/>
 
         </activity>
+        <activity android:name=".SubActivity" />
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="" />
