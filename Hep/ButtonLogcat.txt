@@ -1,0 +1,47 @@
+2020-02-12 18:35:19.920 497-497/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:35:19.920 497-497/com.example.ls_listsave D/1: onDraw
+2020-02-12 18:35:19.920 497-497/com.example.ls_listsave D/1: onchildDraw
+2020-02-12 18:35:19.938 497-497/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:35:19.939 497-497/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:35:19.939 497-497/com.example.ls_listsave D/1: onchildDraw
+2020-02-12 18:35:19.963 497-497/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:35:19.964 497-497/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:35:19.964 497-497/com.example.ls_listsave D/1: onchildDraw
+2020-02-12 18:35:19.989 497-497/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:35:19.990 497-497/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:35:19.990 497-497/com.example.ls_listsave D/1: onchildDraw
+2020-02-12 18:35:20.004 497-497/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:35:20.005 497-497/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:35:20.005 497-497/com.example.ls_listsave D/1: onchildDraw
+2020-02-12 18:35:20.025 497-497/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:35:20.026 497-497/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:35:20.027 497-497/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:35:20.137 497-497/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:35:20.187 497-497/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:35:21.025 497-497/com.example.ls_listsave D/1: END setTouchUPLis
+-------------------------------------------------------------------------------------------------------
+2020-02-12 18:39:03.493 679-679/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:39:03.493 679-679/com.example.ls_listsave D/1: onDraw
+2020-02-12 18:39:03.493 679-679/com.example.ls_listsave D/1: onchildDraw
+2020-02-12 18:39:03.511 679-679/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:39:03.515 679-679/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:39:03.515 679-679/com.example.ls_listsave D/1: onchildDraw
+2020-02-12 18:39:03.529 679-679/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:39:03.531 679-679/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:39:03.531 679-679/com.example.ls_listsave D/1: onchildDraw
+2020-02-12 18:39:03.546 679-679/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:39:03.548 679-679/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:39:03.548 679-679/com.example.ls_listsave D/1: onchildDraw
+2020-02-12 18:39:03.561 679-679/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:39:03.563 679-679/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:39:03.563 679-679/com.example.ls_listsave D/1: onchildDraw
+2020-02-12 18:39:03.581 679-679/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:39:03.585 679-679/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:39:03.585 679-679/com.example.ls_listsave D/1: onchildDraw
+2020-02-12 18:39:03.594 679-679/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:39:03.595 679-679/com.example.ls_listsave D/1: END setTouchListener
+2020-02-12 18:39:03.600 679-679/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:39:03.724 679-679/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:39:03.951 679-679/com.example.ls_listsave D/1: END setTouchUPLis
+2020-02-12 18:39:03.957 679-679/com.example.ls_listsave D/1: LocationListOnDraw
+2020-02-12 18:39:03.957 679-679/com.example.ls_listsave D/1: onDraw

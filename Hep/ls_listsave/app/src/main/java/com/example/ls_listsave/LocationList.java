@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -71,11 +72,22 @@ public class LocationList extends AppCompatActivity {
         updatedSortingButton = findViewById(R.id.sort_recently);
         nameSortingButton = findViewById(R.id.sort_name);
 
+
         setupSwipe();
     }
 
     public void setupSwipe() {
+        Log.d("1", "Start setupSwipe");
+
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                Log.d("1","LocationListOnDraw");
+                recyclerviewSwipeHelper.onDraw(c);
+            }
+        });
         recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(new SwipeActionInterface() {
+
             @Override
             public void onRightClicked(RecyclerView.ViewHolder viewHolder, int position) {
 
@@ -109,16 +121,9 @@ public class LocationList extends AppCompatActivity {
                         }).show();
             }
         });
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(recyclerviewSwipeHelper);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                recyclerviewSwipeHelper.onDraw(c);
-            }
-        });
     }
 
 
