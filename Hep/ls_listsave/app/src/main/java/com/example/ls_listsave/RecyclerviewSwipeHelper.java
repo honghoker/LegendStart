@@ -100,10 +100,10 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
     public void onDraw(Canvas c) {
         if (currentItemViewHolder != null) {
-        drawButtons(c, currentItemViewHolder);
+            drawButtons(c, currentItemViewHolder);
         }else {
             Log.d("1","onDraw");
-            //initState();
+
         }
     }
     @Override
