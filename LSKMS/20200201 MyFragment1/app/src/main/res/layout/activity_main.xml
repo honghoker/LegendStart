@@ -26,14 +26,20 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             android:foreground="@android:color/transparent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            >
 
 
             <com.example.myfragment1.ClearableEditText
                 android:id="@+id/editTextSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:focusable="true">
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+               >
+
 
             </com.example.myfragment1.ClearableEditText>
 

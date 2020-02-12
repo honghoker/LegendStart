@@ -1,6 +1,7 @@
 package com.example.myfragment1;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 /**
  * Created by TonyChoi on 2016. 4. 4..
@@ -72,9 +76,10 @@ public class ClearableEditText extends RelativeLayout {
     private void clearText() {
         btnClear.setOnClickListener(new OnClickListener() {
             @Override
-                public void onClick(View v) {
+            public void onClick(View v) {
                 editText.setText("");
             }
         });
     }
+
 }

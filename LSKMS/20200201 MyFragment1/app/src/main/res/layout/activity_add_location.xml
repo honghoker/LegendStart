@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="장소 추가 인텐트" />
 
         <Button
             android:id="@+id/btnMain"

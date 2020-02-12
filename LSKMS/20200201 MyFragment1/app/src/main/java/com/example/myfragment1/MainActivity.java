@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ClearableEditText editText;
     AutoCompleteTextView clearbleText;
 
+    EditText ed;
+
     //일단 리스트뷰
     private List<String> list;
     EditText Location_Name;
@@ -102,32 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    //상단 툴바 클릭 이벤트
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_item_search: //상단 검색 버튼 클릭 시
-                Toast.makeText(getApplicationContext(), "검색할 장소를 입력하세요.", Toast.LENGTH_LONG).show();
-//                Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide); //애니메이션 디렉토리의 애니종류 xml 선택
-//                ibtn.setAnimation(animationH); //각 버튼에 애니메이션 세팅
-//                ibtn.setVisibility(mView.GONE);
-               // Toast.makeText(this, "i wanna go home. .2 . ", Toast.LENGTH_SHORT).show();
-                //툴바 제거
-                if (getSupportActionBar().isShowing()) {
-                    searchFlag = true;
-                    getSupportActionBar().hide();
-                    //editText.setFocusable(true);
-                    //editText.setFocusableInTouchMode(true);
-                    Log.d("오류", "requestFocus 오류",null);
-                    //clearbleText.requestFocus();
-                    Log.d("오류2", "requestFocus 오류",null);
-                    imm.showSoftInput(editText, 0);
-                }
-                return true;
-            default:
-                Toast.makeText(getApplicationContext(), "나머지 버튼 클릭됨", Toast.LENGTH_LONG).show();
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
     public void listinit() {
         list = new ArrayList<String>();
         list.add("소고기");
@@ -144,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //리스트
         listinit();
 
+        ed = findViewById(R.id.editText2);
 
 
         //임시
@@ -263,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.floatingActionButton:
-                Toast.makeText(this, "i wanna go home. . . ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "추가할 장소 정보 기입", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, SubActivity.class);
                 startActivity(intent); break;
             default:
@@ -310,6 +289,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             default:
                 return false;
+        }
+    }
+
+
+    //상단 툴바 클릭 이벤트
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_search: //상단 검색 버튼 클릭 시
+                Toast.makeText(getApplicationContext(), "검색할 장소를 입력하세요.", Toast.LENGTH_LONG).show();
+//                Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide); //애니메이션 디렉토리의 애니종류 xml 선택
+//                ibtn.setAnimation(animationH); //각 버튼에 애니메이션 세팅
+//                ibtn.setVisibility(mView.GONE);
+                // Toast.makeText(this, "i wanna go home. .2 . ", Toast.LENGTH_SHORT).show();
+                //툴바 제거
+                if (getSupportActionBar().isShowing()) {
+                    searchFlag = true;
+                    getSupportActionBar().hide();
+                    editText.requestFocus();
+                    //editText.setFocusableInTouchMode(true);
+                    Log.d("오류", "requestFocus 오류",null);
+                    //clearbleText.requestFocus();
+                    Log.d("오류2", "requestFocus 오류",null);
+
+
+
+                    imm.showSoftInput(editText, 0);
+                    //editText.performClick();
+                }
+                return true;
+            default:
+                Toast.makeText(getApplicationContext(), "나머지 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                return super.onOptionsItemSelected(item);
         }
     }
 }
