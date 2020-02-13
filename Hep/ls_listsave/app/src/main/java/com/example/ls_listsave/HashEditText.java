@@ -6,21 +6,18 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-/**
- * Created by TonyChoi on 2016. 4. 4..
- */
-public class ClearableEditText extends RelativeLayout {
+public class HashEditText extends RelativeLayout {
 
     LayoutInflater inflater = null;
-    EditText editText;
+    AutoCompleteTextView editText;
     Button btnClear;
     public static Context mContext;
 
-    public ClearableEditText(Context context, AttributeSet attrs) {
+    public HashEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         setLayout();
         mContext = context;
@@ -30,7 +27,7 @@ public class ClearableEditText extends RelativeLayout {
         //레이아웃을 설정
         inflater = (LayoutInflater) getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.clearable_edit_text, this, true);
+        inflater.inflate(R.layout.hash_edit_text, this, true);
 
         editText = findViewById(R.id.clearable_edit);
         btnClear = (Button) findViewById(R.id.clearable_button_clear);
@@ -61,6 +58,9 @@ public class ClearableEditText extends RelativeLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (s.toString().contains(" ")) {
+                    ((MainActivity) mContext).hashtag_Add(s.toString().replaceAll(" ", "").trim());
+                }
             }
         });
     }
