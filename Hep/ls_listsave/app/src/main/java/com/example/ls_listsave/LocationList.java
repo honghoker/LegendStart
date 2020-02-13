@@ -77,15 +77,15 @@ public class LocationList extends AppCompatActivity {
     }
 
     public void setupSwipe() {
-        Log.d("1", "Start setupSwipe");
-
+        Log.d("1", "F_Start setupSwipe");
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                Log.d("1","LocationListOnDraw");
+                Log.d("1", "onDraw in setupSwipe");
                 recyclerviewSwipeHelper.onDraw(c);
             }
         });
+        Log.d("1", "F_Middle of setupSwipe");
         recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(new SwipeActionInterface() {
 
             @Override
@@ -123,6 +123,7 @@ public class LocationList extends AppCompatActivity {
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(recyclerviewSwipeHelper);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+        Log.d("1", "F_itemTouchHelper Attach to Recyclerview");
 
     }
 

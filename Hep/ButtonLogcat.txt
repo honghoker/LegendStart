@@ -1,55 +1,538 @@
-2020-02-12 19:10:11.346 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:11.346 2462-2462/com.example.ls_listsave D/1: onDraw
-2020-02-12 19:10:12.653 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:12.653 2462-2462/com.example.ls_listsave D/1: onDraw
-2020-02-12 19:10:12.653 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:12.670 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:12.670 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:12.670 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:12.687 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:12.688 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:12.688 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:12.703 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:12.703 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:12.703 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:12.721 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:12.721 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:12.722 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:12.741 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:12.741 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:12.741 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:12.759 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:12.759 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:12.759 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:12.778 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:12.778 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:12.778 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:12.902 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:13.556 2462-2462/com.example.ls_listsave D/1: END setTouchUPLis
-안없
--------------------------------------------------------------------------------------------------------
+this = {RecyclerviewSwipeHelper$3@5122} 
+ this$0 = {RecyclerviewSwipeHelper@5127} 
+ shadow$_klass_ = {Class@5119} "class com.example.ls_listsave.RecyclerviewSwipeHelper$3"
+ shadow$_monitor_ = -2112836657
+this = {RecyclerviewSwipeHelper$3@5122} 
+ this$0 = {RecyclerviewSwipeHelper@5127} 
+ shadow$_klass_ = {Class@5119} "class com.example.ls_listsave.RecyclerviewSwipeHelper$3"
+ shadow$_monitor_ = -2112836657
+actionState = 1
+c = {DisplayListCanvas@5124} 
+ mHeight = 1316
+ mNode = null
+ mWidth = 1080
+ mBitmap = null
+ mDrawFilter = null
+ mFinalizer = {NativeAllocationRegistry$CleanerRunner@5150} 
+ mAllowHwBitmapsInSwMode = false
+ mDensity = 0
+ mNativeCanvasWrapper = 2290610176
+ mScreenDensity = 0
+ shadow$_klass_ = {Class@940} "class android.view.DisplayListCanvas"
+ shadow$_monitor_ = -1962208155
+dY = 0.0
+isCurrentlyActive = true
+recyclerView = {RecyclerView@5123} "androidx.recyclerview.widget.RecyclerView{68c695c VFED..... .F.....D 0,268-1080,1584 #7f080092 app:id/recyclerview}"
+ mAccessibilityDelegate = {RecyclerViewAccessibilityDelegate@5152} 
+ mAccessibilityManager = {AccessibilityManager@5153} 
+ mActiveOnItemTouchListener = null
+ mAdapter = {RecyclerAdapter@5154} 
+ mAdapterHelper = {AdapterHelper@5155} 
+ mAdapterUpdateDuringMeasure = false
+ mBottomGlow = null
+ mChildDrawingOrderCallback = null
+ mChildHelper = {ChildHelper@5156} "0, hidden list:0"
+ mClipToPadding = true
+ mDataSetHasChangedAfterLayout = false
+ mDispatchItemsChangedEvent = false
+ mDispatchScrollCounter = 0
+ mEatenAccessibilityChangeFlags = 0
+ mEdgeEffectFactory = {RecyclerView$EdgeEffectFactory@5157} 
+ mEnableFastScroller = false
+ mFirstLayoutComplete = true
+ mGapWorker = {GapWorker@5158} 
+ mHasFixedSize = false
+ mIgnoreMotionEventTillDown = false
+ mInitialTouchX = 414
+ mInitialTouchY = 142
+ mInterceptRequestLayoutDepth = 0
+ mIsAttached = true
+ mItemAnimator = {DefaultItemAnimator@5159} 
+ mItemAnimatorListener = {RecyclerView$ItemAnimatorRestoreListener@5160} 
+ mItemAnimatorRunner = {RecyclerView$2@5161} 
+ mItemDecorations = {ArrayList@5162}  size = 2
+ mItemsAddedOrRemoved = false
+ mItemsChanged = false
+ mLastTouchX = 414
+ mLastTouchY = 142
+ mLayout = {LinearLayoutManager@5163} 
+ mLayoutFrozen = false
+ mLayoutOrScrollCounter = 0
+ mLayoutWasDefered = false
+ mLeftGlow = null
+ mMaxFlingVelocity = 21000
+ mMinFlingVelocity = 131
+ mMinMaxLayoutPositions = {int[2]@5164} 
+ mNestedOffsets = {int[2]@5165} 
+ mObserver = {RecyclerView$RecyclerViewDataObserver@5166} 
+ mOnChildAttachStateListeners = {ArrayList@5167}  size = 1
+ mOnFlingListener = null
+ mOnItemTouchListeners = {ArrayList@5168}  size = 1
+ mPendingAccessibilityImportanceChange = {ArrayList@5169}  size = 0
+ mPendingSavedState = null
+ mPostedAnimatorRunner = false
+ mPrefetchRegistry = {GapWorker$LayoutPrefetchRegistryImpl@5170} 
+ mPreserveFocusAfterLayout = true
+ mRecycler = {RecyclerView$Recycler@5171} 
+ mRecyclerListener = null
+ mRightGlow = null
+ mScaledHorizontalScrollFactor = 168.0
+ mScaledVerticalScrollFactor = 168.0
+ mScrollConsumed = {int[2]@5172} 
+ mScrollListener = null
+ mScrollListeners = null
+ mScrollOffset = {int[2]@5173} 
+ mScrollPointerId = 0
 
-2020-02-12 19:10:47.573 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:47.573 2462-2462/com.example.ls_listsave D/1: onDraw
-2020-02-12 19:10:47.573 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:47.597 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:47.597 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:47.597 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:47.614 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:47.616 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:47.616 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:47.631 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:47.632 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:47.632 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:47.649 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:47.650 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:47.650 2462-2462/com.example.ls_listsave D/1: onchildDraw
-2020-02-12 19:10:47.669 2462-2462/com.example.ls_listsave D/1: END setTouchListener
-2020-02-12 19:10:47.693 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-    
-    --------- beginning of system
-2020-02-12 19:10:47.818 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:48.538 2462-2462/com.example.ls_listsave D/1: END setTouchUPLis
-2020-02-12 19:10:48.546 2462-2462/com.example.ls_listsave D/1: LocationListOnDraw
-2020-02-12 19:10:48.546 2462-2462/com.example.ls_listsave D/1: onDraw
-없
+ mScrollState = 0
+ mScrollStepConsumed = {int[2]@5174} 
+ mScrollingChildHelper = {NestedScrollingChildHelper@5175} 
+ mState = {RecyclerView$State@5176} "State{mTargetPosition=-1, mData=null, mItemCount=9, mIsMeasuring=false, mPreviousLayoutItemCount=9, mDeletedInvisibleItemCountSincePreviousLayout=0, mStructureChanged=false, mInPreLayout=false, mRunSimpleAnimations=false, mRunPredictiveAnimations=false}"
+ mTempRect = {Rect@5177} "Rect(0, 0 - 1080, 1578)"
+ mTempRect2 = {Rect@5178} "Rect(0, 0 - 0, 0)"
+ mTempRectF = {RectF@5179} "RectF(0.0, 0.0, 0.0, 0.0)"
+ mTopGlow = null
+ mTouchSlop = 21
+ mUpdateChildViewsRunnable = {RecyclerView$1@5180} 
+ mVelocityTracker = {VelocityTracker@5181} 
+ mViewFlinger = {RecyclerView$ViewFlinger@5182} 
+ mViewInfoProcessCallback = {RecyclerView$4@5183} 
+ mViewInfoStore = {ViewInfoStore@5184} 
+ mAnimationListener = null
+ mCachePaint = null
+ mChildCountWithTransientState = 0
+ mChildTransformation = null
+ mChildren = {View[12]@5185} 
+ mChildrenCount = 6
+ mChildrenInterestedInDrag = null
+ mCurrentDragChild = null
+ mCurrentDragStartEvent = null
+ mDefaultFocus = null
+ mDisappearingChildren = null
+ mFirstHoverTarget = null
+ mFirstTouchTarget = null
+ mFocused = null
+ mFocusedInCluster = null
+ mGroupFlags = 2375763
+ mHoveredSelf = false
+ mInvalidateRegion = null
+ mInvalidationTransformation = null
+ mIsInterestedInDrag = false
+ mLastTouchDownIndex = -1
+ mLastTouchDownTime = 0
+ mLastTouchDownX = 0.0
+ mLastTouchDownY = 0.0
+ mLayoutAnimationController = null
+ mLayoutCalledWhileSuppressed = false
+ mLayoutMode = -1
+ mLayoutTransitionListener = {ViewGroup$2@5186} 
+ mLocalPoint = null
+ mNestedScrollAxes = 0
+ mOnHierarchyChangeListener = null
+ mPersistentDrawingCache = 2
+ mPreSortedChildren = null
+ mSuppressLayout = false
+ mTempPoint = {float[2]@5187} 
+ mTooltipHoverTarget = null
+ mTooltipHoveredSelf = false
+ mTransientIndices = null
+ mTransientViews = null
+ mTransition = null
+ mTransitioningViews = null
+ mVisibilityChangingChildren = null
+ mAccessibilityCursorPosition = -1
+ View.mAccessibilityDelegate = {AccessibilityDelegateCompat$AccessibilityDelegateAdapter@5188} 
+ mAccessibilityTraversalAfterId = -1
+ mAccessibilityTraversalBeforeId = -1
+ mAccessibilityViewId = -1
+ mAnimator = null
+ mAttachInfo = {View$AttachInfo@5189} 
+ mAttributes = null
+ mAutofillHints = null
+ mAutofillId = null
+ mAutofillViewId = -1
+ mBackground = null
+ mBackgroundRenderNode = null
+ mBackgroundResource = 0
+ mBackgroundSizeChanged = true
+ mBackgroundTint = null
+ mBottom = 1584
+ mCachingFailed = false
+ mClipBounds = null
+ mContentDescription = null
+ mContext = {LocationList@5140} 
+ mCurrentAnimation = null
+ mDefaultFocusHighlight = null
+ mDefaultFocusHighlightCache = null
+ mDefaultFocusHighlightEnabled = true
+ mDefaultFocusHighlightSizeChanged = true
+ mDrawableState = {int[4]@5190} 
+ mDrawingCache = null
+ mDrawingCacheBackgroundColor = 0
+ mFloatingTreeObserver = null
+ mForegroundInfo = null
+ mFrameMetricsObservers = null
+ mGhostView = null
+ mHasPerformedLongPress = false
+ mID = 2131230866
+ mIgnoreNextUpEvent = false
+ mInContextButtonPress = false
+ mInputEventConsistencyVerifier = null
+ mKeyedTags = null
+ mLabelForId = -1
+ mLastIsOpaque = false
+ mLayerPaint = null
+ mLayerType = 0
+ mLayoutInsets = null
+ mLayoutParams = {RelativeLayout$LayoutParams@5191} 
+ mLeft = 0
+ mLeftPaddingDefined = false
+ mListenerInfo = {View$ListenerInfo@5192} 
+ mLongClickX = NaN
+ mLongClickY = NaN
+ mMatchIdPredicate = null
+ mMatchLabelForPredicate = null
+ mMeasureCache = {LongSparseLongArray@5193} "{4611690653770843238=4634269713510, 4611690654844585062=4634269713510, 4611690658065810724=4638564680996, 4611690659139552548=4638564680996}"
+ mMeasuredHeight = 1316
+ mMeasuredWidth = 1080
+ mMinHeight = 0
+ mMinWidth = 0
+ mNestedScrollingParent = null
+ mNextClusterForwardId = -1
+ mNextFocusDownId = -1
+ mNextFocusForwardId = -1
+ mNextFocusLeftId = -1
+ mNextFocusRightId = -1
+ mNextFocusUpId = -1
+ mOldHeightMeasureSpec = 1073743140
+ mOldWidthMeasureSpec = 1073742904
+ mOutlineProvider = {ViewOutlineProvider$1@5194} 
+ mOverScrollMode = 1
+ mOverlay = null
+ mPaddingBottom = 0
+ mPaddingLeft = 0
+ mPaddingRight = 0
+ mPaddingTop = 0
+ mParent = {RelativeLayout@5128} "android.widget.RelativeLayout{e24bf48 V.E...... .......D 0,0-1080,1584}"
+ mPendingCheckForLongPress = null
+ mPendingCheckForTap = null
+ mPerformClick = null
+ mPointerIcon = null
+ mPrivateFlags = 20449330
+ mPrivateFlags2 = 1611867688
+ mPrivateFlags3 = 4194308
+ mRecreateDisplayList = false
+ mRenderNode = {RenderNode@5195} 
+ mResources = {Resources@5196} 
+ mRight = 1080
+ mRightPaddingDefined = false
+ mRoundScrollbarRenderer = null
+ mRunQueue = {HandlerActionQueue@5197} 
+ mScrollCache = null
+ mScrollIndicatorDrawable = null
+ mScrollX = 0
+ mScrollY = 0
+ mSendViewScrolledAccessibilityEvent = null
+ mSendViewStateChangedAccessibilityEvent = null
+ mSendingHoverAccessibilityEvents = false
+ mStartActivityRequestWho = null
+ mStateListAnimator = null
+ mSystemUiVisibility = 0
+ mTag = null
+ mTempNestedScrollConsumed = null
+ mTooltipInfo = null
+ mTop = 268
+ mTouchDelegate = null
+ View.mTouchSlop = 21
+ mTransformationInfo = null
+ mTransientStateCount = 0
+ mTransitionName = null
+ mUnscaledDrawingCache = null
+ mUnsetPressedState = null
+ mUserPaddingBottom = 0
+ mUserPaddingEnd = -2147483648
+ mUserPaddingLeft = 0
+ mUserPaddingLeftInitial = 0
+ mUserPaddingRight = 0
+ mUserPaddingRightInitial = 0
+ mUserPaddingStart = -2147483648
+ mVerticalScrollFactor = 0.0
+ mVerticalScrollbarPosition = 0
+ mViewFlags = 402915329
+ mVisibilityChangeForAutofillHandler = null
+ mWindowAttachCount = 1
+ shadow$_klass_ = {Class@4937} "class androidx.recyclerview.widget.RecyclerView"
+ shadow$_monitor_ = -2037618340
+viewHolder = {RecyclerAdapter$RecyclerViewHolder@5125} "ViewHolder{c057846 position=0 id=-1, oldPos=-1, pLpos:-1}"
+ dismissButton = null
+ nameText = {AppCompatTextView@5206} "androidx.appcompat.widget.AppCompatTextView{16fea95 V.ED..... ........ 1,132-526,263 #7f080077 app:id/list_recyclerview_nametextView}"
+ textView = {AppCompatTextView@5207} "androidx.appcompat.widget.AppCompatTextView{a5e77aa V.ED..... ........ 0,1-525,132 #7f080078 app:id/list_recyclerview_textView2}"
+ itemView = {RelativeLayout@5208} "android.widget.RelativeLayout{a2aef9b VFE...C.. ........ 0,0-1080,263}"
+ mFlags = 1
+ mInChangeScrap = false
+ mIsRecyclableCount = 0
+ mItemId = -1
+ mItemViewType = 0
+ mNestedRecyclerView = null
+ mOldPosition = -1
+ mOwnerRecyclerView = {RecyclerView@5123} "androidx.recyclerview.widget.RecyclerView{68c695c VFED..... .F.....D 0,268-1080,1584 #7f080092 app:id/recyclerview}"
+ mPayloads = null
+ mPendingAccessibilityState = -1
+ mPosition = 0
+ mPreLayoutPosition = -1
+ mScrapContainer = null
+ mShadowedHolder = null
+ mShadowingHolder = null
+ mUnmodifiedPayloads = null
+ mWasImportantForAccessibilityBeforeHidden = 0
+ shadow$_klass_ = {Class@5076} "class com.example.ls_listsave.RecyclerAdapter$RecyclerViewHolder"
+ shadow$_monitor_ = -1945798586
+v = {RecyclerView@5123} "androidx.recyclerview.widget.RecyclerView{68c695c VFED..... .F.....D 0,268-1080,1584 #7f080092 app:id/recyclerview}"
+ mAccessibilityDelegate = {RecyclerViewAccessibilityDelegate@5152} 
+ mAccessibilityManager = {AccessibilityManager@5153} 
+ mActiveOnItemTouchListener = null
+ mAdapter = {RecyclerAdapter@5154} 
+ mAdapterHelper = {AdapterHelper@5155} 
+ mAdapterUpdateDuringMeasure = false
+ mBottomGlow = null
+ mChildDrawingOrderCallback = null
+ mChildHelper = {ChildHelper@5156} "0, hidden list:0"
+ mClipToPadding = true
+ mDataSetHasChangedAfterLayout = false
+ mDispatchItemsChangedEvent = false
+ mDispatchScrollCounter = 0
+ mEatenAccessibilityChangeFlags = 0
+ mEdgeEffectFactory = {RecyclerView$EdgeEffectFactory@5157} 
+ mEnableFastScroller = false
+ mFirstLayoutComplete = true
+ mGapWorker = {GapWorker@5158} 
+ mHasFixedSize = false
+ mIgnoreMotionEventTillDown = false
+ mInitialTouchX = 414
+ mInitialTouchY = 142
+ mInterceptRequestLayoutDepth = 0
+ mIsAttached = true
+ mItemAnimator = {DefaultItemAnimator@5159} 
+ mItemAnimatorListener = {RecyclerView$ItemAnimatorRestoreListener@5160} 
+ mItemAnimatorRunner = {RecyclerView$2@5161} 
+ mItemDecorations = {ArrayList@5162}  size = 2
+ mItemsAddedOrRemoved = false
+ mItemsChanged = false
+ mLastTouchX = 414
+ mLastTouchY = 142
+ mLayout = {LinearLayoutManager@5163} 
+ mLayoutFrozen = false
+ mLayoutOrScrollCounter = 0
+ mLayoutWasDefered = false
+ mLeftGlow = null
+ mMaxFlingVelocity = 21000
+ mMinFlingVelocity = 131
+ mMinMaxLayoutPositions = {int[2]@5164} 
+ mNestedOffsets = {int[2]@5165} 
+ mObserver = {RecyclerView$RecyclerViewDataObserver@5166} 
+ mOnChildAttachStateListeners = {ArrayList@5167}  size = 1
+ mOnFlingListener = null
+ mOnItemTouchListeners = {ArrayList@5168}  size = 1
+ mPendingAccessibilityImportanceChange = {ArrayList@5169}  size = 0
+ mPendingSavedState = null
+ mPostedAnimatorRunner = false
+ mPrefetchRegistry = {GapWorker$LayoutPrefetchRegistryImpl@5170} 
+ mPreserveFocusAfterLayout = true
+ mRecycler = {RecyclerView$Recycler@5171} 
+ mRecyclerListener = null
+ mRightGlow = null
+ mScaledHorizontalScrollFactor = 168.0
+ mScaledVerticalScrollFactor = 168.0
+ mScrollConsumed = {int[2]@5172} 
+ mScrollListener = null
+ mScrollListeners = null
+ mScrollOffset = {int[2]@5173} 
+ mScrollPointerId = 0
+ mScrollState = 0
+ mScrollStepConsumed = {int[2]@5174} 
+ mScrollingChildHelper = {NestedScrollingChildHelper@5175} 
+ mState = {RecyclerView$State@5176} "State{mTargetPosition=-1, mData=null, mItemCount=9, mIsMeasuring=false, mPreviousLayoutItemCount=9, mDeletedInvisibleItemCountSincePreviousLayout=0, mStructureChanged=false, mInPreLayout=false, mRunSimpleAnimations=false, mRunPredictiveAnimations=false}"
+ mTempRect = {Rect@5177} "Rect(0, 0 - 1080, 1578)"
+ mTempRect2 = {Rect@5178} "Rect(0, 0 - 0, 0)"
+ mTempRectF = {RectF@5179} "RectF(0.0, 0.0, 0.0, 0.0)"
+ mTopGlow = null
+ mTouchSlop = 21
+ mUpdateChildViewsRunnable = {RecyclerView$1@5180} 
+ mVelocityTracker = {VelocityTracker@5181} 
+ mViewFlinger = {RecyclerView$ViewFlinger@5182} 
+ mViewInfoProcessCallback = {RecyclerView$4@5183} 
+ mViewInfoStore = {ViewInfoStore@5184} 
+ mAnimationListener = null
+ mCachePaint = null
+ mChildCountWithTransientState = 0
+ mChildTransformation = null
+ mChildren = {View[12]@5185} 
+ mChildrenCount = 6
+ mChildrenInterestedInDrag = null
+ mCurrentDragChild = null
+ mCurrentDragStartEvent = null
+ mDefaultFocus = null
+ mDisappearingChildren = null
+ mFirstHoverTarget = null
+ mFirstTouchTarget = null
+ mFocused = null
+ mFocusedInCluster = null
+ mGroupFlags = 2375763
+ mHoveredSelf = false
+ mInvalidateRegion = null
+ mInvalidationTransformation = null
+ mIsInterestedInDrag = false
+ mLastTouchDownIndex = -1
+ mLastTouchDownTime = 0
+ mLastTouchDownX = 0.0
+ mLastTouchDownY = 0.0
+ mLayoutAnimationController = null
+ mLayoutCalledWhileSuppressed = false
+ mLayoutMode = -1
+ mLayoutTransitionListener = {ViewGroup$2@5186} 
+ mLocalPoint = null
+ mNestedScrollAxes = 0
+ mOnHierarchyChangeListener = null
+ mPersistentDrawingCache = 2
+ mPreSortedChildren = null
+ mSuppressLayout = false
+ mTempPoint = {float[2]@5187} 
+ mTooltipHoverTarget = null
+ mTooltipHoveredSelf = false
+ mTransientIndices = null
+ mTransientViews = null
+ mTransition = null
+ mTransitioningViews = null
+ mVisibilityChangingChildren = null
+ mAccessibilityCursorPosition = -1
+ View.mAccessibilityDelegate = {AccessibilityDelegateCompat$AccessibilityDelegateAdapter@5188} 
+ mAccessibilityTraversalAfterId = -1
+ mAccessibilityTraversalBeforeId = -1
+ mAccessibilityViewId = -1
+ mAnimator = null
+ mAttachInfo = {View$AttachInfo@5189} 
+ mAttributes = null
+ mAutofillHints = null
+ mAutofillId = null
+ mAutofillViewId = -1
+ mBackground = null
+ mBackgroundRenderNode = null
+ mBackgroundResource = 0
+ mBackgroundSizeChanged = true
+ mBackgroundTint = null
+ mBottom = 1584
+ mCachingFailed = false
+ mClipBounds = null
+ mContentDescription = null
+ mContext = {LocationList@5140} 
+ mCurrentAnimation = null
+ mDefaultFocusHighlight = null
+ mDefaultFocusHighlightCache = null
+ mDefaultFocusHighlightEnabled = true
+ mDefaultFocusHighlightSizeChanged = true
+ mDrawableState = {int[4]@5190} 
+ mDrawingCache = null
+ mDrawingCacheBackgroundColor = 0
+ mFloatingTreeObserver = null
+ mForegroundInfo = null
+ mFrameMetricsObservers = null
+ mGhostView = null
+ mHasPerformedLongPress = false
+ mID = 2131230866
+ mIgnoreNextUpEvent = false
+ mInContextButtonPress = false
+ mInputEventConsistencyVerifier = null
+ mKeyedTags = null
+ mLabelForId = -1
+ mLastIsOpaque = false
+ mLayerPaint = null
+ mLayerType = 0
+ mLayoutInsets = null
+ mLayoutParams = {RelativeLayout$LayoutParams@5191} 
+ mLeft = 0
+ mLeftPaddingDefined = false
+ mListenerInfo = {View$ListenerInfo@5192} 
+ mLongClickX = NaN
+ mLongClickY = NaN
+ mMatchIdPredicate = null
+ mMatchLabelForPredicate = null
+ mMeasureCache = {LongSparseLongArray@5193} "{4611690653770843238=4634269713510, 4611690654844585062=4634269713510, 4611690658065810724=4638564680996, 4611690659139552548=4638564680996}"
+ mMeasuredHeight = 1316
+ mMeasuredWidth = 1080
+ mMinHeight = 0
+ mMinWidth = 0
+ mNestedScrollingParent = null
+ mNextClusterForwardId = -1
+ mNextFocusDownId = -1
+ mNextFocusForwardId = -1
+ mNextFocusLeftId = -1
+ mNextFocusRightId = -1
+ mNextFocusUpId = -1
+ mOldHeightMeasureSpec = 1073743140
+ mOldWidthMeasureSpec = 1073742904
+ mOutlineProvider = {ViewOutlineProvider$1@5194} 
+ mOverScrollMode = 1
+ mOverlay = null
+ mPaddingBottom = 0
+ mPaddingLeft = 0
+ mPaddingRight = 0
+ mPaddingTop = 0
+ mParent = {RelativeLayout@5128} "android.widget.RelativeLayout{e24bf48 V.E...... .......D 0,0-1080,1584}"
+ mPendingCheckForLongPress = null
+ mPendingCheckForTap = null
+ mPerformClick = null
+ mPointerIcon = null
+ mPrivateFlags = 20449330
+ mPrivateFlags2 = 1611867688
+ mPrivateFlags3 = 4194308
+ mRecreateDisplayList = false
+ mRenderNode = {RenderNode@5195} 
+ mResources = {Resources@5196} 
+ mRight = 1080
+ mRightPaddingDefined = false
+ mRoundScrollbarRenderer = null
+ mRunQueue = {HandlerActionQueue@5197} 
+ mScrollCache = null
+ mScrollIndicatorDrawable = null
+ mScrollX = 0
+ mScrollY = 0
+ mSendViewScrolledAccessibilityEvent = null
+ mSendViewStateChangedAccessibilityEvent = null
+ mSendingHoverAccessibilityEvents = false
+ mStartActivityRequestWho = null
+ mStateListAnimator = null
+ mSystemUiVisibility = 0
+ mTag = null
+ mTempNestedScrollConsumed = null
+ mTooltipInfo = null
+ mTop = 268
+ mTouchDelegate = null
+ View.mTouchSlop = 21
+ mTransformationInfo = null
+ mTransientStateCount = 0
+ mTransitionName = null
+ mUnscaledDrawingCache = null
+ mUnsetPressedState = null
+ mUserPaddingBottom = 0
+ mUserPaddingEnd = -2147483648
+ mUserPaddingLeft = 0
+ mUserPaddingLeftInitial = 0
+ mUserPaddingRight = 0
+ mUserPaddingRightInitial = 0
+ mUserPaddingStart = -2147483648
+ mVerticalScrollFactor = 0.0
+ mVerticalScrollbarPosition = 0
+ mViewFlags = 402915329
+ mVisibilityChangeForAutofillHandler = null
+ mWindowAttachCount = 1
+ shadow$_klass_ = {Class@4937} "class androidx.recyclerview.widget.RecyclerView"
+ shadow$_monitor_ = -2037618340
+event = {MotionEvent@5126} "MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=413.96484, y[0]=141.98047, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=100033984, downTime=100033897, deviceId=0, source=0x1002 }"
+ mNativePtr = 2596707712
+ mNext = null
+ mRecycled = false
+ mRecycledLocation = null
+ mSeq = 23
+ shadow$_klass_ = {Class@946} "class android.view.MotionEvent"
+ shadow$_monitor_ = -1894996678
+currentItemViewHolder = null
