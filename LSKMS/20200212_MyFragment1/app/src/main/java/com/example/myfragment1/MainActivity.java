@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recy_con_layout = findViewById(R.id.recy_con_layout);
 
 
-
         //자동완성
         ct = findViewById(R.id.searchView); //프로젝트 단위
         ac = findViewById(R.id.clearable_edit); //실제 자동완성 텍스트
@@ -143,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.clearable_edit);
         autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, list));
-
 
         //하단바
         bottomBar = findViewById(R.id.linearBottombar);
@@ -346,6 +344,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
     }
+
+    public void showRecyclerView(){ //리사이클 플래그가 false 이면 - 리사이클러 뷰가 안보이면 실행해준다. true 로 바꾼다.
+        animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
+        recy_con_layout.setAnimation(animation);
+        recy_con_layout.setVisibility(mView.VISIBLE);
+        recyFrag = true;
+    }
+
+    public void hideRecyclerView(){ //리사이클 플래그가 false 이면 - 리사이클러 뷰가 안보이면 실행해준다. true 로 바꾼다.
+        animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
+        recy_con_layout.setAnimation(animationH);
+        recy_con_layout.setVisibility(mView.GONE);
+        recyFrag = false;
+    }
+
 
     public void setRecyclerView(boolean recyFlag){ //리사이클러 뷰 활성화 시 종료 가능한 함수
         if(recyFlag == true) {
