@@ -63,9 +63,7 @@
             Location_Number = findViewById(R.id.Text_Number);
             Location_Comment = findViewById(R.id.Text_Comment);
 
-            for(String s : HashTag.getHashTagar()){
-                // 어레이리스트 값 가져올때 사용
-            }
+
 
             final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.clearable_edit);
 
@@ -148,19 +146,29 @@
             String phone = Location_Number.getText().toString();
             String comment = Location_Comment.getText().toString();
 
-            ContentValues cv = new ContentValues();
+            ContentValues locationCv = new ContentValues();
+            ContentValues tagCv = new ContentValues();
 
-            cv.put(LocationTable.COLUMN_NAME,name);
-            cv.put(LocationTable.COLUMN_ADDRESS,address);
-            cv.put(LocationTable.COLUMN_DETAILADDRESS,detailAddr);
-            cv.put(LocationTable.COLUMN_PHONE, phone);
-            cv.put(LocationTable.COLUMN_MEMO, comment);
+            locationCv.put(LocationTable.COLUMN_NAME,name);
+            locationCv.put(LocationTable.COLUMN_ADDRESS,address);
+            locationCv.put(LocationTable.COLUMN_DETAILADDRESS,detailAddr);
+            locationCv.put(LocationTable.COLUMN_PHONE, phone);
+            locationCv.put(LocationTable.COLUMN_MEMO, comment);
 
-            if(mDatabase.insert(LocationTable.TABLE_NAME, null, cv) > 0) {
-                Toast.makeText(getApplicationContext(), "THEREYOUGO", Toast.LENGTH_SHORT).show();
-
-                listshowOnButton(view);
+            int count = 1;
+            for(String s : HashTag.getHashTagar()){
+                tagCv.put("tag"+count, s);
+                count++;
             }
+
+            if(mDatabase.insert(LocationTable.TABLE_NAME, null, locationCv) > 0) {
+                Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
+
+            }
+            if(mDatabase.insert(TagTable.TABLE_NAME, null, tagCv) >0){
+                Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
+            }
+            listshowOnButton(view);
             //recyclerAdapter.swapCursor(getAllItems());
     }
 

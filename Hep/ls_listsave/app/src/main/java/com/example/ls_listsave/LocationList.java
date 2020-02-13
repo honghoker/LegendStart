@@ -123,8 +123,6 @@ public class LocationList extends AppCompatActivity {
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(recyclerviewSwipeHelper);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-        Log.d("1", "F_itemTouchHelper Attach to Recyclerview");
-
     }
 
 
