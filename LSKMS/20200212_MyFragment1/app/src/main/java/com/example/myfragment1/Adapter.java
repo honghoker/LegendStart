@@ -110,66 +110,66 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         else{
             String Title = title.get(position-1);
             holder.textTitle.setText(Title);
-            String[] Tag_1 = tag.get(position-1);
-//             tag가 0개일때
-            if (Tag_1.length == 0) {
-                holder.Total.setText(Integer.toString(Tag_1.length));
-            }
-            // tag가 1개일떄
-            else if (Tag_1.length == 1) {
-                holder.textDescription_1.setText(Tag_1[0]);
-                holder.textDescription_1.setVisibility(View.VISIBLE);
-//                 Total은 나중에 거래처 갯수표현할꺼임
-                holder.Total.setText(Integer.toString(Tag_1.length));
-            }
-            // tag가 2개일떄
-            else if (Tag_1.length == 2) {
-//           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]);
-                holder.textDescription_1.setText(Tag_1[0]);
-                holder.textDescription_1.setVisibility(View.VISIBLE);
-                holder.textDescription_2.setText(Tag_1[1]);
-                holder.textDescription_2.setVisibility(View.VISIBLE);
-                holder.Total.setText(Integer.toString(Tag_1.length));
-        }
-        // tag가 3개일떄
-            else if (Tag_1.length == 3) {
-//           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]+" "+Tag_1[2]);
-                holder.textDescription_1.setText(Tag_1[0]);
-                holder.textDescription_1.setVisibility(View.VISIBLE);
-                holder.textDescription_2.setText(Tag_1[1]);
-                holder.textDescription_2.setVisibility(View.VISIBLE);
-                holder.textDescription_3.setText(Tag_1[2]);
-                holder.textDescription_3.setVisibility(View.VISIBLE);
-                holder.Total.setText(Integer.toString(Tag_1.length));
-            }
-            // tag가 4개일떄
-            else if (Tag_1.length == 4) {
-//           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]+" "+Tag_1[2]+" "+Tag_1[3]);
-                holder.textDescription_1.setText(Tag_1[0]);
-                holder.textDescription_1.setVisibility(View.VISIBLE);
-                holder.textDescription_2.setText(Tag_1[1]);
-                holder.textDescription_2.setVisibility(View.VISIBLE);
-                holder.textDescription_3.setText(Tag_1[2]);
-                holder.textDescription_3.setVisibility(View.VISIBLE);
-                holder.textDescription_4.setText(Tag_1[3]);
-                holder.textDescription_4.setVisibility(View.VISIBLE);
-                holder.Total.setText(Integer.toString(Tag_1.length));
-            }
-            // tag가 5개일떄
-            else if (Tag_1.length == 5) {
-//           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]+" "+Tag_1[2]+" "+Tag_1[3]+" "+Tag_1[4]);
-                holder.textDescription_1.setText(Tag_1[0]);
-                holder.textDescription_1.setVisibility(View.VISIBLE);
-                holder.textDescription_2.setText(Tag_1[1]);
-                holder.textDescription_2.setVisibility(View.VISIBLE);
-                holder.textDescription_3.setText(Tag_1[2]);
-                holder.textDescription_3.setVisibility(View.VISIBLE);
-                holder.textDescription_4.setText(Tag_1[3]);
-                holder.textDescription_4.setVisibility(View.VISIBLE);
-                holder.textDescription_5.setText(Tag_1[4]);
-                holder.textDescription_5.setVisibility(View.VISIBLE);
-                holder.Total.setText(Integer.toString(Tag_1.length));
-            }
+//            String[] Tag_1 = tag.get(position-1);
+////             tag가 0개일때
+//            if (Tag_1.length == 0) {
+//                holder.Total.setText(Integer.toString(Tag_1.length));
+//            }
+//            // tag가 1개일떄
+//            else if (Tag_1.length == 1) {
+//                holder.textDescription_1.setText(Tag_1[0]);
+//                holder.textDescription_1.setVisibility(View.VISIBLE);
+////                 Total은 나중에 거래처 갯수표현할꺼임
+//                holder.Total.setText(Integer.toString(Tag_1.length));
+//            }
+//            // tag가 2개일떄
+//            else if (Tag_1.length == 2) {
+////           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]);
+//                holder.textDescription_1.setText(Tag_1[0]);
+//                holder.textDescription_1.setVisibility(View.VISIBLE);
+//                holder.textDescription_2.setText(Tag_1[1]);
+//                holder.textDescription_2.setVisibility(View.VISIBLE);
+//                holder.Total.setText(Integer.toString(Tag_1.length));
+//        }
+//        // tag가 3개일떄
+//            else if (Tag_1.length == 3) {
+////           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]+" "+Tag_1[2]);
+//                holder.textDescription_1.setText(Tag_1[0]);
+//                holder.textDescription_1.setVisibility(View.VISIBLE);
+//                holder.textDescription_2.setText(Tag_1[1]);
+//                holder.textDescription_2.setVisibility(View.VISIBLE);
+//                holder.textDescription_3.setText(Tag_1[2]);
+//                holder.textDescription_3.setVisibility(View.VISIBLE);
+//                holder.Total.setText(Integer.toString(Tag_1.length));
+//            }
+//            // tag가 4개일떄
+//            else if (Tag_1.length == 4) {
+////           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]+" "+Tag_1[2]+" "+Tag_1[3]);
+//                holder.textDescription_1.setText(Tag_1[0]);
+//                holder.textDescription_1.setVisibility(View.VISIBLE);
+//                holder.textDescription_2.setText(Tag_1[1]);
+//                holder.textDescription_2.setVisibility(View.VISIBLE);
+//                holder.textDescription_3.setText(Tag_1[2]);
+//                holder.textDescription_3.setVisibility(View.VISIBLE);
+//                holder.textDescription_4.setText(Tag_1[3]);
+//                holder.textDescription_4.setVisibility(View.VISIBLE);
+//                holder.Total.setText(Integer.toString(Tag_1.length));
+//            }
+//            // tag가 5개일떄
+//            else if (Tag_1.length == 5) {
+////           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]+" "+Tag_1[2]+" "+Tag_1[3]+" "+Tag_1[4]);
+//                holder.textDescription_1.setText(Tag_1[0]);
+//                holder.textDescription_1.setVisibility(View.VISIBLE);
+//                holder.textDescription_2.setText(Tag_1[1]);
+//                holder.textDescription_2.setVisibility(View.VISIBLE);
+//                holder.textDescription_3.setText(Tag_1[2]);
+//                holder.textDescription_3.setVisibility(View.VISIBLE);
+//                holder.textDescription_4.setText(Tag_1[3]);
+//                holder.textDescription_4.setVisibility(View.VISIBLE);
+//                holder.textDescription_5.setText(Tag_1[4]);
+//                holder.textDescription_5.setVisibility(View.VISIBLE);
+//                holder.Total.setText(Integer.toString(Tag_1.length));
+//            }
 
         }
 
@@ -184,11 +184,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             super(itemView);
 //            btnTitle = itemView.findViewById(R.id.recy_test_btn);
             textTitle = (TextView)itemView.findViewById(R.id.textView);
-            textDescription_1 = (TextView)itemView.findViewById(R.id.textView2);
-            textDescription_2 = (TextView)itemView.findViewById(R.id.textView3);
-            textDescription_3 = (TextView)itemView.findViewById(R.id.textView4);
-            textDescription_4 = (TextView)itemView.findViewById(R.id.textView5);
-            textDescription_5 = (TextView)itemView.findViewById(R.id.textView6);
+//            textDescription_1 = (TextView)itemView.findViewById(R.id.textView2);
+//            textDescription_2 = (TextView)itemView.findViewById(R.id.textView3);
+//            textDescription_3 = (TextView)itemView.findViewById(R.id.textView4);
+//            textDescription_4 = (TextView)itemView.findViewById(R.id.textView5);
+//            textDescription_5 = (TextView)itemView.findViewById(R.id.textView6);
             Total = (TextView)itemView.findViewById(R.id.textView7);
 
             itemView.setOnClickListener(new View.OnClickListener() {

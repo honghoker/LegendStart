@@ -7,13 +7,14 @@
     tools:context=".MainActivity"
     android:orientation="vertical"
     android:id="@+id/recy_con_layout"
-    android:visibility="gone">
+    android:visibility="gone"
+    >
 
     <TextView
         android:id="@+id/back_allSee"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="90dp"
         android:background="#ccc"
         android:gravity="right"
         android:paddingRight="20dp"
@@ -38,10 +39,11 @@
         android:id="@+id/recy_allSee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="56dp"
         android:text="전체보기"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        app:layout_constraintTop_toTopOf="@+id/back_allSee"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

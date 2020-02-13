@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //recyclerVIew test용 Tag ArrayList선언
     ArrayList<String[]> recy_Tag;
     //recyclerView 내려왔는지 실행확인 Frag변수
-    boolean recyFrag = false;
+    boolean recyFrag = false; //리사이클 플래그 초기값 false 안보이게 설정한다.
 
     //프래그먼트는  xml레이아웃 파일 하나랑 자바소스 파일 하나로 정의할 수 있다.
     //이게 하나의 뷰처럼 쓸 수 있는데 뷰하고 약간 다른특성들이 있다.
@@ -184,11 +184,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager.beginTransaction().replace(R.id.frameLayout, fa).commit();
 
         //recyclerView test Tag 배열선언
-        final String[] tag1 = {"소고기", "안녕하세요", "김성훈입니다", "방가방가", "소고소고소고소고"};
-        String[] tag2 = {"1"};
-        String[] tag3 = {"1", "2", "3", "4"};
-        String[] tag4 = {"1", "2", "3"};
-        String[] tag5 = {"1", "2"};
+//        final String[] tag1 = {"소고기", "안녕하세요", "김성훈입니다", "방가방가", "소고소고소고소고"};
+//        String[] tag2 = {"1"};
+//        String[] tag3 = {"1", "2", "3", "4"};
+//        String[] tag4 = {"1", "2", "3"};
+//        String[] tag5 = {"1", "2"};
         //recyclerView test Title ArrayList
         recy_title = new ArrayList<>();
         recy_title.add("Frist");
@@ -197,12 +197,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recy_title.add("Four");
         recy_title.add("FIve");
         //recyclerView test Tag ArrayList
-        recy_Tag = new ArrayList<String[]>();
-        recy_Tag.add(tag1);
-        recy_Tag.add(tag2);
-        recy_Tag.add(tag3);
-        recy_Tag.add(tag4);
-        recy_Tag.add(tag5);
+//        recy_Tag = new ArrayList<String[]>();
+//        recy_Tag.add(tag1);
+//        recy_Tag.add(tag2);
+//        recy_Tag.add(tag3);
+//        recy_Tag.add(tag4);
+//        recy_Tag.add(tag5);
 
         // recyclerView
         recyclerView = findViewById(R.id.recyclerView);
@@ -245,12 +245,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == false) {
                     //애니메
-                    setRecyclerView(recyFrag);
-
+                    showRecyclerView(); //리사이클 보여주고 플래그 true 로 변경
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == true) {
-
-                    setRecyclerView(recyFrag);
-
+                    hideRecyclerView(); //리사이클 가리고 플래그 false 로 변경
                 }
                 return true;
             }
@@ -327,54 +324,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         // BackPressedForFinish 클래시의 onBackPressed() 함수를 호출한다.
 
-
-        setRecyclerView(true); // 리사이클 플래그 맞춰서 백 종료
-
         if (searchFlag == false && recyFrag == false)
             backPressedForFinish.onBackPressed();
 
         //서치상태 아닐때만 종료 가능
-        if (drawerLayout.isDrawerOpen(GravityCompat.START) && searchFlag == false) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START) && searchFlag == false && recyFrag == false) {
             drawerLayout.closeDrawers();
         } else if (searchFlag == true) {
             getSupportActionBar().show();
             searchFlag = false;
 
             setBottomBar(searchFlag);
-
         }
+
+        hideRecyclerView(); //만약 떠있으면 디렉토리 종료 후 recy플래그 false
     }
 
     public void showRecyclerView(){ //리사이클 플래그가 false 이면 - 리사이클러 뷰가 안보이면 실행해준다. true 로 바꾼다.
-        animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
-        recy_con_layout.setAnimation(animation);
-        recy_con_layout.setVisibility(mView.VISIBLE);
-        recyFrag = true;
-    }
-
-    public void hideRecyclerView(){ //리사이클 플래그가 false 이면 - 리사이클러 뷰가 안보이면 실행해준다. true 로 바꾼다.
-        animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
-        recy_con_layout.setAnimation(animationH);
-        recy_con_layout.setVisibility(mView.GONE);
-        recyFrag = false;
-    }
-
-
-    public void setRecyclerView(boolean recyFlag){ //리사이클러 뷰 활성화 시 종료 가능한 함수
-        if(recyFlag == true) {
-            animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
-            recy_con_layout.setAnimation(animationH);
-            recy_con_layout.setVisibility(mView.GONE);
-            recyFrag = false;
-        }
-        else {
-            animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
+        if(recyFrag == false) { //호출했을 때 리사이클 없을 경우에만 실행. 떠있을 때 재실행 방지
+            animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
             recy_con_layout.setAnimation(animation);
             recy_con_layout.setVisibility(mView.VISIBLE);
             recyFrag = true;
         }
     }
 
+    public void hideRecyclerView(){ //리사이클 플래그가 false 이면 - 리사이클러 뷰가 안보이면 실행해준다. true 로 바꾼다.
+        if(recyFrag == true) { //호출하였을 때 리사이클이 떠있을 경우에만 실행한다. 안떠있을 때 재실행 방지.
+            animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
+            recy_con_layout.setAnimation(animationH);
+            recy_con_layout.setVisibility(mView.GONE);
+            recyFrag = false;
+        }
+    }
 
     // navigation 메뉴 선택 이벤트처리
     @Override
@@ -402,11 +384,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-
     //상단 툴바 클릭 이벤트
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_search: //상단 검색 버튼 클릭 시
+
+                hideRecyclerView(); //일단 디렉토리 열려있으면 삭제
+
                 Toast.makeText(getApplicationContext(), "검색할 장소를 입력하세요.", Toast.LENGTH_LONG).show();
 
                 //툴바 제거
@@ -422,9 +406,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     imm.showSoftInput(ac, 0);
                     setBottomBar(searchFlag);
-
-
-
                 }
                 return true;
             default:
