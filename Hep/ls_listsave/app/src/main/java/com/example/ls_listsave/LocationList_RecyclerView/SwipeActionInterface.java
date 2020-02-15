@@ -1,4 +1,4 @@
-package com.example.ls_listsave;
+package com.example.ls_listsave.LocationList_RecyclerView;
 
 import androidx.recyclerview.widget.RecyclerView;
 

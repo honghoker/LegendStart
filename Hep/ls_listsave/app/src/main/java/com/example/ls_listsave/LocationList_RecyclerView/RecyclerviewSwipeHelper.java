@@ -1,28 +1,17 @@
-package com.example.ls_listsave;
+package com.example.ls_listsave.LocationList_RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
-import android.location.Location;
-import android.media.Image;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android .content.res.Resources;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 enum ButtonsState {
     GONE,
@@ -189,9 +178,6 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     setTouchUpListener(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
                 }
-                buttonShowedState = ButtonsState.GONE;
-                currentItemViewHolder = null;
-                buttonInstance = null;
                 return false;
             }
         });

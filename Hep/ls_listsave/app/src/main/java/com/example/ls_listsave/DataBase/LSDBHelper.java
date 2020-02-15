@@ -1,14 +1,10 @@
-package com.example.ls_listsave;
+package com.example.ls_listsave.DataBase;
 
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.strictmode.SqliteObjectLeakedViolation;
 
-import com.example.ls_listsave.LSSQLContract.*;
+import com.example.ls_listsave.DataBase.LSSQLContract.*;
 
 import androidx.annotation.Nullable;
 

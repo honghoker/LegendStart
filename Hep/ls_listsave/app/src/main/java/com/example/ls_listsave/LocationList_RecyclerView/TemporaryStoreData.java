@@ -1,10 +1,10 @@
-package com.example.ls_listsave;
+package com.example.ls_listsave.LocationList_RecyclerView;
 
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import com.example.ls_listsave.LSSQLContract.*;
+import com.example.ls_listsave.DataBase.LSSQLContract.*;
 
 public class TemporaryStoreData{
 
@@ -45,14 +45,11 @@ public class TemporaryStoreData{
                     TIMESTAMP = cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_TIMESTAMP));
                     COLUMN_LATITUDE = cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_LATITUDE));
                     COLUMN_LONGITUDE = cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_LONGITUDE));
-                    /*
                     Tag_1 = cursor.getString(cursor.getColumnIndex(TagTable.COLUMN_TAG_1));
                     Tag_2 = cursor.getString(cursor.getColumnIndex(TagTable.COLUMN_TAG_2));
                     Tag_3 = cursor.getString(cursor.getColumnIndex(TagTable.COLUMN_TAG_3));
                     Tag_4 = cursor.getString(cursor.getColumnIndex(TagTable.COLUMN_TAG_4));
                     Tag_5 = cursor.getString(cursor.getColumnIndex(TagTable.COLUMN_TAG_5));
-
-                     */
                 }while(cursor.moveToNext());
             }
         }catch (Exception e){
@@ -77,13 +74,11 @@ public class TemporaryStoreData{
         cv.put(LocationTable.COLUMN_TIMESTAMP,tempDB.TIMESTAMP);
         cv.put(LocationTable.COLUMN_LATITUDE,tempDB.COLUMN_LATITUDE);
         cv.put(LocationTable.COLUMN_LONGITUDE,tempDB.COLUMN_LONGITUDE);
-        /*
         cv.put(TagTable.COLUMN_TAG_1,tempDB.Tag_1);
         cv.put(TagTable.COLUMN_TAG_2,tempDB.Tag_2);
         cv.put(TagTable.COLUMN_TAG_3,tempDB.Tag_3);
         cv.put(TagTable.COLUMN_TAG_4,tempDB.Tag_4);
         cv.put(TagTable.COLUMN_TAG_5,tempDB.Tag_5);
-        */
         return cv;
     }
     public TemporaryStoreData recoverDataMethod(SQLiteDatabase db, long id) {

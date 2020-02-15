@@ -1,4 +1,4 @@
-package com.example.ls_listsave;
+package com.example.ls_listsave.LocationList_RecyclerView;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -10,10 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ls_listsave.LSSQLContract.*;
+import com.example.ls_listsave.DataBase.LSSQLContract;
+import com.example.ls_listsave.DataBase.LSSQLContract.*;
+import com.example.ls_listsave.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
 

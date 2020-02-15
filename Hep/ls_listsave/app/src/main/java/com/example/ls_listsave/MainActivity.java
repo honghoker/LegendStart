@@ -3,10 +3,8 @@
     import java.util.List;
 
     import android.app.Activity;
-    import android.content.ContentValues;
     import android.content.Intent;
     import android.database.Cursor;
-    import android.database.sqlite.SQLiteDatabase;
     import android.os.Bundle;
     import android.provider.ContactsContract;
     import android.view.View;
@@ -17,15 +15,15 @@
     import android.widget.TextView;
     import android.widget.Toast;
 
-    import com.example.ls_listsave.HashTag;
-    import com.example.ls_listsave.LSSQLContract.*;
-    import com.example.ls_listsave.R;
+    import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
+    import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
+    import com.example.ls_listsave.DataBase.LSSQLContract.*;
+    import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
 
 
     public class MainActivity extends Activity {
         private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;
         private List<String> list;
-        private SQLiteDatabase mDatabase;
         EditText Location_Name;
         EditText Location_Address;
         EditText Location_DetailAddress;
@@ -36,14 +34,8 @@
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
-            initDB();
             listinit();
             init();
-        }
-
-        private void initDB(){
-            LSDBHelper lsdbHelper = new LSDBHelper(this);
-            mDatabase = lsdbHelper.getWritableDatabase();
         }
 
         public void listinit() {
@@ -134,11 +126,30 @@
             }
             super.onActivityResult(requestCode, resultCode, data);
         }
+
         public void btnSaveOnClick(View view){
-            if(checkEditText())
-                addItem(view);
+            if(checkEditText()){
+                //Context context, final String tablename, String locationName, String address, String detailAddr, String phone, String comment
+                DataLapping_LocationData dataLapping_locationData = new DataLapping_LocationData(
+                        getApplicationContext(),LocationTable.TABLE_NAME, Location_Name.getText().toString(), Location_Address.getText().toString(),
+                        Location_DetailAddress.getText().toString(), Location_Number.getText().toString(), Location_Comment.getText().toString()
+                );
+                if(dataLapping_locationData.storeConfirm()){
+                    if(!HashTag.getHashTagar().isEmpty()){
+                        int count = dataLapping_locationData.idNumber();
+                        DataLapping_Tag dataLapping_tag = new DataLapping_Tag(getApplicationContext(), TagTable.TABLE_NAME, HashTag.getHashTagar(),count);
+                        if(!dataLapping_tag.inputInnerDataBase(dataLapping_tag.receiveDataToContentValues())){
+                            Toast.makeText(getApplicationContext(), "Tag Fail", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    Intent intent = new Intent(getApplicationContext(), LocationList.class);
+                    startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
+                }
+            }
         }
 
+        /*
         private void addItem(View view){
             String name = Location_Name.getText().toString();
             String address = Location_Address.getText().toString();
@@ -171,6 +182,8 @@
             listshowOnButton(view);
             //recyclerAdapter.swapCursor(getAllItems());
     }
+
+         */
 
     private boolean checkEditText(){
         if(Location_Name.getText().toString().trim().length() != 0) {

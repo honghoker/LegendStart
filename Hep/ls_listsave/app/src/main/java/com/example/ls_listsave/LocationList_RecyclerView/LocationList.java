@@ -1,4 +1,4 @@
-package com.example.ls_listsave;
+package com.example.ls_listsave.LocationList_RecyclerView;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.ls_listsave.DataBase.LSDBHelper;
+import com.example.ls_listsave.DataBase.LSSQLContract;
+import com.example.ls_listsave.MainActivity;
+import com.example.ls_listsave.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
