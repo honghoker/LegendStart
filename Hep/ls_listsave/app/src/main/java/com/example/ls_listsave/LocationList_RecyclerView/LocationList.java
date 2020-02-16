@@ -35,9 +35,14 @@ public class LocationList extends AppCompatActivity {
     private RecyclerView recyclerView; //For recyclerview
     private Button disSortingButton, updatedSortingButton, nameSortingButton; //For sorting
     private String sortingCondition = LSSQLContract.LocationTable.COLUMN_TIMESTAMP + " DESC"; //For sorting
-
+    private RecyclerviewSecondSwipeHelper recyclerviewSecondSwipeHelper = null;
     //swipe이전
     private ItemTouchHelper swipeLeftDismiss;
+
+
+    public boolean isFlag_firstSwipe(boolean flag_firstSwipe){
+        return flag_firstSwipe;
+    }
 
     //Swipe 작업중
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
@@ -77,6 +82,7 @@ public class LocationList extends AppCompatActivity {
 
 
         setupSwipe();
+
     }
 
     public void setupSwipe() {
