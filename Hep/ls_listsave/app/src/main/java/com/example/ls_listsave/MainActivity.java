@@ -40,8 +40,14 @@ import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
 import com.example.ls_listsave.DataBase.LSSQLContract.*;
 import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
 
+import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
+import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
+import com.example.ls_listsave.DataBase.LSSQLContract.*;
+import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
+
 public class MainActivity extends Activity {
    private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;
+
     private List<String> list;
     EditText Location_Name; // 이름
     TextView Location_Address; // 주소
@@ -61,6 +67,7 @@ public class MainActivity extends Activity {
         PermissionCheck();
     }
   
+
 
     public void PermissionCheck() {
         // 6.0 마쉬멜로우 이상일 경우에는 권한 체크 후 권한 요청
@@ -124,9 +131,10 @@ public class MainActivity extends Activity {
         }
 
         final AutoCompleteTextView autoCompleteTextView = ((HashEditText) findViewById(R.id.Text_Hash)).editText;
-
+    }
         public void hashtag_Add(String Hash){
             AutoCompleteTextView HashText = findViewById(R.id.clearable_edit);
+
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -134,7 +142,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        ((ScrollView)findViewById(R.id.Scroll_Main)).fullScroll(View.FOCUS_DOWN);
+        ((ScrollView) findViewById(R.id.Scroll_Main)).fullScroll(View.FOCUS_DOWN);
 
     }
 
@@ -158,32 +166,33 @@ public class MainActivity extends Activity {
             FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(20, 20);
             HashTag hashtag = new HashTag(this);
 
-        public void onPersonAddClicked(View v){
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-            startActivityForResult(intent, 0);
-        }
+            public void onPersonAddClicked (View v){
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                startActivityForResult(intent, 0);
+            }
             ((FlowLayout) findViewById(R.id.flowlayout)).addView(hashtag);
+        }
+    }
 
-        public void btnSaveOnClick(View view){
-            if(checkEditText()){
-                //Context context, final String tablename, String locationName, String address, String detailAddr, String phone, String comment
-                DataLapping_LocationData dataLapping_locationData = new DataLapping_LocationData(
-                        getApplicationContext(),LocationTable.TABLE_NAME, Location_Name.getText().toString(), Location_Address.getText().toString(),
-                        Location_DetailAddress.getText().toString(), Location_Number.getText().toString(), Location_Comment.getText().toString()
-                );
-                if(dataLapping_locationData.storeConfirm()){
-                    if(!HashTag.getHashTagar().isEmpty()){
-                        int count = dataLapping_locationData.idNumber();
-                        DataLapping_Tag dataLapping_tag = new DataLapping_Tag(getApplicationContext(), TagTable.TABLE_NAME, HashTag.getHashTagar(),count);
-                        if(!dataLapping_tag.inputInnerDataBase(dataLapping_tag.receiveDataToContentValues())){
-                            Toast.makeText(getApplicationContext(), "Tag Fail", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
+    public void btnSaveOnClick(View view) {
+        if (checkEditText()) {
+            //Context context, final String tablename, String locationName, String address, String detailAddr, String phone, String comment
+            DataLapping_LocationData dataLapping_locationData = new DataLapping_LocationData(
+                    getApplicationContext(), LocationTable.TABLE_NAME, Location_Name.getText().toString(), Location_Address.getText().toString(),
+                    Location_DetailAddress.getText().toString(), Location_Number.getText().toString(), Location_Comment.getText().toString()
+            );
+            if (dataLapping_locationData.storeConfirm()) {
+                if (!HashTag.getHashTagar().isEmpty()) {
+                    int count = dataLapping_locationData.idNumber();
+                    DataLapping_Tag dataLapping_tag = new DataLapping_Tag(getApplicationContext(), TagTable.TABLE_NAME, HashTag.getHashTagar(), count);
+                    if (!dataLapping_tag.inputInnerDataBase(dataLapping_tag.receiveDataToContentValues())) {
+                        Toast.makeText(getApplicationContext(), "Tag Fail", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                    Intent intent = new Intent(getApplicationContext(), LocationList.class);
-                    startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
                 }
+                Intent intent = new Intent(getApplicationContext(), LocationList.class);
+                startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
             }
         }
 
@@ -233,15 +242,13 @@ public class MainActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
-            }
-            else {
+            } else {
                 try {
                     InputStream is = getContentResolver().openInputStream(data.getData());
                     Bitmap bitmap = BitmapFactory.decodeStream(is);
                     is.close();
                     bitmaps.add(bitmap);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -266,7 +273,7 @@ public class MainActivity extends Activity {
     }
 
     // 화면에 맞게 이미지 크기 조절
-    public Bitmap resizeBitmapImg(Bitmap source, int maxWidth, int maxHeight){
+    public Bitmap resizeBitmapImg(Bitmap source, int maxWidth, int maxHeight) {
         //Bitmap bitmap1 = resizeBitmapImg(bitmap, ((LinearLayout) findViewById(R.id.Layout_Image)).getWidth() / 5, ((LinearLayout) findViewById(R.id.Layout_Image)).getHeight()); *사용법*
         int newWidth = maxWidth;
         int newHeight = maxHeight;
@@ -276,7 +283,8 @@ public class MainActivity extends Activity {
 
     // 권한 요청
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.d(TAG, "onRequestPermissionsResult");
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
@@ -303,9 +311,7 @@ public class MainActivity extends Activity {
                     intent.setType("image/*");
                     startActivityForResult(intent, PICK_IMAGE);
                     dialog.cancel();
-                }
-
-                else {
+                } else {
                     // 카메라
                     try {
                         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -321,9 +327,9 @@ public class MainActivity extends Activity {
         alert.show();
     }
 
-    public void listshowOnButton(View view){
-        Intent intent = new Intent(getApplicationContext(),LocationList.class);
-        startActivityForResult(intent,GET_LOCATION_LIST_REQUEST_CODE);
-    }
 
+    public void listshowOnButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), LocationList.class);
+        startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
     }
+}
