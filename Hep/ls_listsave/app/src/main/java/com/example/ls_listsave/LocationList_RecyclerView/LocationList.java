@@ -27,7 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Stack;
 
 public class LocationList extends AppCompatActivity {
-    private Stack<TemporaryStoreData> undoDataStack = new Stack<>(); //추후 undo생각
+    private Stack<UndoFactory> undoDataStack = new Stack<>(); //추후 undo생각
     private Stack<ContentValues> undoStack = new Stack<>(); //For Undo
     private static final int GET_ADD_LOCATION_REQUEST_CODE = 200; //For intent
     public RecyclerAdapter recyclerAdapter; //For recyclerview
@@ -38,7 +38,6 @@ public class LocationList extends AppCompatActivity {
 
     //swipe이전
     private ItemTouchHelper swipeLeftDismiss;
-    private TemporaryStoreData temporaryStoreData;
 
     //Swipe 작업중
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
@@ -94,24 +93,23 @@ public class LocationList extends AppCompatActivity {
 
             @Override
             public void onRightClicked(RecyclerView.ViewHolder viewHolder, int position) {
-
+                final TemporaryData temporaryData;
                 long click_primaryKey = (long) viewHolder.itemView.getTag();
-                temporaryStoreData = new TemporaryStoreData();
-                final TemporaryStoreData temp = temporaryStoreData.recoverDataMethod(mDatabase, click_primaryKey);
+                UndoFactory undoFactory = new UndoFactory(getApplicationContext(), click_primaryKey);
+                temporaryData = undoFactory.onAction();
+
                 removeItem(click_primaryKey);
                 recyclerAdapter.notifyItemRemoved(position);
                 Snackbar.make(recyclerView, "이거고쳐야함", Snackbar.LENGTH_LONG)
                         .setAction("Undo", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ContentValues cv = temporaryStoreData.undoDataContentValue(temp);
-                                if (mDatabase.insert(LSSQLContract.LocationTable.TABLE_NAME, null, cv) > 0) {
+                                if (temporaryData.onUndo(getApplicationContext())) {
                                     recyclerAdapter.swapCursor(databaseSortingQueryMethod(sortingCondition));
                                     Toast.makeText(getApplicationContext(), "Undo Success", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }).show();
-
             }
 
             @Override
@@ -147,7 +145,6 @@ public class LocationList extends AppCompatActivity {
                 sortingCondition);
         return query;
     }
-
 
     public void recentSortingOnClick(View view) {
         recyclerviewSwipeHelper.getButtonGone(true);

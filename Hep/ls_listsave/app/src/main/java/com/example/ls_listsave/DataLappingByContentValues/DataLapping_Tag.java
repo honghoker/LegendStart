@@ -30,5 +30,4 @@ public class DataLapping_Tag extends DataLappingByContentValues {
         contentValues.put(TagTable.COLUMN_FOREIGNKEY_LOCATION_SEQ, foreign_id);
         return contentValues;
     }
-
 }
