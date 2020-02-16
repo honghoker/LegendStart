@@ -93,48 +93,35 @@ public class MainActivity extends Activity {
     }
 
     public void init() {
-        Location_Name = findViewById(R.id.Text_Name);
+        Location_Name = ((ClearableEditText) findViewById(R.id.Text_Name)).editText;
+        Location_Name.setHint("이름");
+
         Location_Address = findViewById(R.id.Text_Addr);
-        Location_DetailAddress = findViewById(R.id.Text_DetailAddr);
-        Location_Number = findViewById(R.id.Text_Number);
-        Location_Comment = findViewById(R.id.Text_Comment);
 
+        //등록된 주소가 없거나 오류일 때
+        Location_Address.setTextColor(Color.RED);
+        Location_Address.setPaintFlags(Location_Address.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        Location_Address.setText("주소 검색 실패");
+        /* ***** */
 
-        final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.clearable_edit);
+        Location_DetailAddress = ((ClearableEditText) findViewById(R.id.Text_DetailAddr)).editText;
+        Location_DetailAddress.setHint("상세주소");
 
-        public void init () {
-            Location_Name = ((ClearableEditText) findViewById(R.id.Text_Name)).editText;
-            Location_Name.setHint("이름");
+        Location_Number = ((ClearableEditText) findViewById(R.id.Text_Number)).editText;
+        Location_Number.setHint("연락처");
 
-            Location_Address = findViewById(R.id.Text_Addr);
+        Location_Comment = ((ClearableEditText) findViewById(R.id.Text_Comment)).editText;
+        Location_Comment.setHint("메모");
 
-            //등록된 주소가 없거나 오류일 때
-            Location_Address.setTextColor(Color.RED);
-            Location_Address.setPaintFlags(Location_Address.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-            Location_Address.setText("주소 검색 실패");
-            /* ***** */
+        viewPager = findViewById(R.id.viewPager);
 
-            Location_DetailAddress = ((ClearableEditText) findViewById(R.id.Text_DetailAddr)).editText;
-            Location_DetailAddress.setHint("상세주소");
-
-            Location_Number = ((ClearableEditText) findViewById(R.id.Text_Number)).editText;
-            Location_Number.setHint("연락처");
-
-            Location_Comment = ((ClearableEditText) findViewById(R.id.Text_Comment)).editText;
-            Location_Comment.setHint("메모");
-
-            viewPager = findViewById(R.id.viewPager);
-
-            for (String s : HashTag.getHashTagar()) {
-                // 등록한 해시태그 가져올때 사용
-            }
+        for (String s : HashTag.getHashTagar()) {
+            // 등록한 해시태그 가져올때 사용
         }
 
         final AutoCompleteTextView autoCompleteTextView = ((HashEditText) findViewById(R.id.Text_Hash)).editText;
-    }
 
-    public void hashtag_Add(String Hash) {
-        AutoCompleteTextView HashText = findViewById(R.id.clearable_edit);
+        autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, list)); // 글자 자동완성
 
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -144,7 +131,6 @@ public class MainActivity extends Activity {
         });
 
         ((ScrollView) findViewById(R.id.Scroll_Main)).fullScroll(View.FOCUS_DOWN);
-
     }
 
     public void onButtonHashTagAddClicked(View v) {
@@ -167,12 +153,12 @@ public class MainActivity extends Activity {
             FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(20, 20);
             HashTag hashtag = new HashTag(this);
 
-            public void onPersonAddClicked (View v){
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                startActivityForResult(intent, 0);
-            }
+            hashtag.init(Hash, "#3F729B", R.drawable.hashtagborder, params);
+
             ((FlowLayout) findViewById(R.id.flowlayout)).addView(hashtag);
+
+            HashText.setText("");
+            HashTag.getHashTagar().add(Hash);
         }
     }
 
@@ -196,6 +182,12 @@ public class MainActivity extends Activity {
                 startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
             }
         }
+    }
+
+    public boolean checkEditText(){
+        if(((EditText)findViewById(R.id.Text_Name)).getText().toString().trim() == "")
+            return false;
+        else return true;
     }
 
     public void hashtext_set(String Hash) {
