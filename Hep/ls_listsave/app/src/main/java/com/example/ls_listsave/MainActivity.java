@@ -35,6 +35,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
+import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
+import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
+import com.example.ls_listsave.DataBase.LSSQLContract.*;
+import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
 
 import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
 import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
@@ -42,7 +46,8 @@ import com.example.ls_listsave.DataBase.LSSQLContract.*;
 import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
 
 public class MainActivity extends Activity {
-    private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;
+   private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;
+
     private List<String> list;
     EditText Location_Name; // 이름
     TextView Location_Address; // 주소
@@ -61,6 +66,7 @@ public class MainActivity extends Activity {
         init();
         PermissionCheck();
     }
+  
 
 
     public void PermissionCheck() {
@@ -76,16 +82,27 @@ public class MainActivity extends Activity {
     }
 
 
-    public void listinit() {
-        list = new ArrayList<String>();
-        list.add("소고기");
-        list.add("돼지고기");
-        list.add("오리고기");
-        list.add("닭고기");
-        list.add("양고기");
-        list.add("개고기");
-    }
+        public void listinit() {
+            list = new ArrayList<String>();
+            list.add("소고기");
+            list.add("돼지고기");
+            list.add("오리고기");
+            list.add("닭고기");
+            list.add("양고기");
+            list.add("개고기");
+        }
 
+        public void init() {
+            Location_Name = findViewById(R.id.Text_Name);
+            Location_Address = findViewById(R.id.Text_Addr);
+            Location_DetailAddress = findViewById(R.id.Text_DetailAddr);
+            Location_Number = findViewById(R.id.Text_Number);
+            Location_Comment = findViewById(R.id.Text_Comment);
+
+
+
+            final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.clearable_edit);
+          
     public void init() {
         Location_Name = ((ClearableEditText) findViewById(R.id.Text_Name)).editText;
         Location_Name.setHint("이름");
@@ -115,9 +132,9 @@ public class MainActivity extends Activity {
 
         final AutoCompleteTextView autoCompleteTextView = ((HashEditText) findViewById(R.id.Text_Hash)).editText;
     }
+        public void hashtag_Add(String Hash){
+            AutoCompleteTextView HashText = findViewById(R.id.clearable_edit);
 
-    public void hashtag_Add(String Hash) {
-        AutoCompleteTextView HashText = findViewById(R.id.clearable_edit);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -178,7 +195,6 @@ public class MainActivity extends Activity {
                 startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
             }
         }
-    }
 
     public void hashtext_set(String Hash) {
         ((HashEditText) findViewById(R.id.Text_Hash)).editText.setText(Hash);
