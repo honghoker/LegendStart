@@ -32,10 +32,11 @@ public class DataLappingByContentValues {
                 db.close();
                 return true;
             }
-        }catch (SQLiteException e){}
+        }catch (SQLiteException e){
+            e.addSuppressed(new Throwable());
+        }
         db.close();
         return false;
-
     }
 
 }

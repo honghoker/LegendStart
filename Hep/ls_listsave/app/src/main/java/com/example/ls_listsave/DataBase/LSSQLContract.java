@@ -26,12 +26,9 @@ public class LSSQLContract {
         public static final String _ID = BaseColumns._ID;
         public static final String TABLE_NAME = "tagTable";
         public static final String COLUMN_FOREIGNKEY_LOCATION_SEQ = "location_SEQ";
-        public static final String COLUMN_TAG_1 = "tag1";
-        public static final String COLUMN_TAG_2 = "tag2";
-        public static final String COLUMN_TAG_3 = "tag3";
-        public static final String COLUMN_TAG_4 = "tag4";
-        public static final String COLUMN_TAG_5 = "tag5";
+        public static final String COLUMN_TAG = "tag";
     }
+
 }
 
 
