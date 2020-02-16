@@ -185,8 +185,7 @@ public class MainActivity extends Activity {
     }
 
     public boolean checkEditText(){
-        if(((EditText)findViewById(R.id.Text_Name)).getText().toString().trim() == "")
-            return false;
+        if(Location_Name.getText().toString().trim() == "") return false;
         else return true;
     }
 
