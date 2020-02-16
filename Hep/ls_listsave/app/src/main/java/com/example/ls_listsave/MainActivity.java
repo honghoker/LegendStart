@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
+
 import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
 import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
 import com.example.ls_listsave.DataBase.LSSQLContract.*;
@@ -46,7 +47,7 @@ import com.example.ls_listsave.DataBase.LSSQLContract.*;
 import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
 
 public class MainActivity extends Activity {
-   private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;
+    private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;
 
     private List<String> list;
     EditText Location_Name; // 이름
@@ -66,7 +67,6 @@ public class MainActivity extends Activity {
         init();
         PermissionCheck();
     }
-  
 
 
     public void PermissionCheck() {
@@ -82,58 +82,59 @@ public class MainActivity extends Activity {
     }
 
 
-        public void listinit() {
-            list = new ArrayList<String>();
-            list.add("소고기");
-            list.add("돼지고기");
-            list.add("오리고기");
-            list.add("닭고기");
-            list.add("양고기");
-            list.add("개고기");
-        }
+    public void listinit() {
+        list = new ArrayList<String>();
+        list.add("소고기");
+        list.add("돼지고기");
+        list.add("오리고기");
+        list.add("닭고기");
+        list.add("양고기");
+        list.add("개고기");
+    }
 
-        public void init() {
-            Location_Name = findViewById(R.id.Text_Name);
-            Location_Address = findViewById(R.id.Text_Addr);
-            Location_DetailAddress = findViewById(R.id.Text_DetailAddr);
-            Location_Number = findViewById(R.id.Text_Number);
-            Location_Comment = findViewById(R.id.Text_Comment);
-
-
-
-            final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.clearable_edit);
-          
     public void init() {
-        Location_Name = ((ClearableEditText) findViewById(R.id.Text_Name)).editText;
-        Location_Name.setHint("이름");
-
+        Location_Name = findViewById(R.id.Text_Name);
         Location_Address = findViewById(R.id.Text_Addr);
+        Location_DetailAddress = findViewById(R.id.Text_DetailAddr);
+        Location_Number = findViewById(R.id.Text_Number);
+        Location_Comment = findViewById(R.id.Text_Comment);
 
-        //등록된 주소가 없거나 오류일 때
-        Location_Address.setTextColor(Color.RED);
-        Location_Address.setPaintFlags(Location_Address.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        Location_Address.setText("주소 검색 실패");
-        /* ***** */
 
-        Location_DetailAddress = ((ClearableEditText) findViewById(R.id.Text_DetailAddr)).editText;
-        Location_DetailAddress.setHint("상세주소");
+        final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.clearable_edit);
 
-        Location_Number = ((ClearableEditText) findViewById(R.id.Text_Number)).editText;
-        Location_Number.setHint("연락처");
+        public void init () {
+            Location_Name = ((ClearableEditText) findViewById(R.id.Text_Name)).editText;
+            Location_Name.setHint("이름");
 
-        Location_Comment = ((ClearableEditText) findViewById(R.id.Text_Comment)).editText;
-        Location_Comment.setHint("메모");
+            Location_Address = findViewById(R.id.Text_Addr);
 
-        viewPager = findViewById(R.id.viewPager);
+            //등록된 주소가 없거나 오류일 때
+            Location_Address.setTextColor(Color.RED);
+            Location_Address.setPaintFlags(Location_Address.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            Location_Address.setText("주소 검색 실패");
+            /* ***** */
 
-        for (String s : HashTag.getHashTagar()) {
-            // 등록한 해시태그 가져올때 사용
+            Location_DetailAddress = ((ClearableEditText) findViewById(R.id.Text_DetailAddr)).editText;
+            Location_DetailAddress.setHint("상세주소");
+
+            Location_Number = ((ClearableEditText) findViewById(R.id.Text_Number)).editText;
+            Location_Number.setHint("연락처");
+
+            Location_Comment = ((ClearableEditText) findViewById(R.id.Text_Comment)).editText;
+            Location_Comment.setHint("메모");
+
+            viewPager = findViewById(R.id.viewPager);
+
+            for (String s : HashTag.getHashTagar()) {
+                // 등록한 해시태그 가져올때 사용
+            }
         }
 
         final AutoCompleteTextView autoCompleteTextView = ((HashEditText) findViewById(R.id.Text_Hash)).editText;
     }
-        public void hashtag_Add(String Hash){
-            AutoCompleteTextView HashText = findViewById(R.id.clearable_edit);
+
+    public void hashtag_Add(String Hash) {
+        AutoCompleteTextView HashText = findViewById(R.id.clearable_edit);
 
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -195,6 +196,7 @@ public class MainActivity extends Activity {
                 startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
             }
         }
+    }
 
     public void hashtext_set(String Hash) {
         ((HashEditText) findViewById(R.id.Text_Hash)).editText.setText(Hash);
