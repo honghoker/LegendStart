@@ -2,12 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menu_one"
-        android:title="one"
-        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/menu_item_search"
+        android:icon="@drawable/ic_search"
+        android:title=" "
+        app:showAsAction="collapseActionView|ifRoom"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        ></item>
+
 
     <item android:id="@+id/menu_two"
         android:title="two"
+        android:icon="@drawable/ic_share"
         app:showAsAction="ifRoom"/>
 
 </menu>

@@ -6,8 +6,8 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 /**
@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 public class ClearableEditText extends RelativeLayout {
 
     LayoutInflater inflater = null;
-    AutoCompleteTextView editText;
+    EditText editText;
     Button btnClear;
     public static Context mContext;
 
@@ -61,9 +61,6 @@ public class ClearableEditText extends RelativeLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().contains(" ")){
-                    ((MainActivity)mContext).hashtag_Add(s.toString().replaceAll(" ", "").trim());
-                }
             }
         });
     }

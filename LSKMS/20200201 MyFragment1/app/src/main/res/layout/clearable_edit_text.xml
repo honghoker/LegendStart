@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <AutoCompleteTextView
+        android:id="@+id/clearable_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:completionThreshold="1"
+        android:lines="1"
+        android:maxLength="9"
+        android:paddingRight="35dip"
+        android:singleLine="true"
+        android:hint="저장된 장소를 입력하세요."
+        android:focusable="false" >
+        <requestFocus />
+    </AutoCompleteTextView>
+
+    <Button
+        android:id="@+id/clearable_button_clear"
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dip"
+        android:background="@drawable/image_clear"/>
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="좀시발되라고개새끼야"
+        android:focusable="false"
+    />
+
+</RelativeLayout>

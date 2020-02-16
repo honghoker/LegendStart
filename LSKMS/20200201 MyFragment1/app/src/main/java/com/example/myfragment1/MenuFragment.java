@@ -36,7 +36,7 @@ public class MenuFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.onFragmentChange(0);
+                //activity.onFragmentChange(0);
             }
         });
         return rootView;
