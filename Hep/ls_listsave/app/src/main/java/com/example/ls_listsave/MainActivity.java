@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,7 +37,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
+import static com.example.ls_listsave.DataBase.LSSQLContract.TagTable.TABLE_NAME;
 
+import com.example.ls_listsave.DataBase.LSDBHelper;
+import com.example.ls_listsave.DataBase.LSSQLContract;
 import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
 import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
 import com.example.ls_listsave.DataBase.LSSQLContract.*;
@@ -171,21 +176,24 @@ public class MainActivity extends Activity {
             );
             if (dataLapping_locationData.storeConfirm()) {
                 if (!HashTag.getHashTagar().isEmpty()) {
-                    int count = dataLapping_locationData.idNumber();
-                    DataLapping_Tag dataLapping_tag = new DataLapping_Tag(getApplicationContext(), TagTable.TABLE_NAME, HashTag.getHashTagar(), count);
-                    if (!dataLapping_tag.inputInnerDataBase(dataLapping_tag.receiveDataToContentValues())) {
-                        Toast.makeText(getApplicationContext(), "Tag Fail", Toast.LENGTH_SHORT).show();
-                        return;
+                    for(int i = 0; i < HashTag.getHashTagar().size(); i++) {
+                        int count = dataLapping_locationData.idNumber();
+                        DataLapping_Tag dataLapping_tag = new DataLapping_Tag(getApplicationContext(), TagTable.TABLE_NAME, HashTag.getHashTagar().get(i), count);
+                        if (!dataLapping_tag.inputInnerDataBase(dataLapping_tag.receiveDataToContentValues())) {
+                            Toast.makeText(getApplicationContext(), "Tag Fail", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                 }
                 Intent intent = new Intent(getApplicationContext(), LocationList.class);
                 startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
             }
         }
+        else Toast.makeText(getApplicationContext(), "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
     }
 
     public boolean checkEditText(){
-        if(Location_Name.getText().toString().trim() == "") return false;
+        if(Location_Name.getText().toString().trim().equals("")) return false;
         else return true;
     }
 
@@ -274,6 +282,38 @@ public class MainActivity extends Activity {
         return Bitmap.createScaledBitmap(source, newWidth, newHeight, true);
     }
 
+    public void onSearchBtnClicked(View v){
+        SQLiteDatabase db = null;
+        LSDBHelper lsdbHelper = new LSDBHelper(getApplicationContext());
+        db = lsdbHelper.getReadableDatabase();
+
+        String result = searchSql(Location_Name.getText().toString());
+        Log.d("Search", result);
+        try {
+            Cursor cursor = db.rawQuery(result + ";", null);
+            while(cursor.moveToNext()){
+                String a = cursor.getString(2);
+                Log.d("Search", a);
+            }
+            db.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            db.close();
+        }
+    }
+
+    public String searchSql(String searchStr) {
+
+        String sql = "Select * FROM " + TABLE_NAME;
+        if (TextUtils.isEmpty(searchStr) == false) {
+            sql += " WHERE ";
+            sql += ChoSearchQuery.makeQuery(searchStr);
+        }
+
+        return sql;
+    }
+
     // 권한 요청
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -303,23 +343,22 @@ public class MainActivity extends Activity {
                     intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                     intent.setType("image/*");
                     startActivityForResult(intent, PICK_IMAGE);
-                    dialog.cancel();
+
                 } else {
                     // 카메라
                     try {
                         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(cameraIntent, CAPTURE_IMAGE);
-                        dialog.cancel();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+                dialog.cancel();
             }
         });
         final AlertDialog alert = alt_bld.create();
         alert.show();
     }
-
 
     public void listshowOnButton(View view) {
         Intent intent = new Intent(getApplicationContext(), LocationList.class);

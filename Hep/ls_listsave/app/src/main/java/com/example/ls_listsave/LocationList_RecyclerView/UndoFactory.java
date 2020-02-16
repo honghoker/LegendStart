@@ -95,12 +95,7 @@ public class UndoFactory {
             tagCV = new ContentValues();
 
             tagCV.put(TagTable.COLUMN_FOREIGNKEY_LOCATION_SEQ, dismiss_ID);
-            tagCV.put(TagTable.COLUMN_TAG_1, cursor.getString(cursor.getColumnIndex(TagTable.COLUMN_TAG_1)));
-            tagCV.put(TagTable.COLUMN_TAG_2, cursor.getString(cursor.getColumnIndex(TagTable.COLUMN_TAG_2)));
-            tagCV.put(TagTable.COLUMN_TAG_3, cursor.getString(cursor.getColumnIndex(TagTable.COLUMN_TAG_3)));
-            tagCV.put(TagTable.COLUMN_TAG_4, cursor.getString(cursor.getColumnIndex(TagTable.COLUMN_TAG_4)));
-            tagCV.put(TagTable.COLUMN_TAG_5, cursor.getString(cursor.getColumnIndex(TagTable.COLUMN_TAG_5)));
-
+            tagCV.put(TagTable.COLUMN_TAG, cursor.getString(cursor.getColumnIndex(TagTable.COLUMN_TAG)));
         } catch (Exception e) {
             throw e;
         } finally {

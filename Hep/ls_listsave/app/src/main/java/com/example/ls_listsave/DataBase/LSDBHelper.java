@@ -9,16 +9,17 @@ import com.example.ls_listsave.DataBase.LSSQLContract.*;
 import androidx.annotation.Nullable;
 
 public class LSDBHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME ="LSSQL.db";
+    private static final String DATABASE_NAME = "LSSQL.db";
     private static final int DATABASE_VERSION = 1;
 
     public LSDBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-    private void createLocationTable(SQLiteDatabase db){
+
+    private void createLocationTable(SQLiteDatabase db) {
         //SQL_CREATE_LOCATION_TABLE 에 SQLite의 문법에 맞춰서 Table을 만듭니다
         final String SQL_CREATE_LOCATION_TABLE =
-                "CREATE TABLE "+ LocationTable.TABLE_NAME + " (" +
+                "CREATE TABLE " + LocationTable.TABLE_NAME + " (" +
                         LocationTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         LocationTable.COLUMN_NAME + " TEXT NOT NULL, " +
                         LocationTable.COLUMN_ADDRESS + " TEXT, " +
@@ -33,25 +34,18 @@ public class LSDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_LOCATION_TABLE);
     }
 
-    private void createTagTable(SQLiteDatabase db){
+    private void createTagTable(SQLiteDatabase db) {
         final String SQL_CREATE_TAG_TABLE =
                 "CREATE TABLE " + TagTable.TABLE_NAME + " (" +
                         //
                         TagTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         TagTable.COLUMN_FOREIGNKEY_LOCATION_SEQ + " INTEGER NOT NULL, " +
-                        TagTable.COLUMN_TAG_1 + " TEXT," +
-                        TagTable.COLUMN_TAG_2 + " TEXT," +
-                        TagTable.COLUMN_TAG_3 + " TEXT," +
-                        TagTable.COLUMN_TAG_4 + " TEXT," +
-                        TagTable.COLUMN_TAG_5 + " TEXT," +
+                        TagTable.COLUMN_TAG + " TEXT," +
                         " FOREIGN KEY (" + TagTable.COLUMN_FOREIGNKEY_LOCATION_SEQ + ") " +
                         "REFERENCES " + LocationTable.TABLE_NAME +
                         "(" + LocationTable._ID + "));";
         db.execSQL(SQL_CREATE_TAG_TABLE);
     }
-
-
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
