@@ -1,16 +1,19 @@
-package com.example.ls_listsave;
+package com.example.ls_listsave.LocationList_RecyclerView;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ls_listsave.LSSQLContract;
+import com.example.ls_listsave.DataBase.LSSQLContract;
+import com.example.ls_listsave.DataBase.LSSQLContract.*;
 import com.example.ls_listsave.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
@@ -22,16 +25,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         mContext = context;
         mCursor = cursor;
     }
-
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder{
+    //1. ViewHolder란?
+    //한마디로 설명하면 각 뷰를 보관하는 Holder 객체로 이야기 할 수 있습니다.
+    //  "ListView / RecyclerView 는 inflate를 최소화 하기 위해서 뷰를 재활용 하는데, 이 때 각 뷰의 내용을 업데이트 하기 위해 findViewById 를 매번 호출 해야합니다.
+    //  이로 인해 성능저하가 일어남에 따라 ItemView의 각 요소를 바로 엑세스 할 수 있도록 저장해두고 사용하기 위한 객체입니다."
+    public static class RecyclerViewHolder extends RecyclerView.ViewHolder{
         public TextView nameText;
         public TextView textView;
+        public ImageView dismissButton;
+
         public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
 
             nameText = itemView.findViewById(R.id.list_recyclerview_nametextView);
             textView = itemView.findViewById(R.id.list_recyclerview_textView2);
+
         }
+
     }
     @NonNull
     @Override
@@ -44,7 +54,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.list_recyclerview,parent,false);
         return new RecyclerViewHolder(view);
-    }
+}
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
@@ -56,15 +66,33 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
         //name에는 Cursor가 가리키는 행의 String을 가져옴(행의 인덱스 번호로 찾아서 이름을 검색)
         String name = mCursor.getString(mCursor.getColumnIndex(LSSQLContract.LocationTable.COLUMN_NAME));
+        long id = mCursor.getLong(mCursor.getColumnIndex(LSSQLContract.LocationTable._ID));
+
         //String test = mCursor.getString(mCursor.getColumnIndex(LSSQLContract.TagTable.COLUMN_TAG_1));
         holder.nameText.setText(name);
         //holder.textView.setText(test);
+        holder.itemView.setTag(id);
+    }
+
+    //
+    public String returnName(SQLiteDatabase db, long id){
+        String nameForQuery = "SELECT " + LocationTable.COLUMN_NAME + " FROM " + LocationTable.TABLE_NAME
+                + "WHERE " + LocationTable._ID + " = " + id +";";
+        Cursor cursor = db.rawQuery(nameForQuery,null);
+        return cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_NAME));
+    }
+
+
+    public Cursor returnCursor(){
+        return mCursor;
     }
 
     @Override
     public int getItemCount() {
         return mCursor.getCount();
     }
+
+
 
     public void swapCursor(Cursor newCursor){
         if(mCursor != null)
@@ -76,4 +104,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             notifyDataSetChanged();
     }
 
+
 }
+
+
+

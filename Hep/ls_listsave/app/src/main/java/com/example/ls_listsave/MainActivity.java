@@ -35,8 +35,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
+import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
+import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
+import com.example.ls_listsave.DataBase.LSSQLContract.*;
+import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
 
 public class MainActivity extends Activity {
+   private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;
     private List<String> list;
     EditText Location_Name; // 이름
     TextView Location_Address; // 주소
@@ -55,6 +60,7 @@ public class MainActivity extends Activity {
         init();
         PermissionCheck();
     }
+  
 
     public void PermissionCheck() {
         // 6.0 마쉬멜로우 이상일 경우에는 권한 체크 후 권한 요청
@@ -68,16 +74,28 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void listinit() {
-        list = new ArrayList<String>();
-        list.add("소고기");
-        list.add("돼지고기");
-        list.add("오리고기");
-        list.add("닭고기");
-        list.add("양고기");
-        list.add("개고기");
-    }
 
+        public void listinit() {
+            list = new ArrayList<String>();
+            list.add("소고기");
+            list.add("돼지고기");
+            list.add("오리고기");
+            list.add("닭고기");
+            list.add("양고기");
+            list.add("개고기");
+        }
+
+        public void init() {
+            Location_Name = findViewById(R.id.Text_Name);
+            Location_Address = findViewById(R.id.Text_Addr);
+            Location_DetailAddress = findViewById(R.id.Text_DetailAddr);
+            Location_Number = findViewById(R.id.Text_Number);
+            Location_Comment = findViewById(R.id.Text_Comment);
+
+
+
+            final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.clearable_edit);
+          
     public void init() {
         Location_Name = ((ClearableEditText) findViewById(R.id.Text_Name)).editText;
         Location_Name.setHint("이름");
@@ -107,8 +125,8 @@ public class MainActivity extends Activity {
 
         final AutoCompleteTextView autoCompleteTextView = ((HashEditText) findViewById(R.id.Text_Hash)).editText;
 
-        autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, list)); // 글자 자동완성
-
+        public void hashtag_Add(String Hash){
+            AutoCompleteTextView HashText = findViewById(R.id.clearable_edit);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -140,14 +158,34 @@ public class MainActivity extends Activity {
             FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(20, 20);
             HashTag hashtag = new HashTag(this);
 
-            hashtag.init(Hash, "#3F729B", R.drawable.hashtagborder, params);
-
+        public void onPersonAddClicked(View v){
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+            startActivityForResult(intent, 0);
+        }
             ((FlowLayout) findViewById(R.id.flowlayout)).addView(hashtag);
 
-            HashText.setText("");
-            HashTag.getHashTagar().add(Hash);
+        public void btnSaveOnClick(View view){
+            if(checkEditText()){
+                //Context context, final String tablename, String locationName, String address, String detailAddr, String phone, String comment
+                DataLapping_LocationData dataLapping_locationData = new DataLapping_LocationData(
+                        getApplicationContext(),LocationTable.TABLE_NAME, Location_Name.getText().toString(), Location_Address.getText().toString(),
+                        Location_DetailAddress.getText().toString(), Location_Number.getText().toString(), Location_Comment.getText().toString()
+                );
+                if(dataLapping_locationData.storeConfirm()){
+                    if(!HashTag.getHashTagar().isEmpty()){
+                        int count = dataLapping_locationData.idNumber();
+                        DataLapping_Tag dataLapping_tag = new DataLapping_Tag(getApplicationContext(), TagTable.TABLE_NAME, HashTag.getHashTagar(),count);
+                        if(!dataLapping_tag.inputInnerDataBase(dataLapping_tag.receiveDataToContentValues())){
+                            Toast.makeText(getApplicationContext(), "Tag Fail", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    Intent intent = new Intent(getApplicationContext(), LocationList.class);
+                    startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
+                }
+            }
         }
-    }
 
     public void hashtext_set(String Hash) {
         ((HashEditText) findViewById(R.id.Text_Hash)).editText.setText(Hash);
@@ -282,4 +320,10 @@ public class MainActivity extends Activity {
         final AlertDialog alert = alt_bld.create();
         alert.show();
     }
-}
+
+    public void listshowOnButton(View view){
+        Intent intent = new Intent(getApplicationContext(),LocationList.class);
+        startActivityForResult(intent,GET_LOCATION_LIST_REQUEST_CODE);
+    }
+
+    }

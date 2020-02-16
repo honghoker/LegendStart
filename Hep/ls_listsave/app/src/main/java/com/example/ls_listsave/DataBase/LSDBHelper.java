@@ -1,9 +1,10 @@
-package com.example.ls_listsave;
+package com.example.ls_listsave.DataBase;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.example.ls_listsave.LSSQLContract.*;
+
+import com.example.ls_listsave.DataBase.LSSQLContract.*;
 
 import androidx.annotation.Nullable;
 
@@ -50,6 +51,8 @@ public class LSDBHelper extends SQLiteOpenHelper {
     }
 
 
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         createLocationTable(db);
@@ -60,4 +63,10 @@ public class LSDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+    }
+
 }
