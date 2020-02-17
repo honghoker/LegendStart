@@ -28,25 +28,18 @@ import java.util.Stack;
 
 public class LocationList extends AppCompatActivity {
     private Stack<UndoFactory> undoDataStack = new Stack<>(); //추후 undo생각
-    private Stack<ContentValues> undoStack = new Stack<>(); //For Undo
     private static final int GET_ADD_LOCATION_REQUEST_CODE = 200; //For intent
     public RecyclerAdapter recyclerAdapter; //For recyclerview
     private SQLiteDatabase mDatabase; //For recyclerview
     private RecyclerView recyclerView; //For recyclerview
     private Button disSortingButton, updatedSortingButton, nameSortingButton; //For sorting
     private String sortingCondition = LSSQLContract.LocationTable.COLUMN_TIMESTAMP + " DESC"; //For sorting
-    private RecyclerviewSecondSwipeHelper recyclerviewSecondSwipeHelper = null;
     //swipe이전
-    private ItemTouchHelper swipeLeftDismiss;
 
-
-    public boolean isFlag_firstSwipe(boolean flag_firstSwipe){
-        return flag_firstSwipe;
-    }
 
     //Swipe 작업중
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
-
+    private RecyclerviewSecondSwipeHelper recyclerviewSecondSwipeHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,7 +75,6 @@ public class LocationList extends AppCompatActivity {
 
 
         setupSwipe();
-
     }
 
     public void setupSwipe() {
@@ -90,15 +82,17 @@ public class LocationList extends AppCompatActivity {
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                Log.d("1", "onDraw in setupSwipe");
+                int flag = recyclerviewSwipeHelper.onSwipeFlag();
                 recyclerviewSwipeHelper.onDraw(c);
+                setupSecondSwipe(flag);
             }
         });
-        Log.d("1", "F_Middle of setupSwipe");
         recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(new SwipeActionInterface() {
 
             @Override
             public void onRightClicked(RecyclerView.ViewHolder viewHolder, int position) {
+
+
                 final TemporaryData temporaryData;
                 long click_primaryKey = (long) viewHolder.itemView.getTag();
                 UndoFactory undoFactory = new UndoFactory(getApplicationContext(), click_primaryKey);
@@ -130,6 +124,12 @@ public class LocationList extends AppCompatActivity {
             }
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(recyclerviewSwipeHelper);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    public void setupSecondSwipe(int flag){
+        recyclerviewSecondSwipeHelper = new RecyclerviewSecondSwipeHelper(0, flag, getApplicationContext());
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(recyclerviewSecondSwipeHelper);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 

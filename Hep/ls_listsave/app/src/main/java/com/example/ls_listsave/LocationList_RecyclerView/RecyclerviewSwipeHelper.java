@@ -27,6 +27,7 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
     private static final float buttonWidth = 200;
     private RectF buttonInstance = null;
     private RecyclerView.ViewHolder currentItemViewHolder = null;
+    private int firstSwipeFlag = 0;
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
@@ -81,20 +82,25 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
             drawButtons(c, currentItemViewHolder);
         }else {
             Log.d("1","Fail if onDraw");
+            firstSwipeFlag = 0;
         }
     }
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             if (buttonShowedState != ButtonsState.GONE) {
-                if (buttonShowedState == ButtonsState.LEFT_VISIBLE)
+                if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
+                    firstSwipeFlag = ItemTouchHelper.RIGHT;
                     dX = Math.max(dX, buttonWidth);
-                if (buttonShowedState == ButtonsState.RIGHT_VISIBLE)
+                }
+                if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) {
                     dX = Math.min(dX, -buttonWidth);
+                    firstSwipeFlag = ItemTouchHelper.LEFT;
+                }
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             } else {
                 setTouchListner(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-                Log.d("1","onchildDraw");
+
             }
         }
 
@@ -102,7 +108,7 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
         currentItemViewHolder = viewHolder;
-       // drawButtons(c, viewHolder);
+
     }
 
     //Button의 모양
@@ -116,21 +122,25 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
         buttonInstance = null;
         if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
-
+            firstSwipeFlag = ItemTouchHelper.RIGHT;
             RectF leftButton = new RectF(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + buttonWidthWithoutPadding, itemView.getBottom());
             p.setColor(Color.BLUE);
             c.drawRoundRect(leftButton, corners, corners, p);
             drawText("EDIT", c, leftButton, p);
 
-
             buttonInstance = leftButton;
         } else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) {
+            firstSwipeFlag = ItemTouchHelper.LEFT;
             RectF rightButton = new RectF(itemView.getRight() - buttonWidthWithoutPadding, itemView.getTop(), itemView.getRight(), itemView.getBottom());
             p.setColor(Color.RED);
             c.drawRoundRect(rightButton, corners, corners, p);
             drawText("DELETE", c, rightButton, p);
 
             buttonInstance = rightButton;
+        }
+        else {
+            buttonInstance = null;
+            firstSwipeFlag = 0;
         }
     }
 
@@ -157,12 +167,10 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
                     if (buttonShowedState != ButtonsState.GONE) {
                         setTouchDownListener(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-                        Log.d("1","Receive setTouchDownListener");
                         setItemsClickable(recyclerView, false);
-                        Log.d("1","setItemClickable after");
                     }
                 }
-                Log.d("1","END setTouchListener");
+
                 return false;
             }
         });
@@ -196,43 +204,20 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
                             if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
                                 if(buttonShowedState == ButtonsState.LEFT_VISIBLE){
                                     buttonsActions.onLeftClicked(viewHolder, viewHolder.getAdapterPosition());
+
                                 }else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE){
                                     buttonsActions.onRightClicked(viewHolder, viewHolder.getAdapterPosition());
                                 }
                             }
+                            firstSwipeFlag = 0;
                             return false;
                         }
                     });
                     setItemsClickable(recyclerView, true);
                     swipeBack = false;
                     buttonShowedState = ButtonsState.GONE;
-                    /*
-                    if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
-                        if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
-                            buttonsActions.onLeftClicked(viewHolder, viewHolder.getAdapterPosition());
-                        } else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) {
-                            buttonsActions.onRightClicked(viewHolder, viewHolder.getAdapterPosition());
-                        }else{
-                            initState();
-                            Log.d("1","End my ");
-                            return false;
-                        }
-                    }
-
-                     */
+                    firstSwipeFlag = 0;
                 }
-                /*
-                Log.d("1","End setTouchUpListener");
-                buttonInstance = null;
-                Log.d("1","End setTouchUpListener_1");
-                buttonShowedState = ButtonsState.GONE;
-                Log.d("1","End setTouchUpListener_2");
-                currentItemViewHolder = null;
-                Log.d("1","End setTouchUpListener_3");
-                onDraw(c);
-                Log.d("1","End setTouchUpListener_4");
-
-                 */
                 return false;
             }
         });
@@ -244,5 +229,8 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
             Log.d("1","setItemsClickable : " + i);
             recyclerView.getChildAt(i).setClickable(isClickable);
         }
+    }
+    public int onSwipeFlag(){
+        return firstSwipeFlag;
     }
 }
