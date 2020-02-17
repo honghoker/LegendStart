@@ -16,8 +16,10 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,7 +56,6 @@ import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
 public class MainActivity extends Activity {
     private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;
 
-    private List<String> list;
     EditText Location_Name; // 이름
     TextView Location_Address; // 주소
     EditText Location_DetailAddress; // 상세주소
@@ -68,11 +69,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listinit(); // 저장된 태그불러오기 구현 필요
         init();
         PermissionCheck();
     }
-
 
     public void PermissionCheck() {
         // 6.0 마쉬멜로우 이상일 경우에는 권한 체크 후 권한 요청
@@ -84,17 +83,6 @@ public class MainActivity extends Activity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
         }
-    }
-
-
-    public void listinit() {
-        list = new ArrayList<String>();
-        list.add("소고기");
-        list.add("돼지고기");
-        list.add("오리고기");
-        list.add("닭고기");
-        list.add("양고기");
-        list.add("개고기");
     }
 
     public void init() {
@@ -120,13 +108,7 @@ public class MainActivity extends Activity {
 
         viewPager = findViewById(R.id.viewPager);
 
-        for (String s : HashTag.getHashTagar()) {
-            // 등록한 해시태그 가져올때 사용
-        }
-
-        final AutoCompleteTextView autoCompleteTextView = ((HashEditText) findViewById(R.id.Text_Hash)).editText;
-
-        autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, list)); // 글자 자동완성
+        AutoCompleteTextView autoCompleteTextView = ((HashEditText) findViewById(R.id.Text_Hash)).editText;
 
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -164,11 +146,17 @@ public class MainActivity extends Activity {
 
             HashText.setText("");
             HashTag.getHashTagar().add(Hash);
+
+
+            // 해시태그를 추가할 때 마다 스크롤 자동 맞춤
+            View targetView = findViewById(R.id.flowlayout);
+            targetView.getParent().requestChildFocus(targetView,targetView);
+
         }
     }
 
     public void btnSaveOnClick(View view) {
-        if (checkEditText()) {
+        if (!Location_Name.getText().toString().trim().equals("")) {
             //Context context, final String tablename, String locationName, String address, String detailAddr, String phone, String comment
             DataLapping_LocationData dataLapping_locationData = new DataLapping_LocationData(
                     getApplicationContext(), LocationTable.TABLE_NAME, Location_Name.getText().toString(), Location_Address.getText().toString(),
@@ -188,13 +176,9 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(getApplicationContext(), LocationList.class);
                 startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
             }
+            HashTag.getHashTagar().clear();
         }
         else Toast.makeText(getApplicationContext(), "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
-    }
-
-    public boolean checkEditText(){
-        if(Location_Name.getText().toString().trim().equals("")) return false;
-        else return true;
     }
 
     public void hashtext_set(String Hash) {
@@ -206,7 +190,7 @@ public class MainActivity extends Activity {
     static final int PICK_IMAGE = 1;
     static final int CAPTURE_IMAGE = 2;
 
-    public void onPersonAddClicked(View v) {
+    public void onPersonAddClicked(View v) { // 연락처 이동
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
         startActivityForResult(intent, Phone_Result);
@@ -280,38 +264,6 @@ public class MainActivity extends Activity {
         int newHeight = maxHeight;
 
         return Bitmap.createScaledBitmap(source, newWidth, newHeight, true);
-    }
-
-    public void onSearchBtnClicked(View v){
-        SQLiteDatabase db = null;
-        LSDBHelper lsdbHelper = new LSDBHelper(getApplicationContext());
-        db = lsdbHelper.getReadableDatabase();
-
-        String result = searchSql(Location_Name.getText().toString());
-        Log.d("Search", result);
-        try {
-            Cursor cursor = db.rawQuery(result + ";", null);
-            while(cursor.moveToNext()){
-                String a = cursor.getString(2);
-                Log.d("Search", a);
-            }
-            db.close();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            db.close();
-        }
-    }
-
-    public String searchSql(String searchStr) {
-
-        String sql = "Select * FROM " + TABLE_NAME;
-        if (TextUtils.isEmpty(searchStr) == false) {
-            sql += " WHERE ";
-            sql += ChoSearchQuery.makeQuery(searchStr);
-        }
-
-        return sql;
     }
 
     // 권한 요청
