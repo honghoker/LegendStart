@@ -1,6 +1,5 @@
 package com.example.ls_listsave.LocationList_RecyclerView;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -39,7 +38,8 @@ public class LocationList extends AppCompatActivity {
 
     //Swipe 작업중
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
-    private RecyclerviewSecondSwipeHelper recyclerviewSecondSwipeHelper;
+    private RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper;
+    private RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,8 +128,26 @@ public class LocationList extends AppCompatActivity {
     }
 
     public void setupSecondSwipe(int flag){
-        recyclerviewSecondSwipeHelper = new RecyclerviewSecondSwipeHelper(0, flag, getApplicationContext());
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(recyclerviewSecondSwipeHelper);
+        ItemTouchHelper.SimpleCallback simpleCallback = null;
+        switch (flag){
+            case ItemTouchHelper.RIGHT:
+                recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, getApplicationContext());
+                recyclerviewSecondSwipeToDoHelper.setSwipeEnabled(true);
+                simpleCallback = recyclerviewSecondSwipeToDoHelper;
+                recyclerviewSecondSwipeDismissHelper.setSwipeEnabled(false);
+                break;
+            case ItemTouchHelper.LEFT:
+                recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0,ItemTouchHelper.LEFT, getApplicationContext());
+                recyclerviewSecondSwipeDismissHelper.setSwipeEnabled(true);
+                simpleCallback = recyclerviewSecondSwipeDismissHelper;
+                recyclerviewSecondSwipeToDoHelper.setSwipeEnabled(false);
+                break;
+            default:
+                recyclerviewSecondSwipeToDoHelper.setSwipeEnabled(false);
+                recyclerviewSecondSwipeDismissHelper.setSwipeEnabled(false);
+                return;
+        }
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
