@@ -1,6 +1,7 @@
 package com.example.ls_listsave.LocationList_RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,6 +13,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 enum ButtonsState {
     GONE,
@@ -28,7 +31,18 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
     private RectF buttonInstance = null;
     private RecyclerView.ViewHolder currentItemViewHolder = null;
     private int firstSwipeFlag = 0;
+    private Context context = null;
 
+    RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, context);
+    RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, context);
+    ItemTouchHelper itemTouchHelperRight = new ItemTouchHelper(recyclerviewSecondSwipeToDoHelper);
+    ItemTouchHelper itemTouchHelperLeft = new ItemTouchHelper(recyclerviewSecondSwipeDismissHelper);
+
+    private RecyclerView recyclerView = null;
+
+    public void setRecyclerView(RecyclerView recyclerView){
+        this.recyclerView = recyclerView;
+    }
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         int drag_flags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
@@ -53,36 +67,25 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
     }
 
-    public RecyclerviewSwipeHelper(SwipeActionInterface buttonsActions) {
+    public RecyclerviewSwipeHelper(Context context, SwipeActionInterface buttonsActions) {
         this.buttonsActions = buttonsActions;
-    }
-
-    private void initState(){
-        buttonInstance = null;
-        currentItemViewHolder = null;
-        buttonShowedState = null;
+        this.context = context;
     }
 
     @Override
     public int convertToAbsoluteDirection(int flags, int layoutDirection) {
-        Log.d("1","Start ConverToAbsoluteDirection");
         if (swipeBack) {
             swipeBack = buttonShowedState != ButtonsState.GONE;
-            Log.d("1","ConverToAbsoluteDirection Return 0");
             return 0;
         }
-        Log.d("1","ConverToAbsoluteDirection Return super");
         return super.convertToAbsoluteDirection(flags, layoutDirection);
     }
 
+
+
     public void onDraw(Canvas c) {
-        Log.d("1","Start onDraw");
         if (currentItemViewHolder != null) {
-            Log.d("1","Pass if onDraw");
             drawButtons(c, currentItemViewHolder);
-        }else {
-            Log.d("1","Fail if onDraw");
-            firstSwipeFlag = 0;
         }
     }
     @Override
@@ -125,6 +128,8 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
             p.setColor(Color.BLUE);
             c.drawRoundRect(leftButton, corners, corners, p);
             drawText("EDIT", c, leftButton, p);
+            itemTouchHelperRight.attachToRecyclerView(recyclerView);
+            itemTouchHelperLeft.attachToRecyclerView(null);
 
             buttonInstance = leftButton;
         } else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) {
@@ -134,11 +139,10 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
             c.drawRoundRect(rightButton, corners, corners, p);
             drawText("DELETE", c, rightButton, p);
 
+            itemTouchHelperLeft.attachToRecyclerView(recyclerView);
+            itemTouchHelperRight.attachToRecyclerView(null);
+
             buttonInstance = rightButton;
-        }
-        else {
-            buttonInstance = null;
-            firstSwipeFlag = 0;
         }
     }
 
@@ -162,13 +166,11 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
                 if (swipeBack) {
                     if (dX < -buttonWidth) buttonShowedState = ButtonsState.RIGHT_VISIBLE;
                     else if (dX > buttonWidth) buttonShowedState = ButtonsState.LEFT_VISIBLE;
-
                     if (buttonShowedState != ButtonsState.GONE) {
                         setTouchDownListener(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
                         setItemsClickable(recyclerView, false);
                     }
                 }
-
                 return false;
             }
         });
@@ -199,22 +201,25 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
                     recyclerView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
-                            if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
-                                if(buttonShowedState == ButtonsState.LEFT_VISIBLE){
-                                    buttonsActions.onLeftClicked(viewHolder, viewHolder.getAdapterPosition());
-
-                                }else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE){
-                                    buttonsActions.onRightClicked(viewHolder, viewHolder.getAdapterPosition());
-                                }
-                            }
-                            firstSwipeFlag = 0;
                             return false;
                         }
                     });
                     setItemsClickable(recyclerView, true);
                     swipeBack = false;
-                    buttonShowedState = ButtonsState.GONE;
+
+                    Log.d("tag","Interfacein");
+                    if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
+                        if(buttonShowedState == ButtonsState.LEFT_VISIBLE){
+                            Log.d("tag","Interface");
+                            buttonsActions.onLeftClicked(viewHolder, viewHolder.getAdapterPosition(), recyclerviewSecondSwipeToDoHelper);
+                        }else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE){
+                            Log.d("tag","Interface");
+                            buttonsActions.onRightClicked(viewHolder, viewHolder.getAdapterPosition(), recyclerviewSecondSwipeDismissHelper);
+                        }
+                    }
                     firstSwipeFlag = 0;
+                    buttonShowedState = ButtonsState.GONE;
+                    return false;
                 }
                 return false;
             }

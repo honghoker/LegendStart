@@ -1,5 +1,6 @@
 package com.example.ls_listsave.LocationList_RecyclerView;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -38,8 +39,6 @@ public class LocationList extends AppCompatActivity {
 
     //Swipe 작업중
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
-    private RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper;
-    private RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,15 +83,16 @@ public class LocationList extends AppCompatActivity {
             public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 int flag = recyclerviewSwipeHelper.onSwipeFlag();
                 recyclerviewSwipeHelper.onDraw(c);
-                setupSecondSwipe(flag);
+                recyclerviewSwipeHelper.setRecyclerView(recyclerView);
+                ItemTouchHelper itemTouchHelper = new ItemTouchHelper(recyclerviewSwipeHelper);
+                itemTouchHelper.attachToRecyclerView(recyclerView);
             }
         });
-        recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(new SwipeActionInterface() {
+        recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(getApplicationContext(), new SwipeActionInterface() {
 
             @Override
-            public void onRightClicked(RecyclerView.ViewHolder viewHolder, int position) {
-
-
+            public void onRightClicked(RecyclerView.ViewHolder viewHolder, int position, RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper) {
+                Log.d("tag","Clicked");
                 final TemporaryData temporaryData;
                 long click_primaryKey = (long) viewHolder.itemView.getTag();
                 UndoFactory undoFactory = new UndoFactory(getApplicationContext(), click_primaryKey);
@@ -113,7 +113,8 @@ public class LocationList extends AppCompatActivity {
             }
 
             @Override
-            public void onLeftClicked(RecyclerView.ViewHolder viewHolder, int position) {
+            public void onLeftClicked(RecyclerView.ViewHolder viewHolder, int position, RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper) {
+                Log.d("tag","Clicked");
                 Snackbar.make(recyclerView, "일정에 추가되었습니다", Snackbar.LENGTH_LONG)
                         .setAction("Undo", new View.OnClickListener() {
                             @Override
@@ -123,32 +124,9 @@ public class LocationList extends AppCompatActivity {
                         }).show();
             }
         });
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(recyclerviewSwipeHelper);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
-    public void setupSecondSwipe(int flag){
-        ItemTouchHelper.SimpleCallback simpleCallback = null;
-        switch (flag){
-            case ItemTouchHelper.RIGHT:
-                recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, getApplicationContext());
-                recyclerviewSecondSwipeToDoHelper.setSwipeEnabled(true);
-                simpleCallback = recyclerviewSecondSwipeToDoHelper;
-                recyclerviewSecondSwipeDismissHelper.setSwipeEnabled(false);
-                break;
-            case ItemTouchHelper.LEFT:
-                recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0,ItemTouchHelper.LEFT, getApplicationContext());
-                recyclerviewSecondSwipeDismissHelper.setSwipeEnabled(true);
-                simpleCallback = recyclerviewSecondSwipeDismissHelper;
-                recyclerviewSecondSwipeToDoHelper.setSwipeEnabled(false);
-                break;
-            default:
-                recyclerviewSecondSwipeToDoHelper.setSwipeEnabled(false);
-                recyclerviewSecondSwipeDismissHelper.setSwipeEnabled(false);
-                return;
-        }
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+    public void setupSecondSwipe(int flag) {
     }
 
 
