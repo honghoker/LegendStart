@@ -19,14 +19,27 @@ public class UndoFactory {
     private SQLiteDatabase database = null;
     private Context context = null;
     private LSDBHelper lsdbHelper = null;
-
+    private RecyclerAdapter recyclerAdapter = null;
     private TemporaryData temporaryData = null;
 
     public UndoFactory(Context context, long dismiss_ID) {
-        this.context = context.getApplicationContext();
+        this.context = context;
         this.dismiss_ID = dismiss_ID;
         lsdbHelper = new LSDBHelper(context);
         database = lsdbHelper.getWritableDatabase();
+        recyclerAdapter = RecyclerAdapter(context,databaseSortingQueryMethod());
+    }
+
+    private Cursor databaseSortingQueryMethod(String sortingCondition) {
+        //정렬 쿼리문
+        Cursor query = database.query(LSSQLContract.LocationTable.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                sortingCondition);
+        return query;
     }
 
     public TemporaryData onAction() {
@@ -104,6 +117,12 @@ public class UndoFactory {
             }
         }
         return tagCV;
+    }
+    private void removeItem(long id) {
+        //id는 swipe하는 행을 말합니다.
+        database.delete(LSSQLContract.LocationTable.TABLE_NAME,
+                LSSQLContract.LocationTable._ID + "=" + id, null);
+        recyclerAdapter.swapCursor(databaseSortingQueryMethod(sortingCondition));
     }
 
 }
