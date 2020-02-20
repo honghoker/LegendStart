@@ -2,12 +2,7 @@ package com.example.myfragment1;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Layout;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -22,12 +17,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.BinderThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +36,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.circularreveal.CircularRevealHelper;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -60,9 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView back_allSee;
 
     //애니메이션
- Animation animation;
- Animation animationH;
-
+    Animation animation;
+    Animation animationH;
 
     //recyclerVIew test용 Title ArrayList선언
     ArrayList<String> recy_title;
@@ -101,6 +95,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //하단 바
     LinearLayout bottomBar;
 
+    //해시태그
+    public static LinearLayout hastagView;
+
+    CheckBox checkBoxAll; //체크박스 명 선언
+    public static HashTag[] hashTag = new HashTag[10]; //태그 배열
+    public static FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(20, 20);
+    ; //해시태그 레이아웃을 위한 parms
+    HashTagCheckBoxManager hashTagCheckBoxManager = new HashTagCheckBoxManager();
+    HasTagOnClickListener ob = new HasTagOnClickListener();
+    boolean hashTagFilterFlag = false;
+
+
+    // 확인을 눌렀을 때 눌린 태그들의 id값을 가져온다.
+
+    RecyclerView re;
+
     // Activity가 시작될 때 호출되는 함수 -> MenuItem 생성과 초기화 진행
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recy_con_layout = findViewById(R.id.recy_con_layout);
-
 
         //자동완성
         ct = findViewById(R.id.searchView); //프로젝트 단위
@@ -132,7 +141,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
-
 
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); //키보드-시스템서비스
         list = new ArrayList<String>();
@@ -226,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // frameLayout 위에 recyclerView가 나타나야함으로 frameLayout 선언
         mView = findViewById(R.id.frameLayout);
 
-        recy_allSee  = findViewById(R.id.recy_allSee);
+        recy_allSee = findViewById(R.id.recy_allSee);
 
         recy_allSee.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,7 +264,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //벡프레스 객체 생성
         backPressedForFinish = new BackPressedForFinish(this);
 
-    }
+        //해시태그 레이아웃 선언
+        hastagView = findViewById(R.id.HasTagView);
+        hastagView.setBackgroundResource(R.drawable.hashtag);
+
+        //해시태그
+        addHashTag(); //해시태그 추가
+        checkAllHashTag(); //체크 해시태그
+
+    } //oncreate 종료
 
     // fragment 화면전환 + 유지
     public void onButtonClicked(View v) {
@@ -296,6 +312,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     clearSearchBar(ac); //서치바 초기화
                     fragmentManager.beginTransaction().show(fb).commit();
                 }
+                break;
+            case R.id.btnFilterSelect :
+                hashTagCheckBoxManager.AddClickHashTag(this);
+                break;
+            case R.id.btnFilterCancel :
+                hideHashTagFilter();
                 break;
 
             case R.id.floatingActionButton:
@@ -340,8 +362,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         hideRecyclerView(); //만약 떠있으면 디렉토리 종료 후 recy플래그 false
     }
 
-    public void showRecyclerView(){ //리사이클 플래그가 false 이면 - 리사이클러 뷰가 안보이면 실행해준다. true 로 바꾼다.
-        if(recyFrag == false) { //호출했을 때 리사이클 없을 경우에만 실행. 떠있을 때 재실행 방지
+    public void showRecyclerView() { //리사이클 플래그가 false 이면 - 리사이클러 뷰가 안보이면 실행해준다. true 로 바꾼다.
+        if (recyFrag == false) { //호출했을 때 리사이클 없을 경우에만 실행. 떠있을 때 재실행 방지
             animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
             recy_con_layout.setAnimation(animation);
             recy_con_layout.setVisibility(mView.VISIBLE);
@@ -349,12 +371,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void hideRecyclerView(){ //리사이클 플래그가 false 이면 - 리사이클러 뷰가 안보이면 실행해준다. true 로 바꾼다.
-        if(recyFrag == true) { //호출하였을 때 리사이클이 떠있을 경우에만 실행한다. 안떠있을 때 재실행 방지.
+    public void hideRecyclerView() { //리사이클 플래그가 false 이면 - 리사이클러 뷰가 안보이면 실행해준다. true 로 바꾼다.
+        if (recyFrag == true) { //호출하였을 때 리사이클이 떠있을 경우에만 실행한다. 안떠있을 때 재실행 방지.
             animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
             recy_con_layout.setAnimation(animationH);
             recy_con_layout.setVisibility(mView.GONE);
             recyFrag = false;
+        }
+    }
+    public void showHashTagFilter(){
+        if (hashTagFilterFlag == false) { //호출했을 때 해시필터 없을 경우에만 실행.
+            animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alpha);
+            hastagView.setAnimation(animation);
+            hastagView.setVisibility(mView.VISIBLE);
+            hashTagFilterFlag = true;
+        }
+    }
+    public void hideHashTagFilter(){
+        if (hashTagFilterFlag == true) { //호출했을 때 해시필터 없을 경우에만 실행.
+            animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alphahide);
+            hastagView.setAnimation(animation);
+            hastagView.setVisibility(mView.GONE);
+            hashTagFilterFlag = false;
         }
     }
 
@@ -387,7 +425,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //상단 툴바 클릭 이벤트
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_search: //상단 검색 버튼 클릭 시
+            case R.id.menu_item_search: {//상단 검색 버튼 클릭 시
 
                 hideRecyclerView(); //일단 디렉토리 열려있으면 삭제
 
@@ -408,6 +446,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     setBottomBar(searchFlag);
                 }
                 return true;
+            } //검색 버튼 종료
+            case R.id.menu_tag_filter: {
+                showHashTagFilter();
+                return true;
+            }
+
             default:
                 Toast.makeText(getApplicationContext(), "나머지 버튼 클릭됨", Toast.LENGTH_LONG).show();
                 return super.onOptionsItemSelected(item);
@@ -457,4 +501,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ac.setText(null); //텍스트 초기화
         getSupportActionBar().show(); //툴바 보이게
     }
+
+    public void checkAllHashTag() { //해시태그 모두 선택
+        checkBoxAll = findViewById(R.id.checkBox);
+        checkBoxAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (checkBoxAll.isChecked()) {
+                    hashTagCheckBoxManager.CheckBoxAllClick(MainActivity.this);
+                } else
+                    hashTagCheckBoxManager.CheckBoxAllUnClick(getApplicationContext());
+            }
+        });
+    } //checkAllHashTag 종료
+
+    public void addHashTag() { //초기 해시태그 세팅
+        for (int i = 1; i < hashTag.length; i++) {
+            hashTag[i] = new HashTag(this);
+            hashTag[i].setOnClickListener(ob);
+            hashTag[i].setId(i);
+            if (i % 3 == 0)
+                hashTag[i].init("1", "#22FFFF", R.drawable.hashtagborder, params);
+            else if (i % 2 == 0)
+                hashTag[i].init("초기값", "#22FFFF", R.drawable.hashtagborder, params);
+            else
+                hashTag[i].init("asdfan32of2ofndladf", "#3F729B", R.drawable.hashtagborder, params);
+
+            ((FlowLayout) findViewById(R.id.flowlayout)).addView(hashTag[i]);
+        }
+    }//addHashTag 종료
+
+    //해시태그 선택
+    public class HasTagOnClickListener implements Button.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            hashTagCheckBoxManager.HashTagClickEvent(MainActivity.this, v);
+        }
+    }
+
 }
