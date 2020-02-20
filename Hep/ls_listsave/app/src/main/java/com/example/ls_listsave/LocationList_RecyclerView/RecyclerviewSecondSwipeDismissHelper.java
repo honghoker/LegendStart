@@ -16,12 +16,13 @@ import com.google.android.material.snackbar.Snackbar;
 public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.SimpleCallback {
     private Context context = null;
     private SQLiteDatabase sqLiteDatabase = null;
+    private String sortingCondition = null;
+    private RecyclerAdapter recyclerAdapter = null;
 
-
-    public RecyclerviewSecondSwipeDismissHelper(int dragDirs, int swipeDirs, Context context) {
+    public RecyclerviewSecondSwipeDismissHelper(int dragDirs, int swipeDirs, Context context, RecyclerAdapter recyclerAdapter) {
         super(dragDirs, ItemTouchHelper.LEFT);
         this.context = context;
-
+        this.recyclerAdapter = recyclerAdapter;
     }
 
     @Override
@@ -30,31 +31,22 @@ public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.Simple
     }
 
     @Override
-    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-        final TemporaryData temporaryData;
-        long click_primaryKey = (long) viewHolder.itemView.getTag();
-        UndoFactory undoFactory = new UndoFactory(context, click_primaryKey);
-        temporaryData = undoFactory.onAction();
-
-        removeItem(click_primaryKey);
-        recyclerAdapter.notifyItemRemoved(position);
-        Snackbar.make(recyclerView, "이거고쳐야함", Snackbar.LENGTH_LONG)
+    public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
+        long click_PrimaryKey = (long) viewHolder.itemView.getTag();
+        final UndoFactory undoFactory = new UndoFactory(context, click_PrimaryKey, recyclerAdapter);
+        final RecyclerAdapter recyclerAdapter = undoFactory.setRecyclerAdapter();
+        final TemporaryData temporaryData = undoFactory.setRemoveItem(click_PrimaryKey);
+        Snackbar.make(viewHolder.itemView, "이거고쳐야함", Snackbar.LENGTH_LONG)
                 .setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (temporaryData.onUndo(getApplicationContext())) {
-                            recyclerAdapter.swapCursor(databaseSortingQueryMethod(sortingCondition));
-                            Toast.makeText(getApplicationContext(), "Undo Success", Toast.LENGTH_SHORT).show();
+                        if (temporaryData.onUndo(context, recyclerAdapter, viewHolder.getAdapterPosition())) {
+                            Toast.makeText(context, "Undo Success", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).show();
 
-    }
-    private void removeItem(long id) {
-        //id는 swipe하는 행을 말합니다.
-        mDatabase.delete(LSSQLContract.LocationTable.TABLE_NAME,
-                LSSQLContract.LocationTable._ID + "=" + id, null);
-        recyclerAdapter.swapCursor(databaseSortingQueryMethod(sortingCondition));
+
     }
 
 }

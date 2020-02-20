@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerviewSecondSwipeToDoHelper extends ItemTouchHelper.SimpleCallback{
     private Context context = null;
+    private RecyclerAdapter recyclerAdapter = null;
 
-    public RecyclerviewSecondSwipeToDoHelper(int dragDirs, int swipeDirs, Context context) {
+    public RecyclerviewSecondSwipeToDoHelper(int dragDirs, int swipeDirs, Context context, RecyclerAdapter recyclerAdapter) {
         super(0, ItemTouchHelper.RIGHT);
         this.context = context;
+        this.recyclerAdapter = recyclerAdapter;
     }
 
     @Override

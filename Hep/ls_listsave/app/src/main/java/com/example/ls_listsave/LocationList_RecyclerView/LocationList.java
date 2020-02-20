@@ -23,21 +23,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.Stack;
 
 public class LocationList extends AppCompatActivity {
-    private Stack<UndoFactory> undoDataStack = new Stack<>(); //추후 undo생각
+    //private Stack<UndoFactory> undoDataStack = new Stack<>(); //추후 undo생각
     private static final int GET_ADD_LOCATION_REQUEST_CODE = 200; //For intent
     public RecyclerAdapter recyclerAdapter; //For recyclerview
     private SQLiteDatabase mDatabase; //For recyclerview
     private RecyclerView recyclerView; //For recyclerview
     private Button disSortingButton, updatedSortingButton, nameSortingButton; //For sorting
     private String sortingCondition = LSSQLContract.LocationTable.COLUMN_TIMESTAMP + " DESC"; //For sorting
-    //swipe이전
-
-
-    //Swipe 작업중
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
 
     @Override
@@ -47,15 +42,6 @@ public class LocationList extends AppCompatActivity {
         initDB();
         init();
     }
-
-    //Recyclerview Swipe 해서 지우는 메소드
-    private void removeItem(long id) {
-        //id는 swipe하는 행을 말합니다.
-        mDatabase.delete(LSSQLContract.LocationTable.TABLE_NAME,
-                LSSQLContract.LocationTable._ID + "=" + id, null);
-        recyclerAdapter.swapCursor(databaseSortingQueryMethod(sortingCondition));
-    }
-
 
     private void initDB() {
         LSDBHelper lsdbHelper = new LSDBHelper(this);
@@ -77,58 +63,34 @@ public class LocationList extends AppCompatActivity {
     }
 
     public void setupSwipe() {
-        Log.d("1", "F_Start setupSwipe");
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                int flag = recyclerviewSwipeHelper.onSwipeFlag();
                 recyclerviewSwipeHelper.onDraw(c);
-                recyclerviewSwipeHelper.setRecyclerView(recyclerView);
+
+                recyclerviewSwipeHelper.setRecyclerView(recyclerView); //For Attach ItemTouch.Right Left class
                 ItemTouchHelper itemTouchHelper = new ItemTouchHelper(recyclerviewSwipeHelper);
                 itemTouchHelper.attachToRecyclerView(recyclerView);
             }
         });
-        recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(getApplicationContext(), new SwipeActionInterface() {
+        recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(getApplicationContext(), recyclerAdapter ,new SwipeActionInterface() {
 
             @Override
             public void onRightClicked(RecyclerView.ViewHolder viewHolder, int position, RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper) {
-                Log.d("tag","Clicked");
-                final TemporaryData temporaryData;
-                long click_primaryKey = (long) viewHolder.itemView.getTag();
-                UndoFactory undoFactory = new UndoFactory(getApplicationContext(), click_primaryKey);
-                temporaryData = undoFactory.onAction();
 
-                removeItem(click_primaryKey);
-                recyclerAdapter.notifyItemRemoved(position);
-                Snackbar.make(recyclerView, "이거고쳐야함", Snackbar.LENGTH_LONG)
-                        .setAction("Undo", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (temporaryData.onUndo(getApplicationContext())) {
-                                    recyclerAdapter.swapCursor(databaseSortingQueryMethod(sortingCondition));
-                                    Toast.makeText(getApplicationContext(), "Undo Success", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }).show();
+                recyclerviewSecondSwipeDismissHelper.onSwiped(viewHolder, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT);
+                recyclerAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onLeftClicked(RecyclerView.ViewHolder viewHolder, int position, RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper) {
-                Log.d("tag","Clicked");
-                Snackbar.make(recyclerView, "일정에 추가되었습니다", Snackbar.LENGTH_LONG)
-                        .setAction("Undo", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(getApplicationContext(), "취소되었습니다", Toast.LENGTH_SHORT).show();
-                            }
-                        }).show();
+                recyclerviewSecondSwipeToDoHelper.onSwiped(viewHolder, ItemTouchHelper.RIGHT);
             }
         });
     }
-
-    public void setupSecondSwipe(int flag) {
+    public void setRecyclerView(RecyclerAdapter recyclerAdapter){
+        recyclerView.setAdapter(recyclerAdapter);
     }
-
 
     private void recyclerViewSortingMethod(String condition) {
         Cursor databaseQuery = databaseSortingQueryMethod(condition);
