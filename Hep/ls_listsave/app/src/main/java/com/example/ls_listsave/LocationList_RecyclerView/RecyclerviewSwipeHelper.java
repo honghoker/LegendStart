@@ -32,11 +32,13 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
     private RecyclerView.ViewHolder currentItemViewHolder = null;
     private int firstSwipeFlag = 0;
     private Context context = null;
+    private String sorting = null;
+    private RecyclerAdapter recyclerAdapter = null;
 
-    RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, context);
-    RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, context);
-    ItemTouchHelper itemTouchHelperRight = new ItemTouchHelper(recyclerviewSecondSwipeToDoHelper);
-    ItemTouchHelper itemTouchHelperLeft = new ItemTouchHelper(recyclerviewSecondSwipeDismissHelper);
+    RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper = null;
+    RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper = null;
+    private ItemTouchHelper itemTouchHelperRight = null;
+    private ItemTouchHelper itemTouchHelperLeft = null;
 
     private RecyclerView recyclerView = null;
 
@@ -67,9 +69,14 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
     }
 
-    public RecyclerviewSwipeHelper(Context context, SwipeActionInterface buttonsActions) {
+    public RecyclerviewSwipeHelper(Context context, RecyclerAdapter recyclerAdapter, SwipeActionInterface buttonsActions) {
         this.buttonsActions = buttonsActions;
         this.context = context;
+        this.recyclerAdapter = recyclerAdapter;
+        RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, context, recyclerAdapter);
+        RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, context, recyclerAdapter);
+        itemTouchHelperRight = new ItemTouchHelper(recyclerviewSecondSwipeToDoHelper);
+        itemTouchHelperLeft = new ItemTouchHelper(recyclerviewSecondSwipeDismissHelper);
     }
 
     @Override
@@ -210,10 +217,10 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
                     Log.d("tag","Interfacein");
                     if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
                         if(buttonShowedState == ButtonsState.LEFT_VISIBLE){
-                            Log.d("tag","Interface");
+                            recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, context, recyclerAdapter);
                             buttonsActions.onLeftClicked(viewHolder, viewHolder.getAdapterPosition(), recyclerviewSecondSwipeToDoHelper);
                         }else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE){
-                            Log.d("tag","Interface");
+                            recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, context, recyclerAdapter);
                             buttonsActions.onRightClicked(viewHolder, viewHolder.getAdapterPosition(), recyclerviewSecondSwipeDismissHelper);
                         }
                     }
