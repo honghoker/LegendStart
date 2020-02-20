@@ -34,13 +34,16 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.google.android.material.circularreveal.CircularRevealHelper;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import maes.tech.intentanim.CustomIntent;
 
@@ -72,12 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Fragment fa, fb = null;
     View mView;
 
-
-
-
     // Activity가 시작될 때 호출되는 함수 -> MenuItem 생성과 초기화 진행
-
-
     // Activity가 처음 실행되는 상태에 제일 먼저 호출되는 메소드 -> 실행시 필요한 각종 초기화 작업
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -85,13 +83,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         recy_con_layout = findViewById(R.id.recy_con_layout);
-
-        //프래그먼트는 뷰와 다르게 context를 매개변수로 넣어줄 필요가 없다.
-/*
-        fragment1 = new MainFragment();
-        fragment2 = new MenuFragment();
-        onFragmentChange(0);
-*/
         // tollbar 선언
         toolbar = findViewById(R.id.toolbar);
         // spinner 선언
@@ -122,27 +113,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fa = new MainFragment();
         fragmentManager.beginTransaction().replace(R.id.frameLayout, fa).commit();
 
-        //recyclerView test Tag 배열선언
-//        final String[] tag1 = {"소고기", "안녕하세요", "김성훈입니다", "방가방가", "소고소고소고소고"};
-//        String[] tag2 = {"1"};
-//        String[] tag3 = {"1", "2", "3", "4"};
-//        String[] tag4 = {"1", "2", "3"};
-//        String[] tag5 = {"1", "2"};
-        //recyclerView test Title ArrayList
         recy_title = new ArrayList<>();
-        recy_title.add("Frist");
-        recy_title.add("Two");
-        recy_title.add("Third");
-        recy_title.add("Four");
-        recy_title.add("FIve");
-        //recyclerView test Tag ArrayList
-//        recy_Tag = new ArrayList<String[]>();
-//        recy_Tag.add(tag1);
-//        recy_Tag.add(tag2);
-//        recy_Tag.add(tag3);
-//        recy_Tag.add(tag4);
-//        recy_Tag.add(tag5);
+//        recy_title.add("Frist");
+//        recy_title.add("Two");
+//        recy_title.add("Third");
+//        recy_title.add("Four");
+//        recy_title.add("FIve");
 
+        
+        // 여기 조져야함
+        AppDatabase db = Room.databaseBuilder(this,AppDatabase.class,"directory_db").build();
+        db.directoryDao().getAll().observe(this, new Observer<List<Directory>>() {
+            @Override
+            public void onChanged(List<Directory> directories) {
+                recy_title.add(directories.toString());
+                Log.d("1","db확인11"+ directories.toString());
+            }
+        });
+
+//        List<Directory> a = db.directoryDao().getAll().getValue();
+//        Log.d("1","db확인11"+ db.directoryDao().getAll().getValue());
 
         // recyclerView
         recyclerView = findViewById(R.id.recyclerView);
@@ -150,7 +140,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // 어떤형태로 배치될 아이템 뷰를 만들것인지 결정하는요소 -> LayoutManager -> Linear -> 수직 또는 수평으로 일렬형태로 배치
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         // recyclerView에 표시될 아이템 뷰를 생성하는 역할 adapter
-        adapter = new Adapter(getApplicationContext(), recy_title);
+
+//        adapter = new Adapter(this);
+        adapter = new Adapter(this, recy_title);
         recyclerView.setAdapter(adapter);
 
         //recyclerview pos (위치) 값 가져와서 items 리스트 안에 있는 pos (위치)에 있는 Title 가져옴
@@ -167,11 +159,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mView = findViewById(R.id.frameLayout);
         // recyclerView 초기상태 gone
         recy_con_layout.setVisibility(mView.GONE);
-//        recyclerView.setVisibility(mView.GONE);
         final TextView recy_allSee = (TextView) findViewById(R.id.recy_allSee);
-//        recy_allSee.setVisibility(mView.GONE);
         final TextView back_allSee = (TextView) findViewById(R.id.back_allSee);
-//        back_allSee .setVisibility(mView.GONE);
 
 
         // spinner 터치(클릭) 시 이벤트처리
@@ -181,72 +170,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == false) {
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
                     recy_con_layout.setAnimation(animation);
-                    /*recyclerView.setAnimation(animation);
-                    recy_allSee.setAnimation(animation);
-                    back_allSee.setAnimation(animation);
-                    recyclerView.setVisibility(mView.VISIBLE);
-                    recy_allSee.setVisibility(mView.VISIBLE);
-                    back_allSee.setVisibility(mView.VISIBLE);*/
                     recy_con_layout.setVisibility(mView.VISIBLE);
-                    Toast.makeText(getApplicationContext(), "spinner 터치", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "spinner 터치", Toast.LENGTH_LONG).show();
                     recyFrag = true;
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == true) {
                     Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
                     recy_con_layout.setAnimation(animationH);
-                    /*recyclerView.setAnimation(animationH);
-                    recy_allSee.setAnimation(animationH);
-                    back_allSee.setAnimation(animationH);
-                    recyclerView.setVisibility(mView.GONE);
-                    recy_allSee.setVisibility(mView.GONE);
-                    back_allSee.setVisibility(mView.GONE);
-                    */
                     recy_con_layout.setVisibility(mView.GONE);
-                    Toast.makeText(getApplicationContext(), "spinner 터치", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "spinner 터치", Toast.LENGTH_LONG).show();
                     recyFrag = false;
                 }
                 recy_allSee.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                Log.e("1","ㅅㅄㅂ");
                         Intent intent = new Intent(mView.getContext(), AllSeeActivity.class);
-//                startActivityForResult(intent,1901);
                         startActivity(intent);
                         CustomIntent.customType(mView.getContext(), "left-to-right");
                         Toast.makeText(getApplicationContext(),"전체보기클릭",Toast.LENGTH_SHORT).show();
                     }
                 });
-//                Intent intent = new Intent(this, homeActivity.class);
-//                startActivity(intent);
-//                CustomIntent.customType(this,"left-to-right");
-
-////
-//                if(event.getAction() == MotionEvent.ACTION_DOWN){
-//                }
                 return true;
             }
         });
-
-//        toolbar.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//
-//                if(event.getAction() == MotionEvent.ACTION_DOWN){
-//                    Toast.makeText(getApplicationContext(),"toolabr 터치",Toast.LENGTH_LONG).show();
-//                }
-//                return true;
-//            }
-//        });
-
-        //상단 메뉴
-//
-//        //액션바 타이틀 변경하기
-//        getSupportActionBar().setTitle("App");
-//        //액션바 배경색 변경
-//        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
-//        //홈버튼 표시
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //뒤로가기 버튼 home
-
-
     }
 
     // fragment 화면전환 + 유지
@@ -334,7 +279,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }

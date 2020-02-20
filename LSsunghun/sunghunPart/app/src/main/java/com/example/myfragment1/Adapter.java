@@ -1,15 +1,24 @@
 package com.example.myfragment1;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.icu.text.CaseMap;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +27,14 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private LayoutInflater layoutInflater;
     private List<String> title;
+//    private List<String> data;
     //    private List<String> des_data;
     private List<String[]> tag;
     Context mcontext;
 
     private final int TYPE_HEADER = 0;
     private final int TYPE_ITEM = 1;
+//    AppDatabase db = Room.databaseBuilder(mcontext,AppDatabase.class,"directory_db").build();
 
 
     @Override
@@ -47,11 +58,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
 
-    Adapter(Context context, List<String> data) {
+    public Adapter(Context context, List<String>data) {
         this.layoutInflater = LayoutInflater.from(context);
         this.title = data;
-//        this.tag = Tag;
         mcontext = context;
+//        this.tag = Tag;
     }
 
 //    Adapter(Context context, List<String> des_data, List<String> data){
@@ -62,7 +73,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 //    }
 
     class HeaderViewHolder extends ViewHolder {
-
         HeaderViewHolder(View headerView) {
             super(headerView);
         }
@@ -91,8 +101,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
+//        return 1;
         return title.size()+1;
     }
+
+//    AppDatabase db = Room.databaseBuilder(mcontext,AppDatabase.class,"directory_db").build();
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -108,96 +121,92 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
         }
         else{
+//            Toast.makeText(mcontext,db.directoryDao().getAll().toString(),Toast.LENGTH_SHORT).show();
             String Title = title.get(position-1);
             holder.textTitle.setText(Title);
-//            String[] Tag_1 = tag.get(position-1);
-////             tag가 0개일때
-//            if (Tag_1.length == 0) {
-//                holder.Total.setText(Integer.toString(Tag_1.length));
-//            }
-//            // tag가 1개일떄
-//            else if (Tag_1.length == 1) {
-//                holder.textDescription_1.setText(Tag_1[0]);
-//                holder.textDescription_1.setVisibility(View.VISIBLE);
-////                 Total은 나중에 거래처 갯수표현할꺼임
-//                holder.Total.setText(Integer.toString(Tag_1.length));
-//            }
-//            // tag가 2개일떄
-//            else if (Tag_1.length == 2) {
-////           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]);
-//                holder.textDescription_1.setText(Tag_1[0]);
-//                holder.textDescription_1.setVisibility(View.VISIBLE);
-//                holder.textDescription_2.setText(Tag_1[1]);
-//                holder.textDescription_2.setVisibility(View.VISIBLE);
-//                holder.Total.setText(Integer.toString(Tag_1.length));
-//        }
-//        // tag가 3개일떄
-//            else if (Tag_1.length == 3) {
-////           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]+" "+Tag_1[2]);
-//                holder.textDescription_1.setText(Tag_1[0]);
-//                holder.textDescription_1.setVisibility(View.VISIBLE);
-//                holder.textDescription_2.setText(Tag_1[1]);
-//                holder.textDescription_2.setVisibility(View.VISIBLE);
-//                holder.textDescription_3.setText(Tag_1[2]);
-//                holder.textDescription_3.setVisibility(View.VISIBLE);
-//                holder.Total.setText(Integer.toString(Tag_1.length));
-//            }
-//            // tag가 4개일떄
-//            else if (Tag_1.length == 4) {
-////           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]+" "+Tag_1[2]+" "+Tag_1[3]);
-//                holder.textDescription_1.setText(Tag_1[0]);
-//                holder.textDescription_1.setVisibility(View.VISIBLE);
-//                holder.textDescription_2.setText(Tag_1[1]);
-//                holder.textDescription_2.setVisibility(View.VISIBLE);
-//                holder.textDescription_3.setText(Tag_1[2]);
-//                holder.textDescription_3.setVisibility(View.VISIBLE);
-//                holder.textDescription_4.setText(Tag_1[3]);
-//                holder.textDescription_4.setVisibility(View.VISIBLE);
-//                holder.Total.setText(Integer.toString(Tag_1.length));
-//            }
-//            // tag가 5개일떄
-//            else if (Tag_1.length == 5) {
-////           holder.textDescription.setText(Tag_1[0]+" "+Tag_1[1]+" "+Tag_1[2]+" "+Tag_1[3]+" "+Tag_1[4]);
-//                holder.textDescription_1.setText(Tag_1[0]);
-//                holder.textDescription_1.setVisibility(View.VISIBLE);
-//                holder.textDescription_2.setText(Tag_1[1]);
-//                holder.textDescription_2.setVisibility(View.VISIBLE);
-//                holder.textDescription_3.setText(Tag_1[2]);
-//                holder.textDescription_3.setVisibility(View.VISIBLE);
-//                holder.textDescription_4.setText(Tag_1[3]);
-//                holder.textDescription_4.setVisibility(View.VISIBLE);
-//                holder.textDescription_5.setText(Tag_1[4]);
-//                holder.textDescription_5.setVisibility(View.VISIBLE);
-//                holder.Total.setText(Integer.toString(Tag_1.length));
-//            }
-
         }
 
 //        holder.btnTitle.setText(btn);
     }
 
+    // 비동기 처리를 위한 클래스
+    private static class InsertAsyncTask extends AsyncTask<Directory, Void, Void>{
+        private DirectoryDao mDierctoryDao;
+
+        public InsertAsyncTask(DirectoryDao directoryDao) {
+            this.mDierctoryDao = directoryDao;
+        }
+
+        @Override
+        protected Void doInBackground(Directory... directories) {
+            mDierctoryDao.insert(directories[0]);
+            return null;
+        }
+    }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textTitle, textDescription_1, textDescription_2, textDescription_3, textDescription_4, textDescription_5, Total;
+//        ViewHolder holder;
+
+        // db객체
+        AppDatabase db = Room.databaseBuilder(mcontext,AppDatabase.class,"directory_db").build();
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-//            btnTitle = itemView.findViewById(R.id.recy_test_btn);
             textTitle = (TextView)itemView.findViewById(R.id.textView);
-//            textDescription_1 = (TextView)itemView.findViewById(R.id.textView2);
-//            textDescription_2 = (TextView)itemView.findViewById(R.id.textView3);
-//            textDescription_3 = (TextView)itemView.findViewById(R.id.textView4);
-//            textDescription_4 = (TextView)itemView.findViewById(R.id.textView5);
-//            textDescription_5 = (TextView)itemView.findViewById(R.id.textView6);
             Total = (TextView)itemView.findViewById(R.id.textView7);
+
+            // LiveData
+            db.directoryDao().getAll().observe((LifecycleOwner) mcontext, new Observer<List<Directory>>() {
+                @Override
+                public void onChanged(List<Directory> directories) {
+//                    holder.textTitle.setText(directories.toString());
+                    Log.d("1","db확인22"+ db.directoryDao().getAll().toString());
+                    Log.d("1","db확인33"+ directories.toString());
+                    Toast.makeText(mcontext,directories.toString(),Toast.LENGTH_SHORT).show();
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     int pos = getAdapterPosition();
+
                     if (pos != RecyclerView.NO_POSITION) {
                         if(pos == 0){
-                            Toast.makeText(mcontext,"add Btn",Toast.LENGTH_SHORT).show();
+                            AlertDialog.Builder ad = new AlertDialog.Builder(mcontext);
+                            ad.setIcon(R.mipmap.ic_launcher);
+                            ad.setTitle("제목");
+                            ad.setMessage("directory의 이름을 적어주세요");
+
+                            final EditText et = new EditText(mcontext);
+                            et.setSingleLine(true);
+                            ad.setView(et);
+
+                                // 긍정적인 버튼
+                            ad.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+//                                        String result = et.getText().toString();
+
+                                        new InsertAsyncTask(db.directoryDao()).execute(new Directory(et.getText().toString()));
+
+//                                        Toast.makeText(mcontext,db.directoryDao().getAll().toString(),Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss(); // 모든 작업이 끝났으니 dialog를 닫어라
+                                    }
+                            });
+
+                            // 부정적인 버튼
+                            ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss(); // 모든 작업이 끝났으니 dialog를 닫어라
+                                }
+                            });
+                            ad.show();
+//                            Toast.makeText(mcontext,"add Btn",Toast.LENGTH_SHORT).show();
                         }
                         else if (mListener != null) {
                             mListener.onItemClick(v, pos-1);
