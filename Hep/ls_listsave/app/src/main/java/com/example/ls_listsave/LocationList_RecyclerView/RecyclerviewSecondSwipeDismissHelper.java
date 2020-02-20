@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ls_listsave.DataBase.LSSQLContract;
+import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
 import com.google.android.material.snackbar.Snackbar;
 
 public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.SimpleCallback {
@@ -32,6 +33,7 @@ public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.Simple
 
     @Override
     public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
+
         long click_PrimaryKey = (long) viewHolder.itemView.getTag();
         final UndoFactory undoFactory = new UndoFactory(context, click_PrimaryKey, recyclerAdapter);
         final RecyclerAdapter recyclerAdapter = undoFactory.setRecyclerAdapter();
@@ -45,8 +47,6 @@ public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.Simple
                         }
                     }
                 }).show();
-
-
     }
 
 }

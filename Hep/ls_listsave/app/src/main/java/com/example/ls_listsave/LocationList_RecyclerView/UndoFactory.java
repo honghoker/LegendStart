@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.ls_listsave.DataBase.LSDBHelper;
 import com.example.ls_listsave.DataBase.LSSQLContract;
 import com.example.ls_listsave.DataBase.LSSQLContract.*;
+import com.example.ls_listsave.DataLappingByContentValues.DataLappingByContentValues;
 
 public class UndoFactory {
 
@@ -126,6 +127,7 @@ class TemporaryData {
     private Context context = null;
     private SQLiteDatabase sqLiteDatabase = null;
     private LSDBHelper lsdbHelper = null;
+    private DataLappingByContentValues dataLappingByContentValues = null;
 
     public TemporaryData(ContentValues contentValuesLocation, ContentValues contentValuesTag) {
         this.contentValuesLocation = contentValuesLocation;
@@ -133,27 +135,7 @@ class TemporaryData {
     }
 
     public boolean onUndo(Context context, RecyclerAdapter recyclerAdapter, int position) {
-        LSDBHelper lsdbHelper = new LSDBHelper(context);
-        sqLiteDatabase = lsdbHelper.getWritableDatabase();
-        try {
-            if (sqLiteDatabase.insert(LocationTable.TABLE_NAME, null, contentValuesLocation) > 0) {
-                if (contentValuesTag != null) {
-                    if (sqLiteDatabase.insert(TagTable.TABLE_NAME, null, contentValuesTag) > 0) {
-                        return true;
-                    } else {
-                        Toast.makeText(context, "Undo Tag Fail", Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                }
-            }else {
-                Toast.makeText(context, "Undo Fail", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        } catch (SQLiteException e) {
-            Toast.makeText(context, "SQLite Access Error", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        recyclerAdapter.notifyDataSetChanged();
-        return true;
+        String tableName = null;
+
     }
 }
