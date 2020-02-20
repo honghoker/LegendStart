@@ -10,13 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Ex extends AppCompatActivity {
     public static Context mContext2;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext2 = this;
     }
 
-    void Toastt(){
-        Toast.makeText(getApplicationContext(),"ddf",Toast.LENGTH_SHORT).show();
+    public void Toastt(Context context){
+        Toast.makeText(context,"ddf",Toast.LENGTH_SHORT).show();
     }
 }

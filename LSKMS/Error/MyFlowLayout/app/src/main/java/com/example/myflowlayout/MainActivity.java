@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public static HashTag[] hashTag = new HashTag[100]; //태그 배열
     public static FlowLayout.LayoutParams params; //해시태그 레이아웃을 위한 parms
     HashTagCheckBoxManager hashTagCheckBoxManager;
-    Ex EEx;
+    Ex EEx = new Ex();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         params = new FlowLayout.LayoutParams(20, 20);
         HasTagOnClickListener ob = new HasTagOnClickListener();
         //((Ex)Ex.mContext2).Toastt();
-        EEx.Toastt();
+        EEx.Toastt(this.getApplicationContext());
 //        for (int i = 1; i < tv.length; i++) {
 //            tv[i] = new Button(this);
 //            final Integer aa = i;
