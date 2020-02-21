@@ -134,8 +134,23 @@ class TemporaryData {
         this.contentValuesTag = contentValuesTag;
     }
 
-    public boolean onUndo(Context context, RecyclerAdapter recyclerAdapter, int position) {
-        String tableName = null;
+    public void onUndo(Context context, RecyclerAdapter recyclerAdapter) {
+        dataLappingByContentValues = new DataLappingByContentValues(context, LocationTable.TABLE_NAME);
+        if(dataLappingByContentValues.inputInnerDataBase(contentValuesLocation)){
+            if(contentValuesTag != null){
+                dataLappingByContentValues = new DataLappingByContentValues(context, TagTable.TABLE_NAME);
+                if(dataLappingByContentValues.inputInnerDataBase(contentValuesTag))
+                    Toast.makeText(context,"취소되었습니다", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(context, "Tag Undo Error", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        }else {
+            Toast.makeText(context, "Location Undo Error", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(context,"취소되었습니다 Tag = null", Toast.LENGTH_SHORT).show();
 
     }
 }

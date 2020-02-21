@@ -73,8 +73,8 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
         this.buttonsActions = buttonsActions;
         this.context = context;
         this.recyclerAdapter = recyclerAdapter;
-        RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, context, recyclerAdapter);
-        RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, context, recyclerAdapter);
+        RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, context);
+        RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, context);
         itemTouchHelperRight = new ItemTouchHelper(recyclerviewSecondSwipeToDoHelper);
         itemTouchHelperLeft = new ItemTouchHelper(recyclerviewSecondSwipeDismissHelper);
     }
@@ -217,10 +217,10 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
                     Log.d("tag","Interfacein");
                     if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
                         if(buttonShowedState == ButtonsState.LEFT_VISIBLE){
-                            recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, context, recyclerAdapter);
+                            recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, context);
                             buttonsActions.onLeftClicked(viewHolder, viewHolder.getAdapterPosition(), recyclerviewSecondSwipeToDoHelper);
                         }else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE){
-                            recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, context, recyclerAdapter);
+                            recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, context);
                             buttonsActions.onRightClicked(viewHolder, viewHolder.getAdapterPosition(), recyclerviewSecondSwipeDismissHelper);
                         }
                     }

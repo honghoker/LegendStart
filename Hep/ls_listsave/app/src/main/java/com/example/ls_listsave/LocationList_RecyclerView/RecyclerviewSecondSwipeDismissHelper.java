@@ -16,14 +16,11 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.SimpleCallback {
     private Context context = null;
-    private SQLiteDatabase sqLiteDatabase = null;
-    private String sortingCondition = null;
     private RecyclerAdapter recyclerAdapter = null;
 
-    public RecyclerviewSecondSwipeDismissHelper(int dragDirs, int swipeDirs, Context context, RecyclerAdapter recyclerAdapter) {
+    public RecyclerviewSecondSwipeDismissHelper(int dragDirs, int swipeDirs, Context context) {
         super(dragDirs, ItemTouchHelper.LEFT);
         this.context = context;
-        this.recyclerAdapter = recyclerAdapter;
     }
 
     @Override
@@ -42,9 +39,7 @@ public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.Simple
                 .setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (temporaryData.onUndo(context, recyclerAdapter, viewHolder.getAdapterPosition())) {
-                            Toast.makeText(context, "Undo Success", Toast.LENGTH_SHORT).show();
-                        }
+                        temporaryData.onUndo(context,recyclerAdapter);
                     }
                 }).show();
     }
