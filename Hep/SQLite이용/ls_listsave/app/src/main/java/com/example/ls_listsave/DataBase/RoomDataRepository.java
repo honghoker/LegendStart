@@ -1,4 +1,4 @@
-package com.example.a20200221room.Room;
+package com.example.ls_listsave.DataBase;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -16,7 +16,6 @@ public class RoomDataRepository {
         RoomDBDatabase database = RoomDBDatabase.getInstance(application);
         roomDBDao = database.roomDBDao();
         allRoom = roomDBDao.getAllData();
-
     }
 
     public void insert(RoomDB roomDB){

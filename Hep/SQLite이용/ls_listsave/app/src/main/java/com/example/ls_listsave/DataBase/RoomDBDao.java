@@ -1,4 +1,4 @@
-package com.example.a20200221room.Room;
+package com.example.ls_listsave.DataBase;
 
 
 import androidx.lifecycle.LiveData;
@@ -27,5 +27,4 @@ public interface RoomDBDao {
 
     @Query("SELECT * FROM Location_Table ORDER BY priority DESC")
     LiveData<List<RoomDB>> getAllData();
-
 }

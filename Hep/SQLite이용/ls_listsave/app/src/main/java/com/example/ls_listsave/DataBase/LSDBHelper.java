@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.ls_listsave.DataBase.LSSQLContract.*;
-import com.example.ls_listsave.DataBase_Room.TagTable;
 
 import androidx.annotation.Nullable;
 
@@ -37,11 +36,11 @@ public class LSDBHelper extends SQLiteOpenHelper {
 
     private void createTagTable(SQLiteDatabase db) {
         final String SQL_CREATE_TAG_TABLE =
-                "CREATE TABLE " + com.example.ls_listsave.DataBase_Room.TagTable.TABLE_NAME + " (" +
+                "CREATE TABLE " + TagTable.TABLE_NAME + " (" +
                         //
-                        com.example.ls_listsave.DataBase_Room.TagTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        com.example.ls_listsave.DataBase_Room.TagTable.COLUMN_FOREIGNKEY_LOCATION_SEQ + " INTEGER NOT NULL, " +
-                        com.example.ls_listsave.DataBase_Room.TagTable.COLUMN_TAG + " TEXT," +
+                        TagTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        TagTable.COLUMN_FOREIGNKEY_LOCATION_SEQ + " INTEGER NOT NULL, " +
+                        TagTable.COLUMN_TAG + " TEXT," +
                         " FOREIGN KEY (" + TagTable.COLUMN_FOREIGNKEY_LOCATION_SEQ + ") " +
                         "REFERENCES " + LocationTable.TABLE_NAME +
                         "(" + LocationTable._ID + "));";
