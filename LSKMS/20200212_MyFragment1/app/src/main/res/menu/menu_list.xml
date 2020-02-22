@@ -12,9 +12,9 @@
         ></item>
 
 
-    <item android:id="@+id/menu_two"
+    <item android:id="@+id/menu_tag_filter"
         android:title="two"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_filter"
         app:showAsAction="ifRoom"/>
 
 </menu>
