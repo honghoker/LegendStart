@@ -1,30 +1,18 @@
 package com.example.myfragment1;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Layout;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.BinderThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,7 +27,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.google.android.material.circularreveal.CircularRevealHelper;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -56,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     RecyclerView recyclerView;
     Adapter adapter;
     ConstraintLayout recy_con_layout;
+    LinearLayout recy_add_btn;
+
+    View asdf;
+
+    // 이거이용
+    ConstraintLayout recy_card_layout;
 
     //recyclerVIew test용 Title ArrayList선언
     ArrayList<String> recy_title;
@@ -75,6 +68,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Fragment fa, fb = null;
     View mView;
 
+    static List<View> test_view = null;
+    static View [] test_view_2 = null;
+    String test_view_1;
+    static boolean addFrag = false;
+    static RecyclerView recy_test_view;
+
     // Activity가 시작될 때 호출되는 함수 -> MenuItem 생성과 초기화 진행
     // Activity가 처음 실행되는 상태에 제일 먼저 호출되는 메소드 -> 실행시 필요한 각종 초기화 작업
     @Override
@@ -82,7 +81,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        test_view_2 = new View[5];
+
+        asdf = findViewById(R.id.asdf);
+
+        recy_card_layout = findViewById(R.id.recy_card_layout);
         recy_con_layout = findViewById(R.id.recy_con_layout);
+        recy_add_btn = findViewById(R.id.recy_add_btn);
+
         // tollbar 선언
         toolbar = findViewById(R.id.toolbar);
         // spinner 선언
@@ -120,14 +126,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        recy_title.add("Four");
 //        recy_title.add("FIve");
 
-        
         // 여기 조져야함
-        AppDatabase db = Room.databaseBuilder(this,AppDatabase.class,"directory_db").build();
+        AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "directory_db").build();
+
         db.directoryDao().getAll().observe(this, new Observer<List<Directory>>() {
             @Override
             public void onChanged(List<Directory> directories) {
-                recy_title.add(directories.toString());
-                Log.d("1","db확인11"+ directories.toString());
+                for (int i = 0; i < directories.size(); i++) {
+                    recy_title.add(directories.get(i).toString());
+                    Log.d("1","확인");
+                    // 아예 추가하고 여길 다시 안돔..
+//                    if(addFrag==true){
+//                        Log.d("1","여긴옴?");
+//                        adapter = new Adapter(getApplicationContext(),recy_title);
+//                        recyclerView.setAdapter(adapter);
+//                        addFrag=false;
+//                    }
+                }
             }
         });
 
@@ -136,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // recyclerView
         recyclerView = findViewById(R.id.recyclerView);
+        recy_test_view = findViewById(R.id.recyclerView);
         // recyclerView set ( HORIZONTAL -> 수평 / if) 수직이면 false -> true)
         // 어떤형태로 배치될 아이템 뷰를 만들것인지 결정하는요소 -> LayoutManager -> Linear -> 수직 또는 수평으로 일렬형태로 배치
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -143,7 +159,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //        adapter = new Adapter(this);
         adapter = new Adapter(this, recy_title);
+//        test_view.add(adapter.view);
+
+
         recyclerView.setAdapter(adapter);
+        mView = findViewById(R.id.frameLayout);
+        Log.d("Search", "adapter 확인");
 
         //recyclerview pos (위치) 값 가져와서 items 리스트 안에 있는 pos (위치)에 있는 Title 가져옴
         adapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
@@ -152,31 +173,104 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 toolbar.setTitle(recy_title.get(pos));
                 Toast.makeText(getApplicationContext(), recy_title.get(pos), Toast.LENGTH_SHORT).show();
+                Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
+                asdf.setAnimation(animationH);
+                asdf.setVisibility(mView.GONE);
             }
         });
 
         // frameLayout 위에 recyclerView가 나타나야함으로 frameLayout 선언
-        mView = findViewById(R.id.frameLayout);
+
         // recyclerView 초기상태 gone
-        recy_con_layout.setVisibility(mView.GONE);
+        asdf.setVisibility(mView.GONE);
+//        recy_con_layout.setVisibility(mView.GONE);
+//        recy_add_btn.setVisibility(mView.GONE);
+//        recy_card_layout.setVisibility(mView.GONE);
+
         final TextView recy_allSee = (TextView) findViewById(R.id.recy_allSee);
         final TextView back_allSee = (TextView) findViewById(R.id.back_allSee);
 
+//
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getApplicationContext(),parent.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         // spinner 터치(클릭) 시 이벤트처리
         spinner.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == false) {
+//                    Log.d("Search", "runrun@@@@1");
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
-                    recy_con_layout.setAnimation(animation);
-                    recy_con_layout.setVisibility(mView.VISIBLE);
+//                    Log.d("Search", "runrun@@@@2");
+                    asdf.setAnimation(animation);
+                    asdf.setVisibility(mView.VISIBLE);
+//                    recyclerView.setAnimation(animation);
+//                    recyclerView.setVisibility(mView.VISIBLE);
+                    Log.d("Search", "1");
+//                    for(int i =0; i<5; i++){
+//                        test_view_2[i].setAnimation(animation);
+//                        test_view_2[i].setVisibility(mView.VISIBLE);
+//                    }
+//                    test_view.setAnimation(animation);
+//                    test_view.setVisibility(mView.VISIBLE);
+
+//                    recy_con_layout.setAnimation(animation);
+//                    recy_con_layout.setVisibility(mView.VISIBLE);
+//                    adapter.test();
+                    //sival
+//                    recy_add_btn.setAnimation(animation);
+//                    recy_add_btn.setVisibility(mView.VISIBLE);
+//                    recy_card_layout.setAnimation(animation);
+//                    recy_card_layout.setVisibility(View.VISIBLE);
 //                    Toast.makeText(getApplicationContext(), "spinner 터치", Toast.LENGTH_LONG).show();
+
                     recyFrag = true;
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == true) {
                     Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
-                    recy_con_layout.setAnimation(animationH);
-                    recy_con_layout.setVisibility(mView.GONE);
+                    asdf.setAnimation(animationH);
+                    asdf.setVisibility(mView.GONE);
+//                    recyclerView.setAnimation(animationH);
+//                    recyclerView.setVisibility(mView.GONE);
+                    Log.d("Search", "2");
+//                    Log.d("Search","길이확인  " + test_view_2.length);
+
+//                    test_view_2[0].setVisibility(mView.GONE);
+//                    test_view_2[1].setVisibility(mView.GONE);
+//                    test_view_2[2].setVisibility(mView.GONE);
+//                    test_view_2[3].setVisibility(mView.GONE);
+//                    test_view_2[4].setVisibility(mView.GONE);
+//                    for(int i =0; i<test_view_2.length; i++){
+//                        Log.d("Search","확인");
+////                        test_view_2[i].setAnimation(animationH);
+//                        test_view_2[i].setVisibility(View.GONE);
+//                    }
+//                    test_view.setAnimation(animationH);
+//                    test_view.setVisibility(mView.GONE);
+//                    adapter.test();
+//                    for(int i = 0 ; i<test_view.size();i++){
+//                        test_view.get(i).setVisibility(mView.GONE);
+////                        test_view.get(i).view.setVisibility(mView.GONE);
+//                    }
+
+
+//                    recy_con_layout.setAnimation(animationH);
+//                    recy_con_layout.setVisibility(mView.GONE);
+//                    Log.d("1",test_view.get(0).toString());
+
+                    //sival
+//                    recy_add_btn.setAnimation(animationH);
+//                    recy_add_btn.setVisibility(mView.GONE);
+//                    recy_card_layout.setAnimation(animationH);
+//                    recy_card_layout.setVisibility(View.GONE);
 //                    Toast.makeText(getApplicationContext(), "spinner 터치", Toast.LENGTH_LONG).show();
                     recyFrag = false;
                 }
@@ -186,9 +280,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Intent intent = new Intent(mView.getContext(), AllSeeActivity.class);
                         startActivity(intent);
                         CustomIntent.customType(mView.getContext(), "left-to-right");
-                        Toast.makeText(getApplicationContext(),"전체보기클릭",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "전체보기클릭", Toast.LENGTH_SHORT).show();
                     }
                 });
+                Log.d("Search", "3");
                 return true;
             }
         });
