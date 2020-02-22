@@ -19,17 +19,27 @@ public class UndoFactory {
     private SQLiteDatabase database = null;
     private Context context = null;
     private LSDBHelper lsdbHelper = null;
-
+    private RecyclerAdapter recyclerAdapter = null;
     private TemporaryData temporaryData = null;
 
-    public UndoFactory(Context context, long dismiss_ID) {
-        this.context = context.getApplicationContext();
+    public UndoFactory(Context context, long dismiss_ID, RecyclerAdapter recyclerAdapter) {
+        this.context = context;
         this.dismiss_ID = dismiss_ID;
+        this.recyclerAdapter = recyclerAdapter;
         lsdbHelper = new LSDBHelper(context);
         database = lsdbHelper.getWritableDatabase();
     }
 
-    public TemporaryData onAction() {
+
+    public TemporaryData setRemoveItem(long id) {
+        //id는 swipe하는 행을 말합니다.
+        database.delete(LSSQLContract.LocationTable.TABLE_NAME,
+                LSSQLContract.LocationTable._ID + "=" + id, null);
+        recyclerAdapter.notifyDataSetChanged();
+        return onAction();
+    }
+
+    private TemporaryData onAction() {
         onFindLocationData();
         TemporaryData temporaryData = new TemporaryData(onFindLocationData(), onFindTag());
         return temporaryData;
@@ -105,7 +115,9 @@ public class UndoFactory {
         }
         return tagCV;
     }
-
+    public RecyclerAdapter setRecyclerAdapter(){
+        return this.recyclerAdapter;
+    }
 }
 
 class TemporaryData {
@@ -120,7 +132,7 @@ class TemporaryData {
         this.contentValuesTag = contentValuesTag;
     }
 
-    public boolean onUndo(Context context) {
+    public boolean onUndo(Context context, RecyclerAdapter recyclerAdapter, int position) {
         LSDBHelper lsdbHelper = new LSDBHelper(context);
         sqLiteDatabase = lsdbHelper.getWritableDatabase();
         try {
@@ -141,6 +153,7 @@ class TemporaryData {
             Toast.makeText(context, "SQLite Access Error", Toast.LENGTH_SHORT).show();
             return false;
         }
+        recyclerAdapter.notifyDataSetChanged();
         return true;
     }
 }
