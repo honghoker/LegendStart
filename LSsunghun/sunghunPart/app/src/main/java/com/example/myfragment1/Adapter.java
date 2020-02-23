@@ -58,7 +58,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
 
-    public Adapter(Context context, List<String>data) {
+    public Adapter(Context context, List<String> data) {
         this.layoutInflater = LayoutInflater.from(context);
         this.title = data;
         mcontext = context;
@@ -162,8 +162,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 @Override
                 public void onChanged(List<Directory> directories) {
 //                    holder.textTitle.setText(directories.toString());
-                    Log.d("1","db확인22"+ db.directoryDao().getAll().toString());
-                    Log.d("1","db확인33"+ directories.toString());
+                    Log.d("Adapter","ViewHolder = "+ directories.toString());
                     Toast.makeText(mcontext,directories.toString(),Toast.LENGTH_SHORT).show();
                 }
             });
