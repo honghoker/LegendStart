@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myfragment1">
+    package="com.example.Myfrag">
 
     <application
         android:allowBackup="true"
@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AllSeeActivity"/>
-        <activity android:name=".excelActivity"></activity>
-        <activity android:name=".todoActivity" />
-        <activity android:name=".settingActivity" />
-        <activity android:name=".homeActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.Myfrag.AllSeeActivity"/>
+        <activity android:name="com.example.Myfrag.excelActivity"></activity>
+        <activity android:name="com.example.Myfrag.todoActivity" />
+        <activity android:name="com.example.Myfrag.settingActivity" />
+        <activity android:name="com.example.Myfrag.homeActivity" />
+        <activity android:name="com.example.Myfrag.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

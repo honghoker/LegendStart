@@ -1,4 +1,4 @@
-package com.example.myfragment1;
+package com.example.Myfrag;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -19,7 +19,8 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import java.util.ArrayList;
+import com.example.Myfrag.R;
+
 import java.util.List;
 
 

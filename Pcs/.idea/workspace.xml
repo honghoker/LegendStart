@@ -7,8 +7,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71d6e0fe-feeb-44fa-9ff5-a050b0658f2d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/androidTest/java/com/example/myfragment1/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/androidTest/java/com/example/Myfrag/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/Adapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/Adapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/AdapterViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/AdapterViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/AllSeeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/AllSeeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/AppDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/AppDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/Directory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/Directory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/DirectoryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/DirectoryDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/MainFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/MainFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/MenuFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/MenuFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/excelActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/excelActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/homeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/homeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/settingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/settingActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/todoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/todoActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_allsee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_allsee.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_excel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_excel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_setting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_todo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_todo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/recy_test_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/recy_test_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/test/java/com/example/myfragment1/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/test/java/com/example/myfragment1/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +60,7 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -74,30 +101,16 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="20200221Room" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="20200221Room" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LSsunghun/sunghunPart" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
@@ -194,7 +207,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.18176973" />
@@ -222,12 +234,12 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
@@ -250,17 +262,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/cardview.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
           <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/Room/RecyclerviewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">

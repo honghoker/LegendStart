@@ -1,17 +1,16 @@
-package com.example.myfragment1;
+package com.example.Myfrag;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.naver.maps.map.UiSettings;
+import com.example.Myfrag.R;
 
 //프래그먼트는 액티비티위에 올라가있을떄만 프래그먼트로서 동작할 수 있다.
 public class MainFragment extends Fragment {
