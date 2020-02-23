@@ -5,20 +5,20 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
-import com.example.ls_listsave.DataBase.LSDBHelper;
-
 public class DataLappingByContentValues {
     SQLiteDatabase db;
     String tableName = null;
     Context context;
-    LSDBHelper lsdbHelper = null;
+    //LSDBHelper lsdbHelper = null;
 
     public DataLappingByContentValues(Context context, String tableName) {
-
+/*
         this.tableName = tableName;
         this.context = context.getApplicationContext();
         lsdbHelper = new LSDBHelper(context);
         db = lsdbHelper.getWritableDatabase();
+
+ */
     }
 
     public ContentValues receiveDataToContentValues(){
@@ -40,3 +40,5 @@ public class DataLappingByContentValues {
     }
 
 }
+
+

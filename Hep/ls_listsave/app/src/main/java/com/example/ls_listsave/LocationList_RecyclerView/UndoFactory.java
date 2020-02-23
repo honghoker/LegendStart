@@ -5,13 +5,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.location.Location;
 import android.widget.Toast;
 
-import com.example.ls_listsave.DataBase.LSDBHelper;
 import com.example.ls_listsave.DataBase.LSSQLContract;
-import com.example.ls_listsave.DataBase.LSSQLContract.*;
+import com.example.ls_listsave.DataBase.LSSQLContract.LocationTable;
+import com.example.ls_listsave.DataBase.LSSQLContract.TagTable;
 import com.example.ls_listsave.DataLappingByContentValues.DataLappingByContentValues;
 
 public class UndoFactory {
@@ -19,7 +17,7 @@ public class UndoFactory {
     private long dismiss_ID = 0;
     private SQLiteDatabase database = null;
     private Context context = null;
-    private LSDBHelper lsdbHelper = null;
+    //private LSDBHelper lsdbHelper = null;
     private RecyclerAdapter recyclerAdapter = null;
     private TemporaryData temporaryData = null;
 
@@ -27,8 +25,8 @@ public class UndoFactory {
         this.context = context;
         this.dismiss_ID = dismiss_ID;
         this.recyclerAdapter = recyclerAdapter;
-        lsdbHelper = new LSDBHelper(context);
-        database = lsdbHelper.getWritableDatabase();
+        //lsdbHelper = new LSDBHelper(context);
+        //database = lsdbHelper.getWritableDatabase();
     }
 
 
@@ -126,7 +124,7 @@ class TemporaryData {
     public ContentValues contentValuesTag = null;
     private Context context = null;
     private SQLiteDatabase sqLiteDatabase = null;
-    private LSDBHelper lsdbHelper = null;
+    //private LSDBHelper lsdbHelper = null;
     private DataLappingByContentValues dataLappingByContentValues = null;
 
     public TemporaryData(ContentValues contentValuesLocation, ContentValues contentValuesTag) {

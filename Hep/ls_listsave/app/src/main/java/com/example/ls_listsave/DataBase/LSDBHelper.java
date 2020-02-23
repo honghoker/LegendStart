@@ -1,4 +1,4 @@
-package com.example.ls_listsave.DataBase;
+/*package com.example.ls_listsave.DataBase;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -65,3 +65,6 @@ public class LSDBHelper extends SQLiteOpenHelper {
     }
 
 }
+
+
+ */

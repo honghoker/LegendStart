@@ -3,22 +3,21 @@ package com.example.ls_listsave.DataBase_Room;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Location")
-public class LocationTable {
+@Entity(tableName = "LocationEntity")
+public class LocationEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String location_Name;
-    private String location_Addr;
-    private String location_DetailAddr;
-    private String location_Phone;
-    private String location_Memo;
-    private String location_Latitude;
-    private String location_Longitude;
-    private String location_Timestamp;
+    private String location_Title = null;
+    private String location_Addr = null;
+    private String location_DetailAddr = null;
+    private String location_Phone = null;
+    private String location_Memo = null;
+    private String location_Latitude = null;
+    private String location_Longitude = null;
+    private String location_Timestamp = null;
 
-    public LocationTable(int id, String location_Name, String location_Addr, String location_DetailAddr, String location_Phone, String location_Memo, String location_Latitude, String location_Longitude, String location_Timestamp) {
-        this.id = id;
-        this.location_Name = location_Name;
+    public LocationEntity(String location_Title, String location_Addr, String location_DetailAddr, String location_Phone, String location_Memo, String location_Latitude, String location_Longitude, String location_Timestamp) {
+        this.location_Title = location_Title;
         this.location_Addr = location_Addr;
         this.location_DetailAddr = location_DetailAddr;
         this.location_Phone = location_Phone;
@@ -28,14 +27,16 @@ public class LocationTable {
         this.location_Timestamp = location_Timestamp;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
-
-    public String getLocation_Name() {
-        return location_Name;
+    public String getLocation_Title() {
+        return location_Title;
     }
-
     public String getLocation_Addr() {
         return location_Addr;
     }

@@ -1,64 +1,65 @@
 package com.example.ls_listsave.LocationList_RecyclerView;
 
-import android.content.ClipData;
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
-import com.example.ls_listsave.DataBase.LSDBHelper;
-import com.example.ls_listsave.DataBase.LSSQLContract;
-import com.example.ls_listsave.MainActivity;
-import com.example.ls_listsave.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.Stack;
+
+import com.example.ls_listsave.DataBase_Room.LocationEntity;
+import com.example.ls_listsave.DataBase_Room.LocationViewModel;
+import com.example.ls_listsave.R;
+
+import java.util.List;
 
 public class LocationList extends AppCompatActivity {
-    //private Stack<UndoFactory> undoDataStack = new Stack<>(); //추후 undo생각
     private static final int GET_ADD_LOCATION_REQUEST_CODE = 200; //For intent
-    public RecyclerAdapter recyclerAdapter; //For recyclerview
-    private SQLiteDatabase mDatabase; //For recyclerview
+    private RecyclerAdapter recyclerAdapter;
+    private LocationViewModel locationViewModel;
     private RecyclerView recyclerView; //For recyclerview
-    private Button disSortingButton, updatedSortingButton, nameSortingButton; //For sorting
-    private String sortingCondition = LSSQLContract.LocationTable.COLUMN_TIMESTAMP + " DESC"; //For sorting
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_layout);
-        initDB();
+        setRecyclerView();
+
+        locationViewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
+        locationViewModel.getAllData().observe(this, new Observer<List<LocationEntity>>() {
+            @Override
+            public void onChanged(List<LocationEntity> locationEntities) {
+                //Update RecyclerView
+                recyclerAdapter.setLocationEntities(locationEntities);
+            }
+        });
         init();
     }
 
-    private void initDB() {
-        LSDBHelper lsdbHelper = new LSDBHelper(this);
-        mDatabase = lsdbHelper.getReadableDatabase();
+    private void setRecyclerView(){
+        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        recyclerAdapter = new RecyclerAdapter();
+        recyclerView.setAdapter(recyclerAdapter);
     }
 
     private void init() {
-
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(recyclerAdapter);
-        recyclerViewSortingMethod(sortingCondition);
-        disSortingButton = findViewById(R.id.sort_distanceButton);
-        updatedSortingButton = findViewById(R.id.sort_recently);
-        nameSortingButton = findViewById(R.id.sort_name);
-
-
+//
+//
+//
+//        //recyclerViewSortingMethod(sortingCondition);
+//
+//        disSortingButton = findViewById(R.id.sort_distanceButton);
+//        updatedSortingButton = findViewById(R.id.sort_recently);
+//        nameSortingButton = findViewById(R.id.sort_name);
+//
         setupSwipe();
     }
 
@@ -87,50 +88,5 @@ public class LocationList extends AppCompatActivity {
                 recyclerviewSecondSwipeToDoHelper.onSwiped(viewHolder, ItemTouchHelper.RIGHT);
             }
         });
-    }
-    public void setRecyclerView(RecyclerAdapter recyclerAdapter){
-        recyclerView.setAdapter(recyclerAdapter);
-    }
-
-    private void recyclerViewSortingMethod(String condition) {
-        Cursor databaseQuery = databaseSortingQueryMethod(condition);
-        recyclerAdapter = new RecyclerAdapter(this, databaseQuery);
-        recyclerView.setAdapter(recyclerAdapter);
-    }
-
-    private Cursor databaseSortingQueryMethod(String sortingCondition) {
-        //정렬 쿼리문
-        Cursor query = mDatabase.query(LSSQLContract.LocationTable.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                sortingCondition);
-        return query;
-    }
-
-    public void recentSortingOnClick(View view) {
-        recyclerviewSwipeHelper.getButtonGone(true);
-        sortingCondition = LSSQLContract.LocationTable.COLUMN_TIMESTAMP + " DESC";
-        recyclerViewSortingMethod(sortingCondition);
-    }
-
-    public void distanceSortingOnClick(View view) {
-        //String sorting =
-        //recyclerViewSortingMethod(sorting);
-        return;
-    }
-
-    public void nameSortingOnClick(View view) {
-        recyclerviewSwipeHelper.getButtonGone(true);
-        sortingCondition = LSSQLContract.LocationTable.COLUMN_NAME + " ASC";
-        recyclerViewSortingMethod(sortingCondition);
-    }
-
-    public void AddOnClick(View view) {
-        mDatabase.close();
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivityForResult(intent, GET_ADD_LOCATION_REQUEST_CODE);
     }
 }

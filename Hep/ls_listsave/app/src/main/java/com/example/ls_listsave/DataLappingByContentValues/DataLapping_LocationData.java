@@ -49,7 +49,7 @@ public class DataLapping_LocationData extends DataLappingByContentValues {
     }
 
     public int idNumber(){
-        db = lsdbHelper.getReadableDatabase();
+        //db = lsdbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + tableName + ";", null);
         cursor.moveToLast();
 

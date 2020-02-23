@@ -15,8 +15,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import com.example.ls_listsave.DataBase.LSDBHelper;
-
 import java.util.ArrayList;
 
 import static com.example.ls_listsave.DataBase.LSSQLContract.TagTable.TABLE_NAME;
@@ -65,8 +63,8 @@ public class HashEditText extends RelativeLayout {
                     btnClear.setVisibility(RelativeLayout.VISIBLE);
 
                     SQLiteDatabase db = null;
-                    LSDBHelper lsdbHelper = new LSDBHelper(mContext);
-                    db = lsdbHelper.getReadableDatabase();
+                    //LSDBHelper lsdbHelper = new LSDBHelper(mContext);
+                    //db = lsdbHelper.getReadableDatabase();
 
                     String query = searchSql(s.toString());
                     Log.d("Search", query);

@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,14 +15,10 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -34,24 +29,17 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.ls_listsave.DataBase.LSSQLContract.LocationTable;
+import com.example.ls_listsave.DataBase.LSSQLContract.TagTable;
+import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
+import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
+import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
-import static com.example.ls_listsave.DataBase.LSSQLContract.TagTable.TABLE_NAME;
-
-import com.example.ls_listsave.DataBase.LSDBHelper;
-import com.example.ls_listsave.DataBase.LSSQLContract;
-import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
-import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
-import com.example.ls_listsave.DataBase.LSSQLContract.*;
-import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
-
-import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
-import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
-import com.example.ls_listsave.DataBase.LSSQLContract.*;
-import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
 
 public class MainActivity extends Activity {
     private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;

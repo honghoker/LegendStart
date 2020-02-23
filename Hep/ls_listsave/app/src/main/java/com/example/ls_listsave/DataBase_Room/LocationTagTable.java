@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 
 @Entity(tableName = "LocationTagTable",
-        foreignKeys = @ForeignKey(entity = LocationTable.class, parentColumns = "id", childColumns = "location_id", onDelete = ForeignKey.CASCADE))
+        foreignKeys = @ForeignKey(entity = LocationEntity.class, parentColumns = "id", childColumns = "location_id", onDelete = ForeignKey.CASCADE))
 public class LocationTagTable {
     @PrimaryKey(autoGenerate = false)
     private String location_id;
