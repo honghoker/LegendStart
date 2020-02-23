@@ -1,4 +1,4 @@
-package com.example.Myfrag;
+package com.example.myfragment1;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +27,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.example.Myfrag.R;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;

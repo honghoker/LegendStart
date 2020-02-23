@@ -1,4 +1,4 @@
-package com.example.Myfrag;
+package com.example.myfragment1;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,8 +10,6 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.example.Myfrag.R;
 
 public class MenuFragment extends Fragment {
     MainActivity activity;

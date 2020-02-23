@@ -1,16 +1,14 @@
-package com.example.Myfrag;
+package com.example.myfragment1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.Myfrag.R;
-
-public class todoActivity extends AppCompatActivity {
+public class excelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_todo);
+        setContentView(R.layout.activity_excel);
     }
 }

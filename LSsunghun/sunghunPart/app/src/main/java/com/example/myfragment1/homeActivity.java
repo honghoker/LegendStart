@@ -1,4 +1,4 @@
-package com.example.Myfrag;
+package com.example.myfragment1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,8 +8,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-
-import com.example.Myfrag.R;
 
 import maes.tech.intentanim.CustomIntent;
 

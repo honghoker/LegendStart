@@ -1,4 +1,4 @@
-package com.example.Myfrag;
+package com.example.myfragment1;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -6,8 +6,6 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-
-import com.example.Myfrag.R;
 
 import maes.tech.intentanim.CustomIntent;
 
