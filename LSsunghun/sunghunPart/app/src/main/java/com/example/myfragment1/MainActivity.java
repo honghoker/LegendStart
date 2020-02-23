@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
@@ -52,8 +53,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //recyclerVIew test용 Title ArrayList선언
     ArrayList<String> recy_title;
+
     //recyclerVIew test용 Tag ArrayList선언
     ArrayList<String[]> recy_Tag;
+
     //recyclerView 내려왔는지 실행확인 Frag변수
     boolean recyFrag = false;
 
@@ -62,7 +65,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //엑티비티를 본떠 만들었기 떄문에 프래그먼트 매니저가 소스코드에서 담당한다.
     MainFragment fragment1;
     MenuFragment fragment2;
+
     private boolean menuFlag = true;
+
     //프래그먼트 유지
     private FragmentManager fragmentManager;
     private Fragment fa, fb = null;
@@ -87,22 +92,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         recy_card_layout = findViewById(R.id.recy_card_layout);
         recy_con_layout = findViewById(R.id.recy_con_layout);
+<<<<<<< HEAD:LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/MainActivity.java
+=======
         recy_add_btn = findViewById(R.id.recy_add_btn);
+>>>>>>> 367a33e516d7bf8ce0808a272087776e99544dd8:LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/MainActivity.java
 
         // tollbar 선언
         toolbar = findViewById(R.id.toolbar);
+
         // spinner 선언
         spinner = findViewById(R.id.spinner);
+
         // toolbar 초기 Title 선언
-        toolbar.setTitle("여기는 됌?");
+        toolbar.setTitle("여기는 됨?");
+
         // **NoActionBar 해주고 이 메서드 호출하면 toolbar를 Activity의 앱바로 사용가능
         setSupportActionBar(toolbar);
 
         // Drawer Navigation
         // drawerLayout -> Drawer 기능을 이용하기 위해서 밑에 까는 레이아웃
         drawerLayout = findViewById(R.id.drawer_layout);
+
         // navigationVIew -> 왼쪽에서 드래그 했을 때 보이는 VIew
         navigationView = findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
 
         // ActionBarDrawerToggle 을 통해 Toolbar 와 DrawerLayout 을 연결
@@ -110,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // NavigationOnClickListner 에 DrawerLayout open, close 관련 기능이 연결됨.
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(toggle);
+
         // 현재 Drawerlayout 상태와 ActionBarDrawerToggle 의 상태를 sync
         toggle.syncState();
 
@@ -132,6 +146,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         db.directoryDao().getAll().observe(this, new Observer<List<Directory>>() {
             @Override
             public void onChanged(List<Directory> directories) {
+<<<<<<< HEAD:LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/MainActivity.java
+                for(Directory D : directories){
+                    recy_title.add(D.toString());
+=======
                 for (int i = 0; i < directories.size(); i++) {
                     recy_title.add(directories.get(i).toString());
                     Log.d("1","확인");
@@ -142,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                        recyclerView.setAdapter(adapter);
 //                        addFrag=false;
 //                    }
+>>>>>>> 367a33e516d7bf8ce0808a272087776e99544dd8:LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/MainActivity.java
                 }
             }
         });
@@ -170,7 +189,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-
                 toolbar.setTitle(recy_title.get(pos));
                 Toast.makeText(getApplicationContext(), recy_title.get(pos), Toast.LENGTH_SHORT).show();
                 Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
@@ -210,6 +228,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == false) {
 //                    Log.d("Search", "runrun@@@@1");
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
+<<<<<<< HEAD:LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/MainActivity.java
+                    recy_con_layout.setAnimation(animation);
+                    recy_con_layout.setVisibility(mView.VISIBLE);
+                    //recyclerView.setAnimation(animation);
+                    recyclerView.setVisibility(mView.VISIBLE);
+
+                    Animation animationt = new AlphaAnimation(0, 1);
+                    animation.setDuration(1000);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    recyclerView.setAnimation(animationt);
+                    recy_allSee.setVisibility(View.VISIBLE);
+=======
 //                    Log.d("Search", "runrun@@@@2");
                     asdf.setAnimation(animation);
                     asdf.setVisibility(mView.VISIBLE);
@@ -233,9 +263,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                    recy_card_layout.setVisibility(View.VISIBLE);
 //                    Toast.makeText(getApplicationContext(), "spinner 터치", Toast.LENGTH_LONG).show();
 
+>>>>>>> 367a33e516d7bf8ce0808a272087776e99544dd8:LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/MainActivity.java
                     recyFrag = true;
+
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == true) {
                     Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
+<<<<<<< HEAD:LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/MainActivity.java
+                    recy_con_layout.setAnimation(animationH);
+                    recy_con_layout.setVisibility(View.GONE);
+                    //recyclerView.setAnimation(animationH);
+
+                    Animation animationt = new AlphaAnimation(0, 1);
+                    animationt.setDuration(1000);
+                    recyclerView.setAnimation(animationt);
+                    recyclerView.setVisibility(View.GONE);
+                    recy_allSee.setVisibility(View.GONE);
+
+=======
                     asdf.setAnimation(animationH);
                     asdf.setVisibility(mView.GONE);
 //                    recyclerView.setAnimation(animationH);
@@ -272,8 +316,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                    recy_card_layout.setAnimation(animationH);
 //                    recy_card_layout.setVisibility(View.GONE);
 //                    Toast.makeText(getApplicationContext(), "spinner 터치", Toast.LENGTH_LONG).show();
+>>>>>>> 367a33e516d7bf8ce0808a272087776e99544dd8:LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/MainActivity.java
                     recyFrag = false;
                 }
+
                 recy_allSee.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

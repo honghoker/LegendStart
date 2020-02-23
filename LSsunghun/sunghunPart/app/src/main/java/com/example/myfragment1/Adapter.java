@@ -183,12 +183,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 @Override
                 public void onChanged(List<Directory> directories) {
 //                    holder.textTitle.setText(directories.toString());
+<<<<<<< HEAD:LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/Adapter.java
+                    Log.d("Adapter","ViewHolder = "+ directories.toString());
+                    Toast.makeText(mcontext,directories.toString(),Toast.LENGTH_SHORT).show();
+=======
 //                        Log.d("1","db확인22"+ db.directoryDao().getAll().toString());
 //                        Log.d("1","db확인33"+ directories.toString());
                     Toast.makeText(mcontext, directories.toString(), Toast.LENGTH_SHORT).show();
 
                     Log.d("1","sival");
 //                        MainActivity.recy_test_view.setAdapter(Adapter.this);
+>>>>>>> 367a33e516d7bf8ce0808a272087776e99544dd8:LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/Adapter.java
                 }
             });
 
