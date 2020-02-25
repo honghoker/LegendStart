@@ -102,13 +102,11 @@ public class LocationList extends AppCompatActivity {
                 itemTouchHelper.attachToRecyclerView(recyclerView);
             }
         });
-        recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(getApplicationContext(), recyclerAdapter ,new SwipeActionInterface() {
+        recyclerviewSwipeHelper = new RecyclerviewSwipeHelper(getApplicationContext(), locationViewModel ,recyclerAdapter ,new SwipeActionInterface() {
 
             @Override
             public void onRightClicked(RecyclerView.ViewHolder viewHolder, int position, RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper) {
-
                 recyclerviewSecondSwipeDismissHelper.onSwiped(viewHolder, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT);
-                recyclerAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -118,20 +116,16 @@ public class LocationList extends AppCompatActivity {
         });
     }
     public void AddOnClick(View view){
-        /*
         Intent intent = new Intent(LocationList.this, MainActivity.class);
         startActivityForResult(intent, GET_ADD_LOCATION_REQUEST_CODE);
-
-         */
-        finish();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == GET_ADD_LOCATION_REQUEST_CODE && resultCode == GET_ADD_LOCATION_REQUEST_CODE){
-            Log.d("tag","onActivityResult");`` ``
+        Log.d("tag","onActivityResultEnter");
+        if(requestCode == GET_ADD_LOCATION_REQUEST_CODE && resultCode == RESULT_OK){
+            Log.d("tag","onActivityResult");
             String title = data.getStringExtra(MainActivity.EXTRA_TITLE);
             String address = data.getStringExtra(MainActivity.EXTRA_Addr);
             String detailAddr = data.getStringExtra(MainActivity.EXTRA_DetailAddr);

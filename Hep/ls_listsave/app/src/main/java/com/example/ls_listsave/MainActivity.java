@@ -29,8 +29,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +73,7 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "이름을 입력하여 주십시오", Toast.LENGTH_SHORT).show();
             return;
         }
-        Intent data = new Intent(MainActivity.this, LocationList.class);
+        Intent data = new Intent();
         data.putExtra(EXTRA_TITLE, Location_Title.getText().toString());
         data.putExtra(EXTRA_Addr, Location_Address.getText().toString());
         data.putExtra(EXTRA_DetailAddr, Location_DetailAddress.getText().toString());
@@ -86,7 +84,8 @@ public class MainActivity extends Activity {
         data.putExtra(EXTRA_Longitude, "");
 
         data.putExtra(EXTRA_Timestamp, Long.toString(System.currentTimeMillis()));
-        startActivityForResult(data,GET_LOCATION_LIST_REQUEST_CODE);
+        setResult(RESULT_OK, data);
+        Log.d("tag","start");
     }
 
     public void PermissionCheck() {
@@ -173,6 +172,7 @@ public class MainActivity extends Activity {
     public void btnSaveOnClick(View view) {
         saveLocation();
         HashTag.getHashTagar().clear();
+        finish();
     }
 
     public void hashtext_set(String Hash) {
@@ -307,8 +307,7 @@ public class MainActivity extends Activity {
     }
 
     public void listshowOnButton(View view) {
-        Intent intent = new Intent(getApplicationContext(), LocationList.class);
-        startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
+        finish();
     }
 
 }

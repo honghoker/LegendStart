@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -17,7 +16,7 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
-import static com.example.ls_listsave.DataBase.LSSQLContract.TagTable.TABLE_NAME;
+//import static com.example.ls_listsave.DataBase.LSSQLContract.TagTable.TABLE_NAME;
 
 public class HashEditText extends RelativeLayout {
 
@@ -99,7 +98,7 @@ public class HashEditText extends RelativeLayout {
     }
 
     public String searchSql(String searchStr) {
-
+    /*
         String sql = "Select * FROM " + TABLE_NAME;
         if (TextUtils.isEmpty(searchStr) == false) {
             sql += " WHERE ";
@@ -107,7 +106,12 @@ public class HashEditText extends RelativeLayout {
         }
 
         return sql;
+
+     */
+    return "삭제";
     }
+
+
 
     private void clearText() {
         btnClear.setOnClickListener(new OnClickListener() {

@@ -46,6 +46,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListHo
         notifyDataSetChanged();
     }
 
+    public LocationEntity getLocationEntityAt(int position){
+        return locationEntities.get(position);
+    }
+
     class ListHolder extends RecyclerView.ViewHolder{
         private TextView textViewTitle;
         private TextView textViewAddress;

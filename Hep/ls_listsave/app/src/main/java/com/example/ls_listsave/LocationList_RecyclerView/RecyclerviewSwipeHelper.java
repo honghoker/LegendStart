@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+import com.example.ls_listsave.DataBase_Room.LocationViewModel;
 
 enum ButtonsState {
     GONE,
@@ -34,6 +34,7 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
     private Context context = null;
     private String sorting = null;
     private RecyclerAdapter recyclerAdapter = null;
+    private LocationViewModel locationViewModel;
 
     RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper = null;
     RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper = null;
@@ -69,12 +70,13 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
     }
 
-    public RecyclerviewSwipeHelper(Context context, RecyclerAdapter recyclerAdapter, SwipeActionInterface buttonsActions) {
+    public RecyclerviewSwipeHelper(Context context, LocationViewModel locationViewModel, RecyclerAdapter recyclerAdapter, SwipeActionInterface buttonsActions) {
         this.buttonsActions = buttonsActions;
         this.context = context;
         this.recyclerAdapter = recyclerAdapter;
-        RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, context);
-        RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, context);
+        this.locationViewModel = locationViewModel;
+        RecyclerviewSecondSwipeToDoHelper recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT);
+        RecyclerviewSecondSwipeDismissHelper recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, recyclerAdapter, locationViewModel);
         itemTouchHelperRight = new ItemTouchHelper(recyclerviewSecondSwipeToDoHelper);
         itemTouchHelperLeft = new ItemTouchHelper(recyclerviewSecondSwipeDismissHelper);
     }
@@ -121,6 +123,10 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
     }
 
+    public int setButtonClickNumber(RecyclerView.ViewHolder viewHolder){
+        return viewHolder.getAdapterPosition();
+    }
+
     //Button의 모양
     private void drawButtons(Canvas c, RecyclerView.ViewHolder viewHolder) {
         float buttonWidthWithoutPadding = buttonWidth - 10;
@@ -151,6 +157,8 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
             buttonInstance = rightButton;
         }
+        if(buttonShowedState != null)
+            setButtonClickNumber(viewHolder);
     }
 
     private void drawText(String text, Canvas c, RectF button, Paint p) {
@@ -217,10 +225,10 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
                     Log.d("tag","Interfacein");
                     if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
                         if(buttonShowedState == ButtonsState.LEFT_VISIBLE){
-                            recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT, context);
+                            recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT);
                             buttonsActions.onLeftClicked(viewHolder, viewHolder.getAdapterPosition(), recyclerviewSecondSwipeToDoHelper);
                         }else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE){
-                            recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, context);
+                            recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, recyclerAdapter, locationViewModel);
                             buttonsActions.onRightClicked(viewHolder, viewHolder.getAdapterPosition(), recyclerviewSecondSwipeDismissHelper);
                         }
                     }
