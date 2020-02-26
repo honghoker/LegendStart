@@ -1,5 +1,7 @@
 package com.example.ls_listsave.LocationList_RecyclerView;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.Toast;
 
