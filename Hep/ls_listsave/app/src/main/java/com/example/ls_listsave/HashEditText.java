@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -15,11 +14,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import com.example.ls_listsave.DataBase.LSDBHelper;
-
 import java.util.ArrayList;
 
-import static com.example.ls_listsave.DataBase.LSSQLContract.TagTable.TABLE_NAME;
+//import static com.example.ls_listsave.DataBase.LSSQLContract.TagTable.TABLE_NAME;
 
 public class HashEditText extends RelativeLayout {
 
@@ -65,8 +62,8 @@ public class HashEditText extends RelativeLayout {
                     btnClear.setVisibility(RelativeLayout.VISIBLE);
 
                     SQLiteDatabase db = null;
-                    LSDBHelper lsdbHelper = new LSDBHelper(mContext);
-                    db = lsdbHelper.getReadableDatabase();
+                    //LSDBHelper lsdbHelper = new LSDBHelper(mContext);
+                    //db = lsdbHelper.getReadableDatabase();
 
                     String query = searchSql(s.toString());
                     Log.d("Search", query);
@@ -101,7 +98,7 @@ public class HashEditText extends RelativeLayout {
     }
 
     public String searchSql(String searchStr) {
-
+    /*
         String sql = "Select * FROM " + TABLE_NAME;
         if (TextUtils.isEmpty(searchStr) == false) {
             sql += " WHERE ";
@@ -109,7 +106,12 @@ public class HashEditText extends RelativeLayout {
         }
 
         return sql;
+
+     */
+    return "삭제";
     }
+
+
 
     private void clearText() {
         btnClear.setOnClickListener(new OnClickListener() {

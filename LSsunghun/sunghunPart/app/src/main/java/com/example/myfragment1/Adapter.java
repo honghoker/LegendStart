@@ -196,7 +196,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             // LiveData
             db.directoryDao().getAll().observe((LifecycleOwner) mcontext, new Observer<List<Directory>>() {
                 @Override
-                public void onChanged(List<Directory> directories) {
+                public void onChanged(List<Directory> directories) {==
                     if(recy_refresh_frag==true){
 //                        title.clear();
                         recy_refresh_frag = false;
@@ -221,7 +221,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                         if (pos == 0) {
                             // 삭제는 어케하누?
 //                            new DeleteAsyncTask(db.directoryDao()).execute();
-
                             AlertDialog.Builder ad = new AlertDialog.Builder(mcontext);
                             ad.setIcon(R.mipmap.ic_launcher);
                             ad.setTitle("제목");
@@ -241,7 +240,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                     recy_refresh_frag = true;
                                     Log.d("1", "여긴옴?");
 //                                    MainActivity.recyclerView.setAdapter(Adapter.this);
-
 
 //                                        Toast.makeText(mcontext,db.directoryDao().getAll().toString(),Toast.LENGTH_SHORT).show();
                                     dialog.dismiss(); // 모든 작업이 끝났으니 dialog를 닫어라
