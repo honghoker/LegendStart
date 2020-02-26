@@ -22,8 +22,9 @@ public class LocationRepository {
     public void update(LocationEntity locationEntity){
         new UpdateLocationAsyncTask(locationEntity_dao).execute(locationEntity);
     }
-    public void delete(LocationEntity locationEntity){
+    public LocationEntity delete(LocationEntity locationEntity){
         new DeleteLocationAsyncTask(locationEntity_dao).execute(locationEntity);
+        return locationEntity;
     }
     public void deleteAllDates(){
         new DeleteAllLocationAsyncTask(locationEntity_dao).execute();

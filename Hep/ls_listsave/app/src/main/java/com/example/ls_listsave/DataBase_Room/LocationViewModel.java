@@ -23,8 +23,9 @@ public class LocationViewModel extends AndroidViewModel {
     public void update(LocationEntity locationEntity){
         repository.update(locationEntity);
     }
-    public void delete(LocationEntity locationEntity){
+    public LocationEntity delete(LocationEntity locationEntity){
         repository.delete(locationEntity);
+        return locationEntity;
     }
     public void deleteAllDates(){
         repository.deleteAllDates();

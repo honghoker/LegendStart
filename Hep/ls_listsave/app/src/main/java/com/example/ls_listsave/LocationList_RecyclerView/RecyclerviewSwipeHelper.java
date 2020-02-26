@@ -123,8 +123,8 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
     }
 
-    public int setButtonClickNumber(RecyclerView.ViewHolder viewHolder){
-        return viewHolder.getAdapterPosition();
+    public RecyclerView.ViewHolder setButtonClickNumber(RecyclerView.ViewHolder viewHolder){
+        return viewHolder;
     }
 
     //Button의 모양
@@ -228,7 +228,8 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
                             recyclerviewSecondSwipeToDoHelper = new RecyclerviewSecondSwipeToDoHelper(0, ItemTouchHelper.RIGHT);
                             buttonsActions.onLeftClicked(viewHolder, viewHolder.getAdapterPosition(), recyclerviewSecondSwipeToDoHelper);
                         }else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE){
-                            recyclerviewSecondSwipeDismissHelper = new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, recyclerAdapter, locationViewModel);
+                            recyclerviewSecondSwipeDismissHelper =
+                                    new RecyclerviewSecondSwipeDismissHelper(0, ItemTouchHelper.LEFT, recyclerAdapter, locationViewModel);
                             buttonsActions.onRightClicked(viewHolder, viewHolder.getAdapterPosition(), recyclerviewSecondSwipeDismissHelper);
                         }
                     }
@@ -247,8 +248,5 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
             Log.d("1","setItemsClickable : " + i);
             recyclerView.getChildAt(i).setClickable(isClickable);
         }
-    }
-    public int onSwipeFlag(){
-        return firstSwipeFlag;
     }
 }
