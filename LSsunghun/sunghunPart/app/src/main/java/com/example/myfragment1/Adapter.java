@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Delete;
 import androidx.room.Room;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     private final int TYPE_HEADER = 0;
     private final int TYPE_ITEM = 1;
+    private boolean recy_refresh_frag = false;
 //    AppDatabase db = Room.databaseBuilder(mcontext,AppDatabase.class,"directory_db").build();
 
     ConstraintLayout recy_card_layout;
@@ -157,6 +159,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             return null;
         }
     }
+    private static class DeleteAsyncTask extends AsyncTask<Directory, Void, Void> {
+        private DirectoryDao mDierctoryDao;
+
+        public DeleteAsyncTask(DirectoryDao directoryDao) {
+            this.mDierctoryDao = directoryDao;
+        }
+
+        @Override
+        protected Void doInBackground(Directory... directories) {
+            mDierctoryDao.delete(directories[0]);
+            return null;
+        }
+    }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -181,14 +196,18 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             // LiveData
             db.directoryDao().getAll().observe((LifecycleOwner) mcontext, new Observer<List<Directory>>() {
                 @Override
-                public void onChanged(List<Directory> directories) {
-//                    holder.textTitle.setText(directories.toString());
-//                        Log.d("1","db확인22"+ db.directoryDao().getAll().toString());
-//                        Log.d("1","db확인33"+ directories.toString());
-                    Toast.makeText(mcontext, directories.toString(), Toast.LENGTH_SHORT).show();
+                public void onChanged(List<Directory> directories) {==
+                    if(recy_refresh_frag==true){
+//                        title.clear();
+                        recy_refresh_frag = false;
 
-                    Log.d("1","sival");
-//                        MainActivity.recy_test_view.setAdapter(Adapter.this);
+                        title.add(directories.get(directories.size()-1).toString());
+
+//                        for(Directory D: directories){
+//                            title.add(D.toString());
+//                        }
+                        ((MainActivity)mcontext).recy_test_view.setAdapter(Adapter.this);
+                    }
                 }
             });
 
@@ -200,6 +219,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
                     if (pos != RecyclerView.NO_POSITION) {
                         if (pos == 0) {
+                            // 삭제는 어케하누?
+//                            new DeleteAsyncTask(db.directoryDao()).execute();
                             AlertDialog.Builder ad = new AlertDialog.Builder(mcontext);
                             ad.setIcon(R.mipmap.ic_launcher);
                             ad.setTitle("제목");
@@ -216,9 +237,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 //                                        String result = et.getText().toString();
 
                                     new InsertAsyncTask(db.directoryDao()).execute(new Directory(et.getText().toString()));
-
+                                    recy_refresh_frag = true;
                                     Log.d("1", "여긴옴?");
-
+//                                    MainActivity.recyclerView.setAdapter(Adapter.this);
 
 //                                        Toast.makeText(mcontext,db.directoryDao().getAll().toString(),Toast.LENGTH_SHORT).show();
                                     dialog.dismiss(); // 모든 작업이 끝났으니 dialog를 닫어라
@@ -233,6 +254,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                 }
                             });
                             ad.show();
+
 //                            Toast.makeText(mcontext,"add Btn",Toast.LENGTH_SHORT).show();
                         } else if (mListener != null) {
                             mListener.onItemClick(v, pos - 1);

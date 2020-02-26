@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="71d6e0fe-feeb-44fa-9ff5-a050b0658f2d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/androidTest/java/com/example/myfragment1/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/androidTest/java/com/example/Myfrag/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/Adapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/Adapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/AdapterViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/AdapterViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/AllSeeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/AllSeeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/AppDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/AppDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/Directory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/Directory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/DirectoryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/DirectoryDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/MainFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/MainFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/MenuFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/MenuFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/excelActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/excelActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/homeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/homeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/settingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/settingActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/myfragment1/todoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/java/com/example/Myfrag/todoActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_allsee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_allsee.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_excel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_excel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_setting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_todo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/activity_todo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/recy_test_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/main/res/layout/recy_test_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/test/java/com/example/myfragment1/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/app/src/test/java/com/example/myfragment1/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSsunghun/sunghunPart/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../LSsunghun/sunghunPart/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_26" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="layoutResourceFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/RoomDBDatabase.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/Room/RoomDBDatabase.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/Room/RecyclerviewAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item.xml" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/gradle.properties" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/cardview.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/Room/RoomDataRepository.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/Room/RoomDBDao.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LSsunghun/sunghunPart" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Github_LegendStart\LegendStart\Pcs\app\src\main\java\com\example\a20200221room" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="71d6e0fe-feeb-44fa-9ff5-a050b0658f2d" name="Default Changelist" comment="" />
+      <created>1582296699472</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582296699472</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.18176973" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Build Variants" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Designer" order="6" />
+      <window_info id="Resources Explorer" order="7" />
+      <window_info id="Capture Tool" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="Logcat" order="1" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Build" order="5" visible="true" weight="0.2260579" />
+      <window_info anchor="bottom" id="Android Profiler" order="6" show_stripe_button="false" />
+      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" weight="0.32995737" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Gradle" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Preview" order="4" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradle.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="95" selection-start-line="11" selection-start-column="95" selection-end-line="11" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/cardview.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/Room/RecyclerviewAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+          <folding>
+            <element signature="e#627#628#0" expanded="true" />
+            <element signature="e#651#652#0" expanded="true" />
+            <element signature="e#451#452#0" expanded="true" />
+            <element signature="e#490#491#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/os/AsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="653" column="53" selection-start-line="653" selection-start-column="53" selection-end-line="653" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/Room/RoomDataRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-154">
+          <caret line="46" column="9" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
+          <folding>
+            <element signature="e#536#537#0" expanded="true" />
+            <element signature="e#605#606#0" expanded="true" />
+            <element signature="e#644#645#0" expanded="true" />
+            <element signature="e#713#714#0" expanded="true" />
+            <element signature="e#752#753#0" expanded="true" />
+            <element signature="e#821#822#0" expanded="true" />
+            <element signature="e#854#855#0" expanded="true" />
+            <element signature="e#920#921#0" expanded="true" />
+            <element signature="e#968#969#0" expanded="true" />
+            <element signature="e#998#999#0" expanded="true" />
+            <element signature="e#1184#1185#0" expanded="true" />
+            <element signature="e#1234#1235#0" expanded="true" />
+            <element signature="e#1580#1581#0" expanded="true" />
+            <element signature="e#1630#1631#0" expanded="true" />
+            <element signature="e#1976#1977#0" expanded="true" />
+            <element signature="e#2026#2027#0" expanded="true" />
+            <element signature="e#2377#2378#0" expanded="true" />
+            <element signature="e#2427#2428#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/Room/RoomDBDatabase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="43" column="70" selection-start-line="43" selection-start-column="70" selection-end-line="43" selection-end-column="70" />
+          <folding>
+            <element signature="e#940#1144#0" expanded="true" />
+            <element signature="e#1143#1144#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/Room/RoomDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="e#515#516#0" expanded="true" />
+            <element signature="e#543#544#0" expanded="true" />
+            <element signature="e#569#570#0" expanded="true" />
+            <element signature="e#594#595#0" expanded="true" />
+            <element signature="e#626#627#0" expanded="true" />
+            <element signature="e#654#655#0" expanded="true" />
+            <element signature="e#692#693#0" expanded="true" />
+            <element signature="e#726#727#0" expanded="true" />
+            <element signature="e#758#759#0" expanded="true" />
+            <element signature="e#789#790#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/a20200221room/Room/RoomDBDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="22" column="31" lean-forward="true" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

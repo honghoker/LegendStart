@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     Toolbar toolbar;
     Spinner spinner;
-    RecyclerView recyclerView;
+    static RecyclerView recyclerView;
     Adapter adapter;
     ConstraintLayout recy_con_layout;
     LinearLayout recy_add_btn;
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // spinner 선언
         spinner = findViewById(R.id.spinner);
         // toolbar 초기 Title 선언
-        toolbar.setTitle("여기는 됌?");
+        toolbar.setTitle("조이서 내꺼ㅎㅎ;");
         // **NoActionBar 해주고 이 메서드 호출하면 toolbar를 Activity의 앱바로 사용가능
         setSupportActionBar(toolbar);
 
@@ -126,26 +126,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        recy_title.add("Four");
 //        recy_title.add("FIve");
 
-        // 여기 조져야함
-        AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "directory_db").build();
-
-        db.directoryDao().getAll().observe(this, new Observer<List<Directory>>() {
-            @Override
-            public void onChanged(List<Directory> directories) {
-                for (int i = 0; i < directories.size(); i++) {
-                    recy_title.add(directories.get(i).toString());
-                    Log.d("1","확인");
-                    // 아예 추가하고 여길 다시 안돔..
-//                    if(addFrag==true){
-//                        Log.d("1","여긴옴?");
-//                        adapter = new Adapter(getApplicationContext(),recy_title);
-//                        recyclerView.setAdapter(adapter);
-//                        addFrag=false;
-//                    }
-                }
-            }
-        });
-
 //        List<Directory> a = db.directoryDao().getAll().getValue();
 //        Log.d("1","db확인11"+ db.directoryDao().getAll().getValue());
 
@@ -171,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(View v, int pos) {
 
+
                 toolbar.setTitle(recy_title.get(pos));
                 Toast.makeText(getApplicationContext(), recy_title.get(pos), Toast.LENGTH_SHORT).show();
                 Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
@@ -179,6 +160,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        // 여기 조져야함
+        AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "directory_db").build();
+        db.directoryDao().getAll().observe(this, new Observer<List<Directory>>() {
+            @Override
+            public void onChanged(List<Directory> directories) {
+                for (int i = 0; i < directories.size(); i++) {
+                    recy_title.add(directories.get(i).toString());
+                    Log.d("1","확인");
+                    // 아예 추가하고 여길 다시 안돔..
+//                    if(addFrag==true){
+//                        Log.d("1","여긴옴?");
+//                        adapter = new Adapter(getApplicationContext(),recy_title);
+//                        recyclerView.setAdapter(adapter);
+//                        addFrag=false;
+//                    }
+                }
+            }
+        });
         // frameLayout 위에 recyclerView가 나타나야함으로 frameLayout 선언
 
         // recyclerView 초기상태 gone
