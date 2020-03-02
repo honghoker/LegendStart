@@ -1,4 +1,4 @@
-package com.example.ls_listsave.DataBase_Room;
+package com.example.ls_listsave.DataBase_Room.LocationRoom;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

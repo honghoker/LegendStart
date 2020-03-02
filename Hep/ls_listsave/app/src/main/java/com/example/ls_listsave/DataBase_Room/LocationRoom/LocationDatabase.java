@@ -1,4 +1,4 @@
-package com.example.ls_listsave.DataBase_Room;
+package com.example.ls_listsave.DataBase_Room.LocationRoom;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -43,15 +43,6 @@ public abstract class LocationDatabase extends RoomDatabase {
         protected Void doInBackground(Void... voids) {
             locationEntity_dao.insert(new LocationEntity("Strart","END","DETAIL","111","Hi"
             ,"11","22","22"));
-            /*
-            public LocationEntity(String location_Title, String location_Addr, String location_DetailAddr, String location_Phone, String location_Memo,
-            String location_Latitude, String location_Longitude, String location_Timestamp) {
-            roomDBDao.insert(new RoomDB("Title 1", "Description 1", 1));
-            roomDBDao.insert(new RoomDB("Title 2", "Description 2", 2));
-            roomDBDao.insert(new RoomDB("Title 3", "Description 3", 3));
-
-
-             */
             return null;
         }
     }

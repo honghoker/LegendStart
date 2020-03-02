@@ -1,7 +1,5 @@
 package com.example.ls_listsave.LocationList_RecyclerView;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.Toast;
 
@@ -9,19 +7,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ls_listsave.DataBase_Room.LocationEntity;
-import com.example.ls_listsave.DataBase_Room.LocationViewModel;
+import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationEntity;
+import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationViewModel;
+import com.example.ls_listsave.DataBase_Room.TagEntity.TagEntity;
+import com.example.ls_listsave.DataBase_Room.TagEntity.TagViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.SimpleCallback {
     private LocationViewModel locationViewModel;
     private RecyclerAdapter recyclerAdapter;
     private LocationEntity locationEntity;
+    private TagEntity[] tagEntities;
+    private TagViewModel tagViewModel;
 
-    public RecyclerviewSecondSwipeDismissHelper(int dragDirs, int swipeDirs, RecyclerAdapter recyclerAdapter, LocationViewModel locationViewModel) {
+
+    public RecyclerviewSecondSwipeDismissHelper(int dragDirs, int swipeDirs, RecyclerAdapter recyclerAdapter, LocationViewModel locationViewModel, TagViewModel tagViewModel) {
         super(dragDirs, ItemTouchHelper.LEFT);
         this.recyclerAdapter = recyclerAdapter;
         this.locationViewModel = locationViewModel;
+        this.tagViewModel = tagViewModel;
     }
 
     @Override
@@ -33,7 +37,10 @@ public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.Simple
     @Override
     public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
         //Undo
-        locationEntity = locationViewModel.delete(recyclerAdapter.getLocationEntityAt(viewHolder.getAdapterPosition()));
+        int position = viewHolder.getAdapterPosition();
+        locationEntity = locationViewModel.delete(recyclerAdapter.getLocationEntityAt(position));
+        tagViewModel.setLocation_id(position);
+
         Snackbar.make(viewHolder.itemView, "", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
             @Override
             public void onClick(View v) {

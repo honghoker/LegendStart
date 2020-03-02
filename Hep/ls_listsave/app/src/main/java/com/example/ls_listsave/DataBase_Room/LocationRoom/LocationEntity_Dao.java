@@ -1,4 +1,4 @@
-package com.example.ls_listsave.DataBase_Room;
+package com.example.ls_listsave.DataBase_Room.LocationRoom;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

@@ -19,18 +19,23 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ls_listsave.DataBase_Room.LocationEntity;
-import com.example.ls_listsave.DataBase_Room.LocationViewModel;
+import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationEntity;
+import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationViewModel;
+import com.example.ls_listsave.DataBase_Room.TagEntity.TagViewModel;
 import com.example.ls_listsave.MainActivity;
 import com.example.ls_listsave.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
+
+;
 
 public class LocationList extends AppCompatActivity {
     private static final int GET_ADD_LOCATION_REQUEST_CODE = 200; //For intent
     private RecyclerAdapter recyclerAdapter;
     private LocationViewModel locationViewModel;
+    private TagViewModel tagViewModel;
     private RecyclerView recyclerView; //For recyclerview
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
     private FloatingActionButton floatingActionButton;
@@ -43,6 +48,7 @@ public class LocationList extends AppCompatActivity {
         setRecyclerView();
 
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
+        tagViewModel = ViewModelProviders.of(this).get(TagViewModel.class);
         locationViewModel.getAllData().observe(this, new Observer<List<LocationEntity>>() {
             @Override
             public void onChanged(List<LocationEntity> locationEntities) {
@@ -134,9 +140,15 @@ public class LocationList extends AppCompatActivity {
             String latitude = data.getStringExtra(MainActivity.EXTRA_Latitude);
             String longitude = data.getStringExtra(MainActivity.EXTRA_Longitude);
             String timestamp = data.getStringExtra(MainActivity.EXTRA_Timestamp);
+            ArrayList<String> hashTag = data.getStringArrayListExtra(MainActivity.EXTRA_HASHTAG);
 //String location_Title, String location_Addr, String location_DetailAddr, String location_Phone, String location_Memo, String location_Latitude, String location_Longitude, String location_Timestamp
             LocationEntity locationEntity = new LocationEntity(title, address, detailAddr, number, comment, latitude, longitude, timestamp);
             locationViewModel.insert(locationEntity);
+            if(hashTag.isEmpty()){
+
+            }
+
+
             Toast.makeText(this, "Save",Toast.LENGTH_SHORT).show();
         }else
             Toast.makeText(this, "Not Save",Toast.LENGTH_SHORT).show();

@@ -1,4 +1,4 @@
-package com.example.ls_listsave.DataBase_Room;
+package com.example.ls_listsave.DataBase_Room.LocationRoom;
 
 import android.app.Application;
 
@@ -10,12 +10,12 @@ import java.util.List;
 
 public class LocationViewModel extends AndroidViewModel {
     private LocationRepository repository;
-    private LiveData<List<LocationEntity>> allDatas;
+    private LiveData<List<LocationEntity>> allData;
 
     public LocationViewModel(@NonNull Application application) {
         super(application);
         repository = new LocationRepository(application);
-        allDatas = repository.getAllLocations();
+        allData = repository.getAllLocations();
     }
     public void insert(LocationEntity locationEntity){
         repository.insert(locationEntity);
@@ -31,7 +31,7 @@ public class LocationViewModel extends AndroidViewModel {
         repository.deleteAllDates();
     }
     public LiveData<List<LocationEntity>> getAllData(){
-        return allDatas;
+        return allData;
     }
 
 }

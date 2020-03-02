@@ -1,4 +1,4 @@
-package com.example.ls_listsave.DataBase_Room;
+package com.example.ls_listsave.DataBase_Room.LocationRoom;
 
 import android.app.Application;
 import android.os.AsyncTask;

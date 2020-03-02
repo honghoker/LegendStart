@@ -45,6 +45,7 @@ public class MainActivity extends Activity {
     public static final String EXTRA_Latitude = "com.example.ls_listsave.EXTRA_Latitude";
     public static final String EXTRA_Longitude = "com.example.ls_listsave.EXTRA_Longitude";
     public static final String EXTRA_Timestamp = "com.example.ls_listsave.EXTRA_Timestamp";
+    public static final String EXTRA_HASHTAG = "com.example.ls_listsave.EXTRA_HASHTAG";
 
 
     EditText Location_Title; // 이름
@@ -73,6 +74,7 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "이름을 입력하여 주십시오", Toast.LENGTH_SHORT).show();
             return;
         }
+
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE, Location_Title.getText().toString());
         data.putExtra(EXTRA_Addr, Location_Address.getText().toString());
@@ -84,6 +86,10 @@ public class MainActivity extends Activity {
         data.putExtra(EXTRA_Longitude, "");
 
         data.putExtra(EXTRA_Timestamp, Long.toString(System.currentTimeMillis()));
+        ArrayList<String> tempArray = HashTag.getHashTagar();
+        if(tempArray.isEmpty()){
+            data.putExtra(EXTRA_HASHTAG, tempArray);
+        }
         setResult(RESULT_OK, data);
         Log.d("tag","start");
     }
