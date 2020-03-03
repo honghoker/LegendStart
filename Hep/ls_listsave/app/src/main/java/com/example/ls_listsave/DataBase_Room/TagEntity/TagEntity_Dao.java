@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface TagEntity_Dao {
     @Insert
-    void insert(TagEntity tagEntity);
+    void insert(TagEntity... tagEntities);
     @Update
     void update(TagEntity tagEntity);
     @Delete

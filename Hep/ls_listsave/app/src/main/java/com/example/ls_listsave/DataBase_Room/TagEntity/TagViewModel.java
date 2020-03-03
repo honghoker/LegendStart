@@ -9,14 +9,16 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class TagViewModel extends AndroidViewModel {
+
     private TagRepository tagRepository;
     private LiveData<List<TagEntity>> allData;
     private int location_id;
     public TagViewModel(@NonNull Application application) {
         super(application);
         tagRepository = new TagRepository(application);
-        allData = tagRepository.getAllTags();
+
     }
+    /*
     public void insert(TagEntity tagEntity){
         tagRepository.insert(tagEntity);
     }
@@ -39,4 +41,7 @@ public class TagViewModel extends AndroidViewModel {
     public void setLocation_id(int location_id) {
         this.location_id = location_id;
     }
+
+     */
 }
+

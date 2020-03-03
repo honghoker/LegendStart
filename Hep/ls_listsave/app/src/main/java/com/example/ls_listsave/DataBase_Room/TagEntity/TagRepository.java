@@ -1,7 +1,6 @@
 package com.example.ls_listsave.DataBase_Room.TagEntity;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
@@ -23,6 +22,7 @@ public class TagRepository {
         allTags = tagEntity_dao.getAllData();
         selectDismissTagEntities = tagEntity_dao.multipleSelectionByForeignKey(position);
     }
+    /*
     public static class InsertTagAsyncTask extends AsyncTask<TagEntity, Void, Void>{
         private TagEntity_Dao tagEntity_dao;
         public InsertTagAsyncTask(TagEntity_Dao tagEntity_dao) {
@@ -44,18 +44,6 @@ public class TagRepository {
     public void delete(TagEntity... tagEntities){
         new DeleteTagAsyncTask(tagEntity_dao).execute(tagEntities);
     }
-    public TagEntity[] multiSelection(int position, TagEntity... tagEntities){
-        new MultipleSelectionAsyncTask(tagEntity_dao, position).execute(tagEntities);
-        return
-}
-    public void deleteAllData(){
-        new DeleteAllTagAsyncTask(tagEntity_dao).execute();
-    }
-    public LiveData<List<TagEntity>> getAllTags(){
-        return allTags;
-    }
-
-
 
     public static class UpdateTagAsyncTask extends AsyncTask<TagEntity, Void, Void>{
         private TagEntity_Dao tagEntity_dao;
@@ -81,18 +69,6 @@ public class TagRepository {
             return null;
         }
     }
-    public static class DeleteAllTagAsyncTask extends AsyncTask<TagEntity, Void, Void>{
-        private TagEntity_Dao tagEntity_dao;
-        public DeleteAllTagAsyncTask(TagEntity_Dao tagEntity_dao) {
-            this.tagEntity_dao = tagEntity_dao;
-        }
-
-        @Override
-        protected Void doInBackground(TagEntity... tagEntities) {
-            tagEntity_dao.deleteAllData();
-            return null;
-        }
-    }
     public static class MultipleSelectionAsyncTask extends AsyncTask<TagEntity, Void, Void>{
         private TagEntity_Dao tagEntity_dao;
         private int position;
@@ -107,4 +83,6 @@ public class TagRepository {
             return null;
         }
     }
+
+     */
 }

@@ -18,9 +18,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationEntity;
 import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationViewModel;
+import com.example.ls_listsave.DataBase_Room.TagEntity.TagDatabase;
+import com.example.ls_listsave.DataBase_Room.TagEntity.TagEntity;
 import com.example.ls_listsave.DataBase_Room.TagEntity.TagViewModel;
 import com.example.ls_listsave.MainActivity;
 import com.example.ls_listsave.R;
@@ -39,6 +42,7 @@ public class LocationList extends AppCompatActivity {
     private RecyclerView recyclerView; //For recyclerview
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
     private FloatingActionButton floatingActionButton;
+    private TagDatabase tagDatabase;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +52,6 @@ public class LocationList extends AppCompatActivity {
         setRecyclerView();
 
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
-        tagViewModel = ViewModelProviders.of(this).get(TagViewModel.class);
         locationViewModel.getAllData().observe(this, new Observer<List<LocationEntity>>() {
             @Override
             public void onChanged(List<LocationEntity> locationEntities) {
@@ -143,11 +146,16 @@ public class LocationList extends AppCompatActivity {
             ArrayList<String> hashTag = data.getStringArrayListExtra(MainActivity.EXTRA_HASHTAG);
 //String location_Title, String location_Addr, String location_DetailAddr, String location_Phone, String location_Memo, String location_Latitude, String location_Longitude, String location_Timestamp
             LocationEntity locationEntity = new LocationEntity(title, address, detailAddr, number, comment, latitude, longitude, timestamp);
-            locationViewModel.insert(locationEntity);
+            int location_id = locationViewModel.insert(locationEntity);
             if(hashTag.isEmpty()){
-
+                tagDatabase = Room.databaseBuilder(this, TagDatabase.class, "Tag_Database").allowMainThreadQueries().build();
+                for(String tag : hashTag){
+                    Log.d("Tag","TagData Store Error");
+                    TagEntity tagEntity = new TagEntity(location_id, tag);
+                    tagDatabase.tagEntity_dao().insert(tagEntity);
+                }
+                tagDatabase.close();
             }
-
 
             Toast.makeText(this, "Save",Toast.LENGTH_SHORT).show();
         }else
