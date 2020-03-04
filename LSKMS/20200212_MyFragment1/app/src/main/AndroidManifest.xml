@@ -16,7 +16,6 @@
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan">
             <!--출처: https://duzi077.tistory.com/283 [키패드 눌러도 화면 고정]-->
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

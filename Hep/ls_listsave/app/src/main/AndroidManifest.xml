@@ -9,20 +9,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LocationList_RecyclerView.LocationList" android:launchMode="singleTop" android:windowSoftInputMode="adjustResize">
+        <activity android:name=".MainMS.excelActivity" />
+        <activity android:name=".MainMS.todoActivity" />
+        <activity android:name=".MainMS.settingActivity" />
+        <activity android:name=".MainMS.homeActivity" />
+        <activity android:name=".LocationList_RecyclerView.LocationList" />
+        <activity
+            android:name=".MainMS.MainActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".FullImage" android:label="FullImage"/>
+
+        <!--출처: https://duzi077.tistory.com/283 [키패드 눌러도 화면 고정]-->
+        <activity
+            android:name=".FullImage"
+            android:label="FullImage" />
     </application>
 
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 </manifest>

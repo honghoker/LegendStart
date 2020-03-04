@@ -50,7 +50,7 @@ public class HashTag extends RelativeLayout {
         deleteBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((FlowLayout) ((MainActivity) mContext).findViewById(R.id.flowlayout)).removeView(me);
+                ((FlowLayout) ((AddMainActivity) mContext).findViewById(R.id.flowlayout)).removeView(me);
                 HashTagar.remove(HashText.getText().toString());
             }
         });

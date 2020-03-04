@@ -30,7 +30,7 @@ public class ClearableEditText extends RelativeLayout {
         //레이아웃을 설정
         inflater = (LayoutInflater) getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.clearable_edit_text, this, true);
+        inflater.inflate(R.layout.ms_clearable_edit_text, this, true);
 
         editText = findViewById(R.id.clearable_edit);
         btnClear = (Button) findViewById(R.id.clearable_button_clear);

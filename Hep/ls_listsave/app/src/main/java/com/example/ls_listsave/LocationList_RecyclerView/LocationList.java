@@ -26,7 +26,7 @@ import com.example.ls_listsave.DataBase_Room.TagEntity.TagDatabase;
 import com.example.ls_listsave.DataBase_Room.TagEntity.TagEntity;
 import com.example.ls_listsave.DataBase_Room.TagEntity.TagViewModel;
 
-import com.example.ls_listsave.MainActivity;
+import com.example.ls_listsave.AddMainActivity;
 import com.example.ls_listsave.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -128,7 +128,7 @@ public class LocationList extends AppCompatActivity {
         });
     }
     public void AddOnClick(View view){
-        Intent intent = new Intent(LocationList.this, MainActivity.class);
+        Intent intent = new Intent(LocationList.this, AddMainActivity.class);
         startActivityForResult(intent, GET_ADD_LOCATION_REQUEST_CODE);
     }
     @Override
@@ -137,15 +137,15 @@ public class LocationList extends AppCompatActivity {
         Log.d("tag","onActivityResultEnter");
         if(requestCode == GET_ADD_LOCATION_REQUEST_CODE && resultCode == RESULT_OK){
             Log.d("tag","onActivityResult");
-            String title = data.getStringExtra(MainActivity.EXTRA_TITLE);
-            String address = data.getStringExtra(MainActivity.EXTRA_Addr);
-            String detailAddr = data.getStringExtra(MainActivity.EXTRA_DetailAddr);
-            String number = data.getStringExtra(MainActivity.EXTRA_Number);
-            String comment = data.getStringExtra(MainActivity.EXTRA_Comment);
-            String latitude = data.getStringExtra(MainActivity.EXTRA_Latitude);
-            String longitude = data.getStringExtra(MainActivity.EXTRA_Longitude);
-            String timestamp = data.getStringExtra(MainActivity.EXTRA_Timestamp);
-            ArrayList<String> hashTag = data.getStringArrayListExtra(MainActivity.EXTRA_HASHTAG);
+            String title = data.getStringExtra(AddMainActivity.EXTRA_TITLE);
+            String address = data.getStringExtra(AddMainActivity.EXTRA_Addr);
+            String detailAddr = data.getStringExtra(AddMainActivity.EXTRA_DetailAddr);
+            String number = data.getStringExtra(AddMainActivity.EXTRA_Number);
+            String comment = data.getStringExtra(AddMainActivity.EXTRA_Comment);
+            String latitude = data.getStringExtra(AddMainActivity.EXTRA_Latitude);
+            String longitude = data.getStringExtra(AddMainActivity.EXTRA_Longitude);
+            String timestamp = data.getStringExtra(AddMainActivity.EXTRA_Timestamp);
+            ArrayList<String> hashTag = data.getStringArrayListExtra(AddMainActivity.EXTRA_HASHTAG);
 //String location_Title, String location_Addr, String location_DetailAddr, String location_Phone, String location_Memo, String location_Latitude, String location_Longitude, String location_Timestamp
             LocationEntity locationEntity = new LocationEntity(title, address, detailAddr, number, comment, latitude, longitude, timestamp);
             int location_id = locationViewModel.insert(locationEntity);

@@ -3,9 +3,10 @@ package com.example.ls_listsave.DataBase_Room.TagEntity;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {TagEntity.class}, version = 1)
-public abstract class TagDatabase extends RoomDatabase {
+import com.example.ls_listsave.DataBase_Room.LocationEntity;
 
+@Database(entities = {TagEntity.class, LocationEntity.class}, version = 1)
+public abstract class TagDatabase extends RoomDatabase {
     public abstract TagEntity_Dao tagEntity_dao();
     /*
     private static TagDatabase instance;

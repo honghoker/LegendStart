@@ -91,7 +91,7 @@ public class HashEditText extends RelativeLayout {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().contains(" ")) {
-                    ((MainActivity) mContext).hashtag_Add(s.toString().replaceAll(" ", "").trim());
+                    ((AddMainActivity) mContext).hashtag_Add(s.toString().replaceAll(" ", "").trim());
                 }
             }
         });

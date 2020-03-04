@@ -45,6 +45,7 @@ import java.util.List;
 
 import maes.tech.intentanim.CustomIntent;
 
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // 기본적으로 쓰이는 것들 선언
     DrawerLayout drawerLayout;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static LinearLayout hastagView;
 
     CheckBox checkBoxAll; //체크박스 명 선언
-    public static MsHashTag[] msHashTag = new MsHashTag[10]; //태그 배열
+    public static HashTag[] msHashTag = new HashTag[10]; //태그 배열
     public static FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(20, 20);
     ; //해시태그 레이아웃을 위한 parms
     MsHashTagCheckBoxManager msHashTagCheckBoxManager = new MsHashTagCheckBoxManager();
@@ -597,7 +598,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void addHashTag() { //초기 해시태그 세팅
         for (int i = 1; i < msHashTag.length; i++) {
-            msHashTag[i] = new MsHashTag(this);
+            msHashTag[i] = new HashTag(this);
             msHashTag[i].setOnClickListener(ob);
             msHashTag[i].setId(i);
             if (i % 3 == 0)

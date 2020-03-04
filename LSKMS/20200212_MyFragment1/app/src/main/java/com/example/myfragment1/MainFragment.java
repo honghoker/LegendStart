@@ -5,13 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.naver.maps.map.UiSettings;
 
 //프래그먼트는 액티비티위에 올라가있을떄만 프래그먼트로서 동작할 수 있다.
 public class MainFragment extends Fragment {
@@ -37,7 +34,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //프래그먼트 메인을 인플레이트해주고 컨테이너에 붙여달라는 뜻임
 
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_main , container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.ms_fragment_main, container, false);
         /*
         Button button = rootView.findViewById(R.id.button1);
         button.setOnClickListener(new View.OnClickListener() {

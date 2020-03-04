@@ -7,13 +7,17 @@ import androidx.room.PrimaryKey;
 
 import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationEntity;
 
-@Entity(foreignKeys = @ForeignKey(entity = LocationEntity.class, parentColumns = "id",childColumns = "location_id",onDelete = ForeignKey.CASCADE))
+@Entity(tableName = "Tag_Database",
+        foreignKeys = {
+                @ForeignKey(entity = LocationEntity.class,
+                        parentColumns = "id", childColumns = "location_id", onDelete = ForeignKey.CASCADE)})
 public class TagEntity {
     @PrimaryKey(autoGenerate = true)
     private int tag_id;
 
     @ColumnInfo(name = "location_id")
     private int locationId;
+
     private String tag;
 
     public TagEntity(int locationId, String tag) {

@@ -1,8 +1,7 @@
 package com.example.ls_listsave.LocationList_RecyclerView;
 
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,7 +15,6 @@ import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationViewModel;
 import com.example.ls_listsave.DataBase_Room.TagEntity.TagDatabase;
 import com.example.ls_listsave.DataBase_Room.TagEntity.TagEntity;
 import com.example.ls_listsave.DataBase_Room.TagEntity.TagViewModel;
-
 import com.google.android.material.snackbar.Snackbar;
 
 public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.SimpleCallback {

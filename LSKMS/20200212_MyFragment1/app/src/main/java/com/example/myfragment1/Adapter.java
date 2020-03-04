@@ -1,7 +1,6 @@
 package com.example.myfragment1;
 
 import android.content.Context;
-import android.icu.text.CaseMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,17 +74,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         RecyclerView.ViewHolder holder;
         View view;
         if (viewType == TYPE_HEADER) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recy_add, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ms_recy_add, parent, false);
             holder = new HeaderViewHolder(view);
         }
         else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recy_test, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ms_recy_test, parent, false);
             holder = new ViewHolder(view);
         }
         return (ViewHolder) holder;
 //        return new ViewHolder(view);
 
-//        View view = layoutInflater.inflate(R.layout.recy_test, parent, false);
+//        View view = layoutInflater.inflate(R.layout.ms_recy_test, parent, false);
 //        return new ViewHolder(view);
     }
 
