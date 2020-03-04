@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     View mView;
 
     //자동완성 텍스트 뷰
-    ClearableEditText ct;
+    MsClearableEditText ct;
     AutoCompleteTextView ac;
     InputMethodManager imm; //키보드 설정 위한
 
@@ -88,6 +90,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //서치 누르면 상단 탭 교체
     private boolean searchFlag = false;
+    LinearLayout searchlinearlayout;
+
+    //플로팅 아이콘
+    FloatingActionButton floatingButton;
 
     //리스트뷰
     private List<String> list;
@@ -99,17 +105,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static LinearLayout hastagView;
 
     CheckBox checkBoxAll; //체크박스 명 선언
-    public static HashTag[] hashTag = new HashTag[10]; //태그 배열
+    public static MsHashTag[] msHashTag = new MsHashTag[10]; //태그 배열
     public static FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(20, 20);
     ; //해시태그 레이아웃을 위한 parms
-    HashTagCheckBoxManager hashTagCheckBoxManager = new HashTagCheckBoxManager();
+    MsHashTagCheckBoxManager msHashTagCheckBoxManager = new MsHashTagCheckBoxManager();
     HasTagOnClickListener ob = new HasTagOnClickListener();
     boolean hashTagFilterFlag = false;
-
 
     // 확인을 눌렀을 때 눌린 태그들의 id값을 가져온다.
 
     RecyclerView re;
+
+    //장소 선택
+    public static RelativeLayout relativelayout_sub;  // SelectLocation 단의 리니어 레이아웃
+    LinearLayout linearlayout_select; // SelectLocation 단의 리니어 레이아웃
+    SelectLocation sl = new SelectLocation();
+    //장소추가 플래그
+    boolean selectLocationFlag = false;
 
     // Activity가 시작될 때 호출되는 함수 -> MenuItem 생성과 초기화 진행
     @Override
@@ -125,6 +137,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recy_con_layout = findViewById(R.id.recy_con_layout);
+
+        relativelayout_sub = findViewById(R.id.relativeLayout_s);
+        linearlayout_select = findViewById(R.id.linearLayout_s);
+        linearlayout_select.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        toasts();
+                        Intent intent = new Intent(MainActivity.this, SubActivity.class);
+                        startActivity(intent);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        //상단바
+        searchlinearlayout = findViewById(R.id.linearLayoutSearch);
+
+        //플로팅 아이콘
+        floatingButton = findViewById(R.id.floatingActionButton);
 
         //자동완성
         ct = findViewById(R.id.searchView); //프로젝트 단위
@@ -144,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); //키보드-시스템서비스
         list = new ArrayList<String>();
-        settingList();
+        settingList(); //자동완성 리스트 삽입
 
         //https://sharp57dev.tistory.com/12 자동완성
         final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.clearable_edit);
@@ -253,6 +287,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == false) {
                     //애니메
+                    Toast.makeText(getApplicationContext(), "스피너 오류", Toast.LENGTH_SHORT).show();
+
                     showRecyclerView(); //리사이클 보여주고 플래그 true 로 변경
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN && recyFrag == true) {
                     hideRecyclerView(); //리사이클 가리고 플래그 false 로 변경
@@ -280,52 +316,55 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.btnMain:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment1).commit();/*프래그먼트 매니저가 프래그먼트를 담당한다!*/
                 if (fa == null) {
-                    Toast.makeText(this, "맵 생성 전", Toast.LENGTH_SHORT).show();
                     fa = new MenuFragment();
                     fragmentManager.beginTransaction().add(R.id.frameLayout, fa).commit();
                 }
-
                 if (fa != null) {
                     //clearSearchBar(ac); //서치바 초기화
                     fragmentManager.beginTransaction().show(fa).commit();
                     Toast.makeText(this, "맵 생성완료", Toast.LENGTH_SHORT).show();
                 }
                 if (fb != null) fragmentManager.beginTransaction().hide(fb).commit();
-
                 break;
-
             case R.id.btnMenu:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment2).commit();/replace 는 닫고 새로 열어주는 거
                 if (fb == null) {
-                    Toast.makeText(this, "리스트 생성 전", Toast.LENGTH_SHORT).show();
-
                     fb = new MenuFragment();
                     fragmentManager.beginTransaction().add(R.id.frameLayout, fb).commit();
                 }
 
                 if (fa != null) {
                     fragmentManager.beginTransaction().hide(fa).commit();
-                    Toast.makeText(this, "리스트 생성완료", Toast.LENGTH_SHORT).show();
-
                 }
                 if (fb != null) {
                     clearSearchBar(ac); //서치바 초기화
                     fragmentManager.beginTransaction().show(fb).commit();
                 }
                 break;
-            case R.id.btnFilterSelect :
-                hashTagCheckBoxManager.AddClickHashTag(this);
+            case R.id.btnFilterSelect:
+                msHashTagCheckBoxManager.AddClickHashTag(this);
                 break;
-            case R.id.btnFilterCancel :
+            case R.id.btnFilterCancel:
                 hideHashTagFilter();
+                setFloatingItem(hashTagFilterFlag);
                 break;
 
             case R.id.floatingActionButton:
-                //clearSearchBar(ac); //서치바 초기화
+//clearSearchBar(ac); //서치바 초기화
+                selectLocationFlag = true;
+                SetToolbar(); //툴바 세팅
+                sl.SetLinearLayout(getApplicationContext(), relativelayout_sub);
 
-                Toast.makeText(this, "추가할 장소 정보 기입", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, SubActivity.class);
-                startActivity(intent);
+                //floating icon
+                setBottomBar(selectLocationFlag);
+                setFloatingItem(selectLocationFlag);
+
+
+//                Intent intent = new Intent(MainActivity.this, SubActivity.class);
+//                startActivity(intent);
+
+//updateTextureViewSize((int) motionEvent.getX(), (int) motionEvent.getY());
+                //sl.SetLinearLayout(getApplicationContext(), relativelayoutSelect);
+
                 break;
             default:
                 break;
@@ -346,18 +385,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         // BackPressedForFinish 클래시의 onBackPressed() 함수를 호출한다.
 
-        if (searchFlag == false && recyFrag == false)
+        if (searchFlag == false && recyFrag == false && selectLocationFlag == false && hashTagFilterFlag == false)
             backPressedForFinish.onBackPressed();
-
         //서치상태 아닐때만 종료 가능
-        if (drawerLayout.isDrawerOpen(GravityCompat.START) && searchFlag == false && recyFrag == false) {
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START) && searchFlag == false && recyFrag == false && selectLocationFlag == false && hashTagFilterFlag == false) {
             drawerLayout.closeDrawers();
         } else if (searchFlag == true) {
             getSupportActionBar().show();
             searchFlag = false;
 
             setBottomBar(searchFlag);
+            setSearchBar(searchFlag);
+            setFloatingItem(searchFlag);
         }
+
+        if (selectLocationFlag == true) {
+            selectLocationFlag = false;
+            getSupportActionBar().show();
+            sl.SetLinearLayout(getApplicationContext(), relativelayout_sub);
+            setBottomBar(selectLocationFlag);
+            setFloatingItem(selectLocationFlag);
+        }
+        if(hashTagFilterFlag == true){
+            hideHashTagFilter();
+            setFloatingItem(hashTagFilterFlag);
+        }
+
 
         hideRecyclerView(); //만약 떠있으면 디렉토리 종료 후 recy플래그 false
     }
@@ -379,7 +433,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             recyFrag = false;
         }
     }
-    public void showHashTagFilter(){
+
+    public void showHashTagFilter() {
         if (hashTagFilterFlag == false) { //호출했을 때 해시필터 없을 경우에만 실행.
             animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alpha);
             hastagView.setAnimation(animation);
@@ -387,7 +442,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             hashTagFilterFlag = true;
         }
     }
-    public void hideHashTagFilter(){
+
+    public void hideHashTagFilter() {
         if (hashTagFilterFlag == true) { //호출했을 때 해시필터 없을 경우에만 실행.
             animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alphahide);
             hastagView.setAnimation(animation);
@@ -442,13 +498,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     //clearbleText.requestFocus();
                     Log.d("오류2", "requestFocus 오류", null);
 
-                    imm.showSoftInput(ac, 0);
+                    //imm.showSoftInput(ac, 0);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+//                    출처: https://kkangsnote.tistory.com/35 [깡샘의 토마토]
+
                     setBottomBar(searchFlag);
+                    setSearchBar(searchFlag);
+                    setFloatingItem(searchFlag);
                 }
                 return true;
             } //검색 버튼 종료
             case R.id.menu_tag_filter: {
-                showHashTagFilter();
+                showHashTagFilter(); // 안보인다면 해시태그를 보이게 한 뒤 해시플래그를 트루로 만든다.
+                setFloatingItem(hashTagFilterFlag); //해시플래그가 트루면 숨긴다.
+
                 return true;
             }
 
@@ -458,8 +521,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void setBottomBar(boolean searchFlag) { //searchFlag 에 맞게 하단 바 가리기
+    //상단 검색 눌렀을 때
+
+    public void setFloatingItem(boolean searchFlag) { //searchFlag 에 맞게 상단 검색 바 출력
         if (searchFlag == true)
+            floatingButton.hide();
+        else
+            floatingButton.show();
+    }
+
+
+    public void setSearchBar(boolean searchFlag) { //searchFlag 에 맞게 상단 검색 바 출력
+        if (searchFlag == true)
+            searchlinearlayout.setVisibility(View.VISIBLE);
+        else
+            searchlinearlayout.setVisibility(View.GONE);
+    }
+
+    public void setBottomBar(boolean Flag) { //searchFlag 에 맞게 하단 바 가리기
+        if (Flag == true)
             bottomBar.setVisibility(View.GONE);
         else
             bottomBar.setVisibility(View.VISIBLE);
@@ -508,26 +588,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (checkBoxAll.isChecked()) {
-                    hashTagCheckBoxManager.CheckBoxAllClick(MainActivity.this);
+                    msHashTagCheckBoxManager.CheckBoxAllClick(MainActivity.this);
                 } else
-                    hashTagCheckBoxManager.CheckBoxAllUnClick(getApplicationContext());
+                    msHashTagCheckBoxManager.CheckBoxAllUnClick(getApplicationContext());
             }
         });
     } //checkAllHashTag 종료
 
     public void addHashTag() { //초기 해시태그 세팅
-        for (int i = 1; i < hashTag.length; i++) {
-            hashTag[i] = new HashTag(this);
-            hashTag[i].setOnClickListener(ob);
-            hashTag[i].setId(i);
+        for (int i = 1; i < msHashTag.length; i++) {
+            msHashTag[i] = new MsHashTag(this);
+            msHashTag[i].setOnClickListener(ob);
+            msHashTag[i].setId(i);
             if (i % 3 == 0)
-                hashTag[i].init("1", "#22FFFF", R.drawable.hashtagborder, params);
+                msHashTag[i].init("1", "#22FFFF", R.drawable.hashtagborder, params);
             else if (i % 2 == 0)
-                hashTag[i].init("초기값", "#22FFFF", R.drawable.hashtagborder, params);
+                msHashTag[i].init("초기값", "#22FFFF", R.drawable.hashtagborder, params);
             else
-                hashTag[i].init("asdfan32of2ofndladf", "#3F729B", R.drawable.hashtagborder, params);
+                msHashTag[i].init("asdfan32of2ofndladf", "#3F729B", R.drawable.hashtagborder, params);
 
-            ((FlowLayout) findViewById(R.id.flowlayout)).addView(hashTag[i]);
+            ((FlowLayout) findViewById(R.id.flowlayout)).addView(msHashTag[i]);
         }
     }//addHashTag 종료
 
@@ -535,8 +615,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public class HasTagOnClickListener implements Button.OnClickListener {
         @Override
         public void onClick(View v) {
-            hashTagCheckBoxManager.HashTagClickEvent(MainActivity.this, v);
+            msHashTagCheckBoxManager.HashTagClickEvent(MainActivity.this, v);
         }
     }
 
+    //장소 선택 위한 툴바 제거
+    public void SetToolbar() { //액션바 상태에 따라서 세팅해준다.
+        if (getSupportActionBar().isShowing()) { //만약 액션바 보이고 있으면 숨기기
+            getSupportActionBar().hide();
+        } else {
+            getSupportActionBar().show(); //만약 액션바 안보이면 보이게
+        }
+    }
+
+    public void toasts() {
+        Toast.makeText(this, "시발되라고개새끼야", Toast.LENGTH_SHORT).show();
+    }
 }
