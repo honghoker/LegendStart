@@ -1,18 +1,14 @@
 package com.example.ls_listsave.DataBase_Room.TagEntity;
 
-import android.content.Context;
-import android.os.AsyncTask;
-
-import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {TagEntity.class}, version = 1)
 public abstract class TagDatabase extends RoomDatabase {
-    private static TagDatabase instance;
+
     public abstract TagEntity_Dao tagEntity_dao();
+    /*
+    private static TagDatabase instance;
     public static synchronized TagDatabase getInstance(Context context){
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext().getApplicationContext(),
@@ -44,5 +40,7 @@ public abstract class TagDatabase extends RoomDatabase {
             return null;
         }
     }
+
+     */
 }
 

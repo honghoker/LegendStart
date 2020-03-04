@@ -17,10 +17,13 @@ public class TagRepository {
     }
 
     public TagRepository(Application application) {
+        /*
         TagDatabase tagDatabase = TagDatabase.getInstance(application);
         tagEntity_dao = tagDatabase.tagEntity_dao();
         allTags = tagEntity_dao.getAllData();
         selectDismissTagEntities = tagEntity_dao.multipleSelectionByForeignKey(position);
+        
+         */
     }
     /*
     public static class InsertTagAsyncTask extends AsyncTask<TagEntity, Void, Void>{

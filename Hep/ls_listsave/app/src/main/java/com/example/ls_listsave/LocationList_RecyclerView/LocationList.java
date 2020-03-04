@@ -150,7 +150,7 @@ public class LocationList extends AppCompatActivity {
             if(hashTag.isEmpty()){
                 tagDatabase = Room.databaseBuilder(this, TagDatabase.class, "Tag_Database").allowMainThreadQueries().build();
                 for(String tag : hashTag){
-                    Log.d("Tag","TagData Store Error");
+                    Log.d("Tag","TagData Store");
                     TagEntity tagEntity = new TagEntity(location_id, tag);
                     tagDatabase.tagEntity_dao().insert(tagEntity);
                 }
