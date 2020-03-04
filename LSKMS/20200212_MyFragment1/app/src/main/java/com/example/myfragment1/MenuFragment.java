@@ -31,7 +31,7 @@ public class MenuFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //프래그먼트 메뉴를 인플레이트해주고 컨테이너에 붙여달라는 뜻임
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.ms_fragment_menu, container, false);
         Button button = rootView.findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

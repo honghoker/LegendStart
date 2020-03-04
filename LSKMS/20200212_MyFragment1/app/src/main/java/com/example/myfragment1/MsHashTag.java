@@ -36,7 +36,7 @@ public class MsHashTag extends RelativeLayout {
     public void setLayout(){
         inflater = (LayoutInflater) getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.hashtag, this, true);
+        inflater.inflate(R.layout.ms_hashtag, this, true);
 
         HashText = findViewById(R.id.HashTag_Text);
     }

@@ -16,7 +16,7 @@ import static com.example.myfragment1.MainActivity.hastagView;
 import static com.example.myfragment1.MainActivity.params;
 
 public class HashTagCheckBoxManager extends AppCompatActivity {
-    HashTag[] hs = MainActivity.hashTag; //메인액티비티 해시태그 배열
+    HashTag[] hs = MainActivity.msHashTag; //메인액티비티 해시태그 배열
     public static List<String> hashTagText = new ArrayList(); //확인누르면 추가된다.
 
     public static Context mContext;
@@ -73,7 +73,7 @@ public class HashTagCheckBoxManager extends AppCompatActivity {
         Toast.makeText(context,"3gfgff",Toast.LENGTH_SHORT).show();
     }
     public void CheckBoxAllUnClick(Context context) {
-        HashTag[] hs = MainActivity.hashTag;
+        HashTag[] hs = MainActivity.msHashTag;
         for (int j = 1; j < hs.length; j++) {
             hs[j].init(hs[j].getHashText(), "#3F729B", R.drawable.hashtagunclick, params);
             hs[j].setId(j);

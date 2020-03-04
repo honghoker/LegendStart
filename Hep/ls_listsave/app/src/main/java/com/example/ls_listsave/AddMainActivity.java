@@ -35,7 +35,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class MainActivity extends Activity {
+public class AddMainActivity extends Activity {
     private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;
     public static final String EXTRA_TITLE = "com.example.ls_listsave.EXTRA_TITLE";
     public static final String EXTRA_Addr = "com.example.ls_listsave.EXTRA_Addr";
@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.add_activity_main);
 
         //getActionBar().setHomeAsUpIndicator(R.drawable.ic_close_black);
         setTitle("ADD Location");
@@ -287,8 +287,8 @@ public class MainActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
                     // 갤러리
-                    if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) { // 권한 요청
-                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                    if (ActivityCompat.checkSelfPermission(AddMainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) { // 권한 요청
+                        ActivityCompat.requestPermissions(AddMainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
                         return;
                     }
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);

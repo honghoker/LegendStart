@@ -18,13 +18,13 @@ public interface TagEntity_Dao {
     @Delete
     void delete(TagEntity... tagEntities);
 
-    @Query("DELETE FROM TagEntity")
+    @Query("DELETE FROM Tag_Database")
     void deleteAllData();
 
-    @Query("SELECT * FROM TagEntity ORDER BY tag_id DESC")
+    @Query("SELECT * FROM Tag_Database ORDER BY tag_id DESC")
     LiveData<List<TagEntity>> getAllData();
 
 
-    @Query("SELECT * FROM TagEntity WHERE location_id = :location_id")
+    @Query("SELECT * FROM Tag_Database WHERE location_id = :location_id")
     TagEntity[] multipleSelectionByForeignKey(int location_id);
 }

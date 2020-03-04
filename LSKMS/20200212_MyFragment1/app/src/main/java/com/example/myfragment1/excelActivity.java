@@ -9,6 +9,6 @@ public class excelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_excel);
+        setContentView(R.layout.ms_activity_excel);
     }
 }

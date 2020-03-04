@@ -58,4 +58,17 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
+    //KMS Gradle
+    implementation 'com.google.android.material:material:1.0.0'
+    // 네이버 지도 SDK
+    implementation 'com.naver.maps:map-sdk:3.6.2'
+
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:20.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.0.0'
+    implementation 'androidx.navigation:navigation-ui:2.0.0'
+    implementation 'com.android.support:recyclerview-v7:29.0.2'
+
+
+    implementation 'com.github.hajiyevelnur92:intentanimation:1.0'
 }

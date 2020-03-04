@@ -148,7 +148,7 @@
 
         <include
             android:id="@+id/hh"
-            layout="@layout/recy_test_1"
+            layout="@layout/ms_recy_test_1"
             android:visibility="invisible" />
 
         <LinearLayout
@@ -185,5 +185,5 @@
         android:layout_gravity="start"
         android:id="@+id/nav_view"
         app:menu="@menu/drawer_menu_list"
-        app:headerLayout="@layout/nav_header"/>
+        app:headerLayout="@layout/ms_nav_header"/>
 </androidx.drawerlayout.widget.DrawerLayout>
