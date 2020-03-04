@@ -126,8 +126,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        recy_title.add("Four");
 //        recy_title.add("FIve");
 
-
-
 //        List<Directory> a = db.directoryDao().getAll().getValue();
 //        Log.d("1","db확인11"+ db.directoryDao().getAll().getValue());
 

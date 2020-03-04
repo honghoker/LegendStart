@@ -13,9 +13,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="102dp"
-        android:layout_marginBottom="0dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="376dp" />
+        tools:listitem="@layout/locationlist_recyclerview_cardview"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +34,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/recyclerview_sortingbutton"
-                android:onClick="distanceSortingOnClick"
                 android:text="거리순" />
 
             <Button
@@ -43,7 +41,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/recyclerview_sortingbutton"
-                android:onClick="recentSortingOnClick"
                 android:text="최신순" />
 
             <Button
@@ -51,7 +48,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/recyclerview_sortingbutton"
-                android:onClick="nameSortingOnClick"
                 android:text="이름순" />
 
         </LinearLayout>

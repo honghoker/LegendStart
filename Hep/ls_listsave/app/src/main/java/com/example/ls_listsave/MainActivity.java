@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,14 +15,10 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -39,24 +34,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
-import static com.example.ls_listsave.DataBase.LSSQLContract.TagTable.TABLE_NAME;
-
-import com.example.ls_listsave.DataBase.LSDBHelper;
-import com.example.ls_listsave.DataBase.LSSQLContract;
-import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
-import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
-import com.example.ls_listsave.DataBase.LSSQLContract.*;
-import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
-
-import com.example.ls_listsave.DataLappingByContentValues.DataLapping_LocationData;
-import com.example.ls_listsave.DataLappingByContentValues.DataLapping_Tag;
-import com.example.ls_listsave.DataBase.LSSQLContract.*;
-import com.example.ls_listsave.LocationList_RecyclerView.LocationList;
 
 public class MainActivity extends Activity {
     private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;
-
-    EditText Location_Name; // 이름
+    public static final String EXTRA_TITLE = "com.example.ls_listsave.EXTRA_TITLE";
+    public static final String EXTRA_Addr = "com.example.ls_listsave.EXTRA_Addr";
+    public static final String EXTRA_DetailAddr = "com.example.ls_listsave.EXTRA_DetailAddr";
+    public static final String EXTRA_Number = "com.example.ls_listsave.EXTRA_Number";
+    public static final String EXTRA_Comment = "com.example.ls_listsave.EXTRA_Comment";
+    public static final String EXTRA_Latitude = "com.example.ls_listsave.EXTRA_Latitude";
+    public static final String EXTRA_Longitude = "com.example.ls_listsave.EXTRA_Longitude";
+    public static final String EXTRA_Timestamp = "com.example.ls_listsave.EXTRA_Timestamp";
+    public static final String EXTRA_HASHTAG = "com.example.ls_listsave.EXTRA_HASHTAG";
+  
+    EditText Location_Title; // 이름
     TextView Location_Address; // 주소
     EditText Location_DetailAddress; // 상세주소
     EditText Location_Number; // 연락처
@@ -69,8 +60,38 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //getActionBar().setHomeAsUpIndicator(R.drawable.ic_close_black);
+        setTitle("ADD Location");
         init();
         PermissionCheck();
+
+    }
+
+
+    private void saveLocation() {
+        if (Location_Title.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "이름을 입력하여 주십시오", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent data = new Intent();
+        data.putExtra(EXTRA_TITLE, Location_Title.getText().toString());
+        data.putExtra(EXTRA_Addr, Location_Address.getText().toString());
+        data.putExtra(EXTRA_DetailAddr, Location_DetailAddress.getText().toString());
+        data.putExtra(EXTRA_Comment, Location_Comment.getText().toString());
+        data.putExtra(EXTRA_Number, Location_Number.getText().toString());
+
+        data.putExtra(EXTRA_Latitude, "");
+        data.putExtra(EXTRA_Longitude, "");
+
+        data.putExtra(EXTRA_Timestamp, Long.toString(System.currentTimeMillis()));
+        ArrayList<String> tempArray = HashTag.getHashTagar();
+        if(tempArray.isEmpty()){
+            data.putExtra(EXTRA_HASHTAG, tempArray);
+        }
+
+        setResult(RESULT_OK, data);
+        Log.d("tag","start");
     }
 
     public void PermissionCheck() {
@@ -86,8 +107,8 @@ public class MainActivity extends Activity {
     }
 
     public void init() {
-        Location_Name = ((ClearableEditText) findViewById(R.id.Text_Name)).editText;
-        Location_Name.setHint("이름");
+        Location_Title = ((ClearableEditText) findViewById(R.id.Text_Name)).editText;
+        Location_Title.setHint("이름");
 
         Location_Address = findViewById(R.id.Text_Addr);
 
@@ -116,7 +137,6 @@ public class MainActivity extends Activity {
                 hashtag_Add(((TextView) view).getText().toString());
             }
         });
-
         ((ScrollView) findViewById(R.id.Scroll_Main)).fullScroll(View.FOCUS_DOWN);
     }
 
@@ -150,35 +170,15 @@ public class MainActivity extends Activity {
 
             // 해시태그를 추가할 때 마다 스크롤 자동 맞춤
             View targetView = findViewById(R.id.flowlayout);
-            targetView.getParent().requestChildFocus(targetView,targetView);
+            targetView.getParent().requestChildFocus(targetView, targetView);
 
         }
     }
 
     public void btnSaveOnClick(View view) {
-        if (!Location_Name.getText().toString().trim().equals("")) {
-            //Context context, final String tablename, String locationName, String address, String detailAddr, String phone, String comment
-            DataLapping_LocationData dataLapping_locationData = new DataLapping_LocationData(
-                    getApplicationContext(), LocationTable.TABLE_NAME, Location_Name.getText().toString(), Location_Address.getText().toString(),
-                    Location_DetailAddress.getText().toString(), Location_Number.getText().toString(), Location_Comment.getText().toString()
-            );
-            if (dataLapping_locationData.storeConfirm()) {
-                if (!HashTag.getHashTagar().isEmpty()) {
-                    for(int i = 0; i < HashTag.getHashTagar().size(); i++) {
-                        int count = dataLapping_locationData.idNumber();
-                        DataLapping_Tag dataLapping_tag = new DataLapping_Tag(getApplicationContext(), TagTable.TABLE_NAME, HashTag.getHashTagar().get(i), count);
-                        if (!dataLapping_tag.inputInnerDataBase(dataLapping_tag.receiveDataToContentValues())) {
-                            Toast.makeText(getApplicationContext(), "Tag Fail", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                }
-                Intent intent = new Intent(getApplicationContext(), LocationList.class);
-                startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
-            }
-            HashTag.getHashTagar().clear();
-        }
-        else Toast.makeText(getApplicationContext(), "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
+        saveLocation();
+        HashTag.getHashTagar().clear();
+        finish();
     }
 
     public void hashtext_set(String Hash) {
@@ -206,7 +206,7 @@ public class MainActivity extends Activity {
                     new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
                             ContactsContract.CommonDataKinds.Phone.NUMBER}, null, null, null);
             cursor.moveToFirst();
-            Location_Name.setText(cursor.getString(0));     //0은 이름을 얻어옵니다.
+            Location_Title.setText(cursor.getString(0));     //0은 이름을 얻어옵니다.
             Location_Number.setText(cursor.getString(1));   //1은 번호를 받아옵니다.
             cursor.close();
         }
@@ -313,7 +313,7 @@ public class MainActivity extends Activity {
     }
 
     public void listshowOnButton(View view) {
-        Intent intent = new Intent(getApplicationContext(), LocationList.class);
-        startActivityForResult(intent, GET_LOCATION_LIST_REQUEST_CODE);
+        finish();
     }
+
 }
