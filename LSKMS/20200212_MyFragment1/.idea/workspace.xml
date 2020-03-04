@@ -9,6 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="f6e68cdd-0a61-449e-aa73-df875b333a25" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/../../Hep/ls_listsave/app/src/main/java/com/example/ls_listsave/MainMS/Adapter.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../Hep/ls_listsave/app/src/main/java/com/example/ls_listsave/MainMS/AllSeeActivity.java" afterDir="false" />
@@ -127,6 +128,9 @@
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
     </list>
+=======
+    <list default="true" id="f6e68cdd-0a61-449e-aa73-df875b333a25" name="Default Changelist" comment="" />
+>>>>>>> Stashed changes
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,11 +138,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_26" />
+<<<<<<< Updated upstream
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
   </component>
+=======
+>>>>>>> Stashed changes
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -155,10 +162,19 @@
       </list>
     </option>
   </component>
+<<<<<<< Updated upstream
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectId" id="1YeXWHZBh51WbmlJhHqTKulgLs8" />
+=======
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="109" />
+    <option name="y" value="-20" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
+  </component>
+>>>>>>> Stashed changes
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pie_Pixels_" />
@@ -325,6 +341,7 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
+<<<<<<< Updated upstream
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -336,4 +353,6 @@
       </map>
     </option>
   </component>
+=======
+>>>>>>> Stashed changes
 </project>
