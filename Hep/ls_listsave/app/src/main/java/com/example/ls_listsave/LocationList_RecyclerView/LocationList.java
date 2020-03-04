@@ -25,6 +25,7 @@ import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationViewModel;
 import com.example.ls_listsave.DataBase_Room.TagEntity.TagDatabase;
 import com.example.ls_listsave.DataBase_Room.TagEntity.TagEntity;
 import com.example.ls_listsave.DataBase_Room.TagEntity.TagViewModel;
+
 import com.example.ls_listsave.MainActivity;
 import com.example.ls_listsave.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 ;
+
 
 public class LocationList extends AppCompatActivity {
     private static final int GET_ADD_LOCATION_REQUEST_CODE = 200; //For intent
@@ -43,6 +45,7 @@ public class LocationList extends AppCompatActivity {
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
     private FloatingActionButton floatingActionButton;
     private TagDatabase tagDatabase;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,7 +131,6 @@ public class LocationList extends AppCompatActivity {
         Intent intent = new Intent(LocationList.this, MainActivity.class);
         startActivityForResult(intent, GET_ADD_LOCATION_REQUEST_CODE);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -156,6 +158,7 @@ public class LocationList extends AppCompatActivity {
                 }
                 tagDatabase.close();
             }
+
 
             Toast.makeText(this, "Save",Toast.LENGTH_SHORT).show();
         }else
