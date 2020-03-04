@@ -46,8 +46,7 @@ public class MainActivity extends Activity {
     public static final String EXTRA_Longitude = "com.example.ls_listsave.EXTRA_Longitude";
     public static final String EXTRA_Timestamp = "com.example.ls_listsave.EXTRA_Timestamp";
     public static final String EXTRA_HASHTAG = "com.example.ls_listsave.EXTRA_HASHTAG";
-
-
+  
     EditText Location_Title; // 이름
     TextView Location_Address; // 주소
     EditText Location_DetailAddress; // 상세주소
@@ -90,6 +89,7 @@ public class MainActivity extends Activity {
         if(tempArray.isEmpty()){
             data.putExtra(EXTRA_HASHTAG, tempArray);
         }
+
         setResult(RESULT_OK, data);
         Log.d("tag","start");
     }
