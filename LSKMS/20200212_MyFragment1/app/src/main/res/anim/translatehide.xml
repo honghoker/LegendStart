@@ -6,6 +6,5 @@
     android:toYDelta="-50%"
     android:fromYDelta="0"
 
-    
-    android:fillAfter="true">
+    android:fillAfter="false">
 </translate>

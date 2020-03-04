@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
     tools:context=".MainActivity"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,6 +16,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_weight="1">
+
+        </FrameLayout>
+
+        <include layout="@layout/ms_select_location" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
@@ -26,18 +37,11 @@
             android:clickable="true"
             android:longClickable="false"
             android:onClick="onButtonClicked"
+            android:visibility="visible"
             app:backgroundTint="#000000"
             app:maxImageSize="50dp"
             app:srcCompat="@drawable/ic_add_white" />
 
-        <FrameLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:layout_weight="1">
-
-        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/HasTagView"
@@ -96,6 +100,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/linearLayoutSearch"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -106,7 +111,7 @@
             android:orientation="horizontal">
 
 
-            <com.example.myfragment1.ClearableEditText
+            <com.example.myfragment1.MsClearableEditText
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -114,7 +119,7 @@
                 android:layout_centerVertical="true">
 
 
-            </com.example.myfragment1.ClearableEditText>
+            </com.example.myfragment1.MsClearableEditText>
 
             <ListView
                 android:id="@+id/listView"
@@ -142,8 +147,9 @@
 
 
         <include
+            android:id="@+id/hh"
             layout="@layout/recy_test_1"
-            android:visibility="gone" />
+            android:visibility="invisible" />
 
         <LinearLayout
             android:id="@+id/linearBottombar"

@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ls_listsave.DataBase_Room.LocationViewModel;
+import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationViewModel;
 
 enum ButtonsState {
     GONE,
@@ -70,7 +70,7 @@ class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
     }
 
-    public RecyclerviewSwipeHelper(Context context, LocationViewModel locationViewModel, RecyclerAdapter recyclerAdapter, SwipeActionInterface buttonsActions) {
+    public RecyclerviewSwipeHelper(Context context, LocationViewModel locationViewModel, RecyclerAdapter recyclerAdapter,SwipeActionInterface buttonsActions) {
         this.buttonsActions = buttonsActions;
         this.context = context;
         this.recyclerAdapter = recyclerAdapter;

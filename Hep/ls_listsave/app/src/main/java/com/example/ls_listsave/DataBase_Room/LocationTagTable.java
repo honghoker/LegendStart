@@ -5,6 +5,9 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 
+import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationEntity;
+
+
 @Entity(tableName = "LocationTagTable",
         foreignKeys = @ForeignKey(entity = LocationEntity.class, parentColumns = "id", childColumns = "location_id", onDelete = ForeignKey.CASCADE))
 public class LocationTagTable {
