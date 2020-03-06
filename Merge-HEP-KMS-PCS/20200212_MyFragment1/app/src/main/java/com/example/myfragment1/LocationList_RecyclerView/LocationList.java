@@ -131,6 +131,43 @@ public class LocationList extends AppCompatActivity {
         Intent intent = new Intent(LocationList.this, AddMainActivity.class);
         startActivityForResult(intent, GET_ADD_LOCATION_REQUEST_CODE);
     }
+    /*
+    public void storeLocation(){
+
+        Intent data = getIntent();
+        String title = data.getStringExtra(AddMainActivity.EXTRA_TITLE);
+        String address = data.getStringExtra(AddMainActivity.EXTRA_Addr);
+        String detailAddr = data.getStringExtra(AddMainActivity.EXTRA_DetailAddr);
+        String number = data.getStringExtra(AddMainActivity.EXTRA_Number);
+        String comment = data.getStringExtra(AddMainActivity.EXTRA_Comment);
+        String latitude = data.getStringExtra(AddMainActivity.EXTRA_Latitude);
+        String longitude = data.getStringExtra(AddMainActivity.EXTRA_Longitude);
+        String timestamp = data.getStringExtra(AddMainActivity.EXTRA_Timestamp);
+        ArrayList<String> hashTag = data.getStringArrayListExtra(AddMainActivity.EXTRA_HASHTAG);
+        LocationEntity locationEntity = new LocationEntity(title, address, detailAddr, number, comment, latitude, longitude, timestamp);
+        int location_id = locationViewModel.insert(locationEntity);
+        if(hashTag.isEmpty()){
+            tagDatabase = Room.databaseBuilder(this, TagDatabase.class, "Tag_Database").allowMainThreadQueries().build();
+            for(String tag : hashTag){
+                Log.d("Tag","TagData Store");
+                TagEntity tagEntity = new TagEntity(location_id, tag);
+                tagDatabase.tagEntity_dao().insert(tagEntity);
+            }
+            tagDatabase.close();
+        }
+
+
+        Toast.makeText(this, "Save",Toast.LENGTH_SHORT).show();
+    }else
+            Toast.makeText(this, "Not Save",Toast.LENGTH_SHORT).show();
+    }
+
+
+     */
+
+    //Override onActivityResult. This is called when the Second Activity finishes. You can make sure that it is actually the Second Activity by checking the result code.
+    //(This is useful when you are starting multiple different activities from the same main activity.)
+    /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -164,4 +201,6 @@ public class LocationList extends AppCompatActivity {
         }else
             Toast.makeText(this, "Not Save",Toast.LENGTH_SHORT).show();
     }
+
+     */
 }

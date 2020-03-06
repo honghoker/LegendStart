@@ -76,8 +76,8 @@ public class AddMainActivity extends Activity {
             Toast.makeText(this, "이름을 입력하여 주십시오", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        Intent data = new Intent(this, LocationList.class);
+        Log.d("tag","saveLocation");
+        Intent data = new Intent(getBaseContext(), LocationList.class);
         data.putExtra(EXTRA_TITLE, Location_Title.getText().toString());
         data.putExtra(EXTRA_Addr, Location_Address.getText().toString());
         data.putExtra(EXTRA_DetailAddr, Location_DetailAddress.getText().toString());

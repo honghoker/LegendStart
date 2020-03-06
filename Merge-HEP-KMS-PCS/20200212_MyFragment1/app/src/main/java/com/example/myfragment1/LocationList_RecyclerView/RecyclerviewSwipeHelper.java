@@ -22,7 +22,7 @@ enum ButtonsState {
     RIGHT_VISIBLE;
 }
 
-class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
+public class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
     private SwipeActionInterface buttonsActions = null;
     private boolean swipeBack = false;
