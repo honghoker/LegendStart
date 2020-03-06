@@ -84,3 +84,4 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 Hep/ls_listsave/app/src/main/java/com/example/ls_listsave/SwipeActionInterface.java
+*.xml

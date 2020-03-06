@@ -5,7 +5,6 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import maes.tech.intentanim.CustomIntent;
 
@@ -15,7 +14,7 @@ public class AllSeeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.ms_activity_home);
         toolbar = findViewById(R.id.realtoolbar);
         toolbar.setTitle("전체보기");
         setSupportActionBar(toolbar);

@@ -9,7 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ls_listsave.DataBase_Room.LocationEntity;
+import com.example.ls_listsave.DataBase_Room.LocationRoom.LocationEntity;
+
 import com.example.ls_listsave.R;
 
 import java.util.ArrayList;

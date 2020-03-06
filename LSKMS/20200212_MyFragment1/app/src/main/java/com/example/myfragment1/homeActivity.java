@@ -1,9 +1,7 @@
 package com.example.myfragment1;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
@@ -19,7 +17,7 @@ public class homeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.ms_activity_home);
         toolbar = findViewById(R.id.realtoolbar);
         toolbar.setTitle("홈입니다");
         setSupportActionBar(toolbar);

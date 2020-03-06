@@ -30,7 +30,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class CompactCalendarTab extends Fragment {
 
@@ -38,9 +37,11 @@ public class CompactCalendarTab extends Fragment {
     private Calendar currentCalender = Calendar.getInstance(Locale.getDefault());
     private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
+    private SimpleDateFormat dateFormatForDay = new SimpleDateFormat("yyyy-M-dd", Locale.getDefault());
     private boolean shouldShow = false;
     private CompactCalendarView compactCalendarView;
     private ActionBar toolbar;
+    Date nowDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,12 +50,13 @@ public class CompactCalendarTab extends Fragment {
         final List<String> mutableBookings = new ArrayList<>();
 
         final ListView bookingsListView = mainTabView.findViewById(R.id.bookings_listview);
-        final Button showPreviousMonthBut = mainTabView.findViewById(R.id.prev_button);
-        final Button showNextMonthBut = mainTabView.findViewById(R.id.next_button);
-        final Button slideCalendarBut = mainTabView.findViewById(R.id.slide_calendar);
-        final Button showCalendarWithAnimationBut = mainTabView.findViewById(R.id.show_with_animation_calendar);
-        final Button setLocaleBut = mainTabView.findViewById(R.id.set_locale);
-        final Button removeAllEventsBut = mainTabView.findViewById(R.id.remove_all_events);
+        Button btn_todoadd = mainTabView.findViewById(R.id.Btn_todoadd);
+//        final Button showPreviousMonthBut = mainTabView.findViewById(R.id.prev_button);
+//        final Button showNextMonthBut = mainTabView.findViewById(R.id.next_button);
+//        final Button slideCalendarBut = mainTabView.findViewById(R.id.slide_calendar);
+//        final Button showCalendarWithAnimationBut = mainTabView.findViewById(R.id.show_with_animation_calendar);
+//        final Button setLocaleBut = mainTabView.findViewById(R.id.set_locale);
+//        final Button removeAllEventsBut = mainTabView.findViewById(R.id.remove_all_events);
 
         final ArrayAdapter adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mutableBookings);
         bookingsListView.setAdapter(adapter);
@@ -70,8 +72,9 @@ public class CompactCalendarTab extends Fragment {
         compactCalendarView.displayOtherMonthDays(false);
 
         //compactCalendarView.setIsRtl(true);
-        loadEvents();
-        loadEventsForYear(2017);
+        //loadEvents();
+        //loadEventsForYear(2017);
+        //loadMyEvent(2020);
         compactCalendarView.invalidate();
 
         logEventsByMonth(compactCalendarView);
@@ -99,7 +102,9 @@ public class CompactCalendarTab extends Fragment {
                 toolbar.setTitle(dateFormatForMonth.format(dateClicked));
                 List<Event> bookingsFromMap = compactCalendarView.getEvents(dateClicked);
                 Log.d(TAG, "inside onclick " + dateFormatForDisplaying.format(dateClicked));
-                bookingsListView.setVisibility(View.VISIBLE);
+
+                bookingsListView.setVisibility(View.VISIBLE); // todolist 띄우기
+                nowDate = dateClicked;
                 if (bookingsFromMap != null) {
                     Log.d(TAG, bookingsFromMap.toString());
                     mutableBookings.clear();
@@ -108,7 +113,6 @@ public class CompactCalendarTab extends Fragment {
                     }
                     adapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override
@@ -117,25 +121,35 @@ public class CompactCalendarTab extends Fragment {
             }
         });
 
-        showPreviousMonthBut.setOnClickListener(new View.OnClickListener() {
+        btn_todoadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                compactCalendarView.scrollLeft();
+                Log.d("ClickAddBtn",dateFormatForDay.format(nowDate));
+                addMyEvent();
+                mutableBookings.add((String) nowDate.toString());
+                adapter.notifyDataSetChanged();
             }
         });
 
-        showNextMonthBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                compactCalendarView.scrollRight();
-            }
-        });
-
-        final View.OnClickListener showCalendarOnClickLis = getCalendarShowLis();
-        slideCalendarBut.setOnClickListener(showCalendarOnClickLis);
-
-        final View.OnClickListener exposeCalendarListener = getCalendarExposeLis();
-        showCalendarWithAnimationBut.setOnClickListener(exposeCalendarListener);
+//        showPreviousMonthBut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                compactCalendarView.scrollLeft();
+//            }
+//        });
+//
+//        showNextMonthBut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                compactCalendarView.scrollRight();
+//            }
+//        });
+//
+//        final View.OnClickListener showCalendarOnClickLis = getCalendarShowLis();
+//        slideCalendarBut.setOnClickListener(showCalendarOnClickLis);
+//
+//        final View.OnClickListener exposeCalendarListener = getCalendarExposeLis();
+//        showCalendarWithAnimationBut.setOnClickListener(exposeCalendarListener);
 
         compactCalendarView.setAnimationListener(new CompactCalendarView.CompactCalendarAnimationListener() {
             @Override
@@ -147,29 +161,29 @@ public class CompactCalendarTab extends Fragment {
             }
         });
 
-        setLocaleBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Locale locale = Locale.FRANCE;
-                dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", locale);
-                TimeZone timeZone = TimeZone.getTimeZone("Europe/Paris");
-                dateFormatForDisplaying.setTimeZone(timeZone);
-                dateFormatForMonth.setTimeZone(timeZone);
-                compactCalendarView.setLocale(timeZone, locale);
-                compactCalendarView.setUseThreeLetterAbbreviation(false);
-                loadEvents();
-                loadEventsForYear(2017);
-                logEventsByMonth(compactCalendarView);
-
-            }
-        });
-
-        removeAllEventsBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                compactCalendarView.removeAllEvents();
-            }
-        });
+//        setLocaleBut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Locale locale = Locale.FRANCE;
+//                dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", locale);
+//                TimeZone timeZone = TimeZone.getTimeZone("Europe/Paris");
+//                dateFormatForDisplaying.setTimeZone(timeZone);
+//                dateFormatForMonth.setTimeZone(timeZone);
+//                compactCalendarView.setLocale(timeZone, locale);
+//                compactCalendarView.setUseThreeLetterAbbreviation(false);
+//                loadEvents();
+//                loadEventsForYear(2017);
+//                logEventsByMonth(compactCalendarView);
+//
+//            }
+//        });
+//
+//        removeAllEventsBut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                compactCalendarView.removeAllEvents();
+//            }
+//        });
 
 
         // uncomment below to show indicators above small indicator events
@@ -240,15 +254,20 @@ public class CompactCalendarTab extends Fragment {
     }
 
     private void loadEvents() {
-        addEvents(-1, -1);
-        addEvents(Calendar.DECEMBER, -1);
-        addEvents(Calendar.AUGUST, -1);
+        //addEvents(-1, -1);
+        //addEvents(Calendar.DECEMBER, -1);
+        //addEvents(Calendar.AUGUST, -1);
     }
 
     private void loadEventsForYear(int year) {
-        addEvents(Calendar.DECEMBER, year);
-        addEvents(Calendar.AUGUST, year);
+        //addEvents(Calendar.DECEMBER, year);
+        //addEvents(Calendar.AUGUST, year);
     }
+
+    private void loadMyEvent(int year){
+        //addEvents(Calendar.MONTH-1, year);
+    }
+
 
     private void logEventsByMonth(CompactCalendarView compactCalendarView) {
         currentCalender.setTime(new Date());
@@ -285,19 +304,30 @@ public class CompactCalendarTab extends Fragment {
         }
     }
 
+    private void addMyEvent(){
+        currentCalender.setTime(nowDate);
+        long timelnMillis = currentCalender.getTimeInMillis();
+        List<Event> events = getEvents(timelnMillis, Integer.parseInt(new SimpleDateFormat("dd", Locale.getDefault()).format(nowDate)));
+
+        compactCalendarView.addEvents(events);
+    }
+
     private List<Event> getEvents(long timeInMillis, int day) {
-        if (day < 2) {
-            return Arrays.asList(new Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis)));
-        } else if ( day > 2 && day <= 4) {
-            return Arrays.asList(
-                    new Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis)),
-                    new Event(Color.argb(255, 100, 68, 65), timeInMillis, "Event 2 at " + new Date(timeInMillis)));
-        } else {
-            return Arrays.asList(
-                    new Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis) ),
-                    new Event(Color.argb(255, 100, 68, 65), timeInMillis, "Event 2 at " + new Date(timeInMillis)),
-                    new Event(Color.argb(255, 70, 68, 65), timeInMillis, "Event 3 at " + new Date(timeInMillis)));
+        List<Event> bookingsFromMap = compactCalendarView.getEvents(timeInMillis);
+        int pointcolor = Color.argb(255, 169, 68, 65);
+        switch (bookingsFromMap.size()) {
+            case 0:
+                pointcolor = Color.argb(255, 169, 68, 65); break;
+            case 1:
+                pointcolor = Color.argb(255, 100, 68, 65); break;
+            case 2:
+                pointcolor = Color.argb(255, 70, 68, 65); break;
+            default:
+                pointcolor = Color.argb(255, 70, 68, 65);
         }
+        return Arrays.asList(
+                new Event(pointcolor, timeInMillis, "0 Event at " + new Date(timeInMillis))
+        );
     }
 
     private void setToMidnight(Calendar calendar) {

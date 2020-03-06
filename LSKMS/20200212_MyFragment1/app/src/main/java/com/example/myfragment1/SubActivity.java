@@ -9,7 +9,7 @@ public class SubActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_location);
+        setContentView(R.layout.ms_activity_add_location);
 
         //Button mainBtn = (Button)findViewById(R.id.)
     }
