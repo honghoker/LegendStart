@@ -12,6 +12,12 @@ public class Todo {
     public Todo(String title) {
         this.title = title;
     }
+    public Todo(){ }
+//
+//    public Todo(String title,int seq) {
+//        this.title = title;
+//        this.seq = seq;
+//    }
 
     public int getSeq() {
         return seq;
