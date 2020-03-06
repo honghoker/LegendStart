@@ -74,11 +74,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //이게 하나의 뷰처럼 쓸 수 있는데 뷰하고 약간 다른특성들이 있다.
     //엑티비티를 본떠 만들었기 떄문에 프래그먼트 매니저가 소스코드에서 담당한다.
     MainFragment fragment1;
-    MenuFragment fragment2;
+    private LocationFragment fragment2;
+
     private boolean menuFlag = true;
     //프래그먼트 유지
     private FragmentManager fragmentManager;
-    private Fragment fa, fb = null;
+    private Fragment fa, fragmentLocationListLayout = null;
     View mView;
 
     //자동완성 텍스트 뷰
@@ -319,29 +320,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.btnMain:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment1).commit();/*프래그먼트 매니저가 프래그먼트를 담당한다!*/
                 if (fa == null) {
-                    fa = new MenuFragment();
+                    fa = new LocationFragment();
                     fragmentManager.beginTransaction().add(R.id.frameLayout, fa).commit();
                 }
                 if (fa != null) {
                     //clearSearchBar(ac); //서치바 초기화
                     fragmentManager.beginTransaction().show(fa).commit();
-                    Toast.makeText(this, "맵 생성완료", Toast.LENGTH_SHORT).show();
                 }
-                if (fb != null) fragmentManager.beginTransaction().hide(fb).commit();
+                if (getSupportFragmentManager().findFragmentById(R.id.frameLayout) != fragmentLocationListLayout)
+                    fragmentManager.beginTransaction().hide(fragmentLocationListLayout).commit();
                 break;
-            case R.id.btnMenu:
-                if (fb == null) {
-                    fb = new MenuFragment();
-                    fragmentManager.beginTransaction().add(R.id.frameLayout, fb).commit();
-                }
+            case R.id.btnLocationList:
+                /*
+                //if resuorce Overload
 
-                if (fa != null) {
+                if (fb == null) {
+                    fb = new LocationFragment();
+                    fragmentManager.beginTransaction().add(R.id.frameLayout, fb).commit();
+                }else if(fa != null){
                     fragmentManager.beginTransaction().hide(fa).commit();
                 }
-                if (fb != null) {
-                    clearSearchBar(ac); //서치바 초기화
-                    fragmentManager.beginTransaction().show(fb).commit();
-                }
+                clearSearchBar(ac); //서치바 초기화
+                fragmentManager.beginTransaction().show(fb).commit();
+                 */
+                fragmentLocationListLayout = new LocationFragment();
+                fragmentManager.beginTransaction().hide(getSupportFragmentManager().).commit();
+                fragmentManager.beginTransaction().add(R.id.frameLayout, fragmentLocationListLayout).commit();
+                //if(getSupportFragmentManager().findFragmentById(R.id.frameLayout) != fragmentLocationListLayout)
                 break;
             case R.id.btnFilterSelect:
                 msHashTagCheckBoxManager.AddClickHashTag(this);
@@ -410,7 +415,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setBottomBar(selectLocationFlag);
             setFloatingItem(selectLocationFlag);
         }
-        if(hashTagFilterFlag == true){
+        if (hashTagFilterFlag == true) {
             hideHashTagFilter();
             setFloatingItem(hashTagFilterFlag);
         }
