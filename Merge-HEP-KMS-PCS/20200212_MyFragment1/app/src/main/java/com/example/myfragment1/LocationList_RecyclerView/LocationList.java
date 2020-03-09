@@ -92,7 +92,6 @@ public class LocationList extends AppCompatActivity {
 
     private void init() {
 //
-        floatingActionButton = findViewById(R.id.floatingButton);
 //
 //        //recyclerViewSortingMethod(sortingCondition);
 //
@@ -126,10 +125,6 @@ public class LocationList extends AppCompatActivity {
                 recyclerviewSecondSwipeToDoHelper.onSwiped(viewHolder, ItemTouchHelper.RIGHT);
             }
         });
-    }
-    public void AddOnClick(View view){
-        Intent intent = new Intent(LocationList.this, AddMainActivity.class);
-        startActivityForResult(intent, GET_ADD_LOCATION_REQUEST_CODE);
     }
     /*
     public void storeLocation(){

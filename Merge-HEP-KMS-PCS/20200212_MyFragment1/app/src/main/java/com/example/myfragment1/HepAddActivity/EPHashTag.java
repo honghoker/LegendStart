@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.example.myfragment1.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class EPHashTag extends RelativeLayout {
     LayoutInflater inflater = null;
@@ -29,7 +31,11 @@ public class EPHashTag extends RelativeLayout {
         deleteHashTag();
     }
 
-    public static ArrayList<String> getHashTagar(){
+    public static List<String> getHashTagar(){
+        //If Collections.Empty_List is more less using resource than empty ArrayList
+        if(HashTagar.isEmpty())
+            return (List<String>) Collections.EMPTY_LIST;
+
         return HashTagar;
     }
 
@@ -58,3 +64,5 @@ public class EPHashTag extends RelativeLayout {
         });
     }
 }
+
+

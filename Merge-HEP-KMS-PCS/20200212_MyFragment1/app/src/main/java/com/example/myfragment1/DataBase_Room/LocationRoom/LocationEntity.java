@@ -1,11 +1,13 @@
 package com.example.myfragment1.DataBase_Room.LocationRoom;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "LocationEntity")
 public class LocationEntity {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     private int id;
     private String location_Title = null;
     private String location_Addr = null;

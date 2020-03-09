@@ -25,6 +25,6 @@ public interface TagEntity_Dao {
     LiveData<List<TagEntity>> getAllData();
 
 
-    @Query("SELECT * FROM Tag_Database WHERE location_id = :location_id")
+    @Query("SELECT * FROM Tag_Database WHERE location_Foreign_id = :location_id")
     TagEntity[] multipleSelectionByForeignKey(int location_id);
 }
