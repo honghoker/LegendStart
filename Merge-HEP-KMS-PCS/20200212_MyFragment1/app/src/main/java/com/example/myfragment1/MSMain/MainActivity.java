@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -34,6 +35,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.ListFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,6 +52,8 @@ import maes.tech.intentanim.CustomIntent;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // 기본적으로 쓰이는 것들 선언
+    public static final int ADD_MAIN_ACTIVITY_REQUEST_CODE = 1000;
+    public static final int ADD_MAIN_ACTIVITY_REPLY_CODE = 2000;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Adapter adapter;
     TextView recy_allSee;
     TextView back_allSee;
+
 
     //애니메이션
     Animation animation;
@@ -78,13 +83,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private boolean menuFlag = true;
     //프래그먼트 유지
-    private FragmentManager fragmentManager;
-    private Fragment fa, fragmentLocationListLayout = null;
+    public FragmentManager fragmentManager;
+    public Fragment fa, fragmentLocationListLayout = null;
     View mView;
 
     //자동완성 텍스트 뷰
     MsClearableEditText ct;
-    AutoCompleteTextView ac;
+    public AutoCompleteTextView ac;
     InputMethodManager imm; //키보드 설정 위한
 
     ConstraintLayout recy_con_layout;
@@ -151,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case MotionEvent.ACTION_UP:
                         toasts();
                         Intent intent = new Intent(MainActivity.this, AddMainActivity.class);
-                        startActivity(intent);
+                        startActivityForResult(intent,ADD_MAIN_ACTIVITY_REQUEST_CODE);
                         return true;
                 }
                 return false;
@@ -320,33 +325,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.btnMain:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment1).commit();/*프래그먼트 매니저가 프래그먼트를 담당한다!*/
                 if (fa == null) {
-                    fa = new LocationFragment();
+                    fa = new ListFragment();
                     fragmentManager.beginTransaction().add(R.id.frameLayout, fa).commit();
                 }
                 if (fa != null) {
                     //clearSearchBar(ac); //서치바 초기화
                     fragmentManager.beginTransaction().show(fa).commit();
+                    Toast.makeText(this, "맵 생성완료", Toast.LENGTH_SHORT).show();
                 }
-                if (getSupportFragmentManager().findFragmentById(R.id.frameLayout) != fragmentLocationListLayout)
+                if (fragmentLocationListLayout != null)
                     fragmentManager.beginTransaction().hide(fragmentLocationListLayout).commit();
                 break;
             case R.id.btnLocationList:
-                /*
-                //if resuorce Overload
+                setFragmentLocationListLayout();
 
-                if (fb == null) {
-                    fb = new LocationFragment();
-                    fragmentManager.beginTransaction().add(R.id.frameLayout, fb).commit();
-                }else if(fa != null){
+                if (fa != null) {
                     fragmentManager.beginTransaction().hide(fa).commit();
                 }
-                clearSearchBar(ac); //서치바 초기화
-                fragmentManager.beginTransaction().show(fb).commit();
-                 */
-                fragmentLocationListLayout = new LocationFragment();
-                fragmentManager.beginTransaction().hide(getSupportFragmentManager().).commit();
-                fragmentManager.beginTransaction().add(R.id.frameLayout, fragmentLocationListLayout).commit();
-                //if(getSupportFragmentManager().findFragmentById(R.id.frameLayout) != fragmentLocationListLayout)
                 break;
             case R.id.btnFilterSelect:
                 msHashTagCheckBoxManager.AddClickHashTag(this);
@@ -358,16 +353,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.floatingActionButton:
 //clearSearchBar(ac); //서치바 초기화
+                if(fa != null)
+                    fragmentManager.beginTransaction().hide(fa).commit();
+                if(fragmentLocationListLayout != null)
+                    fragmentManager.beginTransaction().hide(fragmentLocationListLayout).commit();
+
                 selectLocationFlag = true;
                 SetToolbar(); //툴바 세팅
                 sl.SetLinearLayout(getApplicationContext(), relativelayout_sub);
+
+
 
                 //floating icon
                 setBottomBar(selectLocationFlag);
                 setFloatingItem(selectLocationFlag);
 
 
-//                Intent intent = new Intent(MainActivity.this, SubActivity.class);
 //                startActivity(intent);
 
 //updateTextureViewSize((int) motionEvent.getX(), (int) motionEvent.getY());
@@ -584,7 +585,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         list.add("허영지");
     }
 
-    private void clearSearchBar(AutoCompleteTextView ac) {
+    public void clearSearchBar(AutoCompleteTextView ac) {
         ac.clearFocus(); //포커스 해제
         ac.setText(null); //텍스트 초기화
         getSupportActionBar().show(); //툴바 보이게
@@ -638,5 +639,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void toasts() {
         Toast.makeText(this, "시발되라고개새끼야", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == ADD_MAIN_ACTIVITY_REQUEST_CODE && resultCode == ADD_MAIN_ACTIVITY_REPLY_CODE) {
+            if (data.getBooleanExtra(AddMainActivity.SET_STORE_FLAG, false)) {
+                if (relativelayout_sub.getVisibility() != View.GONE)
+                    relativelayout_sub.setVisibility(View.GONE);
+            }
+        }
+        setFragmentLocationListLayout();
+    }
+    public void setFragmentLocationListLayout(){
+        if (fragmentLocationListLayout == null) {
+            fragmentLocationListLayout = new LocationFragment();
+            fragmentManager.beginTransaction().add(R.id.frameLayout, fragmentLocationListLayout).commit();
+        } else {
+            clearSearchBar(ac); //서치바 초기화
+            fragmentManager.beginTransaction().show(fragmentLocationListLayout).commit();
+        }
     }
 }

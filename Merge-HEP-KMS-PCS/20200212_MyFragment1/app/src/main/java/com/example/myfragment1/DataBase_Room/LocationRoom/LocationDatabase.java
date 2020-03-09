@@ -9,7 +9,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {LocationEntity.class}, version = 1)
+@Database(entities = {LocationEntity.class}, version = 1
+//          get rid of warning
+//        ,exportSchema = false
+)
 public abstract class LocationDatabase extends RoomDatabase {
     private static LocationDatabase instance;
     public abstract LocationEntity_Dao locationEntity_dao();
