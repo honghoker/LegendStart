@@ -1,5 +1,6 @@
 package com.example.calendar;
 
+import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,19 +36,20 @@ public class CompactCalendarTab extends Fragment {
 
     private static final String TAG = "MainActivity";
     private Calendar currentCalender = Calendar.getInstance(Locale.getDefault());
-    private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("yyyy년 M월 dd일 hh:mm:ss a", Locale.getDefault());
+    private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("M월 dd일", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("yyyy년 - MMM ", Locale.getDefault());
-    private SimpleDateFormat dateFormatForDay = new SimpleDateFormat("yyyy-M-dd", Locale.getDefault());
     private boolean shouldShow = false;
     private CompactCalendarView compactCalendarView;
     private ActionBar toolbar;
     Calendar nowDate = Calendar.getInstance();
+    ArrayAdapter adapter;
+    List<String> mutableBookings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View mainTabView = inflater.inflate(R.layout.main_tab,container,false);
 
-        final List<String> mutableBookings = new ArrayList<>();
+        mutableBookings = new ArrayList<>();
 
         final ListView bookingsListView = mainTabView.findViewById(R.id.bookings_listview);
         Button btn_todoadd = mainTabView.findViewById(R.id.Btn_todoadd);
@@ -58,7 +60,7 @@ public class CompactCalendarTab extends Fragment {
 //        final Button setLocaleBut = mainTabView.findViewById(R.id.set_locale);
 //        final Button removeAllEventsBut = mainTabView.findViewById(R.id.remove_all_events);
 
-        final ArrayAdapter adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mutableBookings);
+        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mutableBookings);
         bookingsListView.setAdapter(adapter);
         compactCalendarView = mainTabView.findViewById(R.id.compactcalendar_view);
 
@@ -127,8 +129,6 @@ public class CompactCalendarTab extends Fragment {
             @Override
             public void onClick(View v) {
                 addMyEvent();
-                mutableBookings.add(dateFormatForDisplaying.format(new Date(nowDate.getTimeInMillis())));
-                adapter.notifyDataSetChanged();
             }
         });
 
@@ -260,15 +260,6 @@ public class CompactCalendarTab extends Fragment {
         //addEvents(Calendar.AUGUST, -1);
     }
 
-    private void loadEventsForYear(int year) {
-        //addEvents(Calendar.DECEMBER, year);
-        //addEvents(Calendar.AUGUST, year);
-    }
-
-    private void loadMyEvent(int year){
-        //addEvents(Calendar.MONTH-1, year);
-    }
-
     private void logEventsByMonth(CompactCalendarView compactCalendarView) {
         currentCalender.setTime(new Date());
         currentCalender.set(Calendar.DAY_OF_MONTH, 1);
@@ -281,40 +272,27 @@ public class CompactCalendarTab extends Fragment {
         Log.d(TAG, "Events for Aug month using default local and timezone: " + compactCalendarView.getEventsForMonth(currentCalender.getTime()));
     }
 
-    private void addEvents(int month, int year) {
-        currentCalender.setTime(new Date());
-        currentCalender.set(Calendar.DAY_OF_MONTH, 1);
-        Date firstDayOfMonth = currentCalender.getTime();
-        for (int i = 0; i < 6; i++) {
-            currentCalender.setTime(firstDayOfMonth);
-            if (month > -1) {
-                currentCalender.set(Calendar.MONTH, month);
-            }
-            if (year > -1) {
-                currentCalender.set(Calendar.ERA, GregorianCalendar.AD);
-                currentCalender.set(Calendar.YEAR, year);
-            }
-            currentCalender.add(Calendar.DATE, i);
-            setToMidnight(currentCalender);
-            long timeInMillis = currentCalender.getTimeInMillis();
-
-            List<Event> events = getEvents(timeInMillis, i);
-
-            compactCalendarView.addEvents(events);
-        }
-    }
-
     private void addMyEvent(){
-        currentCalender.setTime(new Date(nowDate.getTimeInMillis()));
-        long timelnMillis = currentCalender.getTimeInMillis();
-        List<Event> events = getEvents(timelnMillis, Integer.parseInt(new SimpleDateFormat("dd", Locale.getDefault()).format(new Date(nowDate.getTimeInMillis()))));
+        Calendar cal = Calendar.getInstance();
 
-        compactCalendarView.addEvents(events);
+        final TimePickerDialog dialog = new TimePickerDialog(this.getContext(), android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int min) {
+                currentCalender.setTime(new Date(nowDate.getTimeInMillis()));
+                long timelnMillis = currentCalender.getTimeInMillis();
+                List<Event> events = getEvents(timelnMillis, hour, min);
+                compactCalendarView.addEvents(events);
+                mutableBookings.add(dateFormatForDisplaying.format(timelnMillis) + " " + hour + "시 " + min +"분");
+                adapter.notifyDataSetChanged();
+            }
+        }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);  //마지막 boolean 값은 시간을 24시간으로 보일지 아닐지
+
+        dialog.show();
     }
 
-    private List<Event> getEvents(long timeInMillis, int day) {
+    private List<Event> getEvents(final long timeInMillis, int hour, int min) {
         List<Event> bookingsFromMap = compactCalendarView.getEvents(timeInMillis);
-        int pointcolor = Color.argb(255, 169, 68, 65);
+        int pointcolor;
         switch (bookingsFromMap.size()) {
             case 0:
                 pointcolor = Color.argb(255, 169, 68, 65); break;
@@ -325,8 +303,9 @@ public class CompactCalendarTab extends Fragment {
             default:
                 pointcolor = Color.argb(255, 70, 68, 65);
         }
+
         return Arrays.asList(
-                new Event(pointcolor, timeInMillis, dateFormatForDisplaying.format(timeInMillis)) // todolist 추가
+                new Event(pointcolor, timeInMillis, dateFormatForDisplaying.format(timeInMillis) + " " + hour + "시 " + min +"분")
         );
     }
 
