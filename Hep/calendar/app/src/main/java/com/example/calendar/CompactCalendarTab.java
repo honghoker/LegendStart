@@ -35,17 +35,17 @@ public class CompactCalendarTab extends Fragment {
 
     private static final String TAG = "MainActivity";
     private Calendar currentCalender = Calendar.getInstance(Locale.getDefault());
-    private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", Locale.getDefault());
-    private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
+    private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("yyyy년 M월 dd일 hh:mm:ss a", Locale.getDefault());
+    private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("yyyy년 - MMM ", Locale.getDefault());
     private SimpleDateFormat dateFormatForDay = new SimpleDateFormat("yyyy-M-dd", Locale.getDefault());
     private boolean shouldShow = false;
     private CompactCalendarView compactCalendarView;
     private ActionBar toolbar;
-    Date nowDate;
+    Calendar nowDate = Calendar.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mainTabView = inflater.inflate(R.layout.main_tab,container,false);
+        final View mainTabView = inflater.inflate(R.layout.main_tab,container,false);
 
         final List<String> mutableBookings = new ArrayList<>();
 
@@ -95,6 +95,7 @@ public class CompactCalendarTab extends Fragment {
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         toolbar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
 
+        nowDate = Calendar.getInstance();
         //set title on calendar scroll
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -103,8 +104,9 @@ public class CompactCalendarTab extends Fragment {
                 List<Event> bookingsFromMap = compactCalendarView.getEvents(dateClicked);
                 Log.d(TAG, "inside onclick " + dateFormatForDisplaying.format(dateClicked));
 
-                bookingsListView.setVisibility(View.VISIBLE); // todolist 띄우기
-                nowDate = dateClicked;
+                //bookingsListView.setVisibility(View.VISIBLE); // todolist 띄우기
+                (mainTabView.findViewById(R.id.listviewLayout)).setVisibility(View.VISIBLE);
+                nowDate.setTime(dateClicked);
                 if (bookingsFromMap != null) {
                     Log.d(TAG, bookingsFromMap.toString());
                     mutableBookings.clear();
@@ -124,9 +126,8 @@ public class CompactCalendarTab extends Fragment {
         btn_todoadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ClickAddBtn",dateFormatForDay.format(nowDate));
                 addMyEvent();
-                mutableBookings.add((String) nowDate.toString());
+                mutableBookings.add(dateFormatForDisplaying.format(new Date(nowDate.getTimeInMillis())));
                 adapter.notifyDataSetChanged();
             }
         });
@@ -268,7 +269,6 @@ public class CompactCalendarTab extends Fragment {
         //addEvents(Calendar.MONTH-1, year);
     }
 
-
     private void logEventsByMonth(CompactCalendarView compactCalendarView) {
         currentCalender.setTime(new Date());
         currentCalender.set(Calendar.DAY_OF_MONTH, 1);
@@ -305,9 +305,9 @@ public class CompactCalendarTab extends Fragment {
     }
 
     private void addMyEvent(){
-        currentCalender.setTime(nowDate);
+        currentCalender.setTime(new Date(nowDate.getTimeInMillis()));
         long timelnMillis = currentCalender.getTimeInMillis();
-        List<Event> events = getEvents(timelnMillis, Integer.parseInt(new SimpleDateFormat("dd", Locale.getDefault()).format(nowDate)));
+        List<Event> events = getEvents(timelnMillis, Integer.parseInt(new SimpleDateFormat("dd", Locale.getDefault()).format(new Date(nowDate.getTimeInMillis()))));
 
         compactCalendarView.addEvents(events);
     }
@@ -326,7 +326,7 @@ public class CompactCalendarTab extends Fragment {
                 pointcolor = Color.argb(255, 70, 68, 65);
         }
         return Arrays.asList(
-                new Event(pointcolor, timeInMillis, "0 Event at " + new Date(timeInMillis))
+                new Event(pointcolor, timeInMillis, dateFormatForDisplaying.format(timeInMillis)) // todolist 추가
         );
     }
 
