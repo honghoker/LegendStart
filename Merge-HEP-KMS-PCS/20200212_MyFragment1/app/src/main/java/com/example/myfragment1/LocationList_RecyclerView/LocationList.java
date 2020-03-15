@@ -1,14 +1,10 @@
 package com.example.myfragment1.LocationList_RecyclerView;
 
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,19 +14,13 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
-import com.example.myfragment1.HepAddActivity.AddMainActivity;
 import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
-import com.example.myfragment1.DataBase_Room.LocationRoom.LocationViewModel;
 import com.example.myfragment1.DataBase_Room.TagEntity.TagDatabase;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity;
 import com.example.myfragment1.DataBase_Room.TagEntity.TagViewModel;
-import com.example.myfragment1.HepAddActivity.AddMainActivity;
 import com.example.myfragment1.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 ;
@@ -55,7 +45,7 @@ public class LocationList extends AppCompatActivity {
         setRecyclerView();
 
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
-        locationViewModel.getAllData().observe(this, new Observer<List<LocationEntity>>() {
+        locationViewModel.getAllLocationData().observe(this, new Observer<List<LocationEntity>>() {
             @Override
             public void onChanged(List<LocationEntity> locationEntities) {
                 //Update RecyclerView

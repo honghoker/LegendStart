@@ -1,32 +1,28 @@
 package com.example.myfragment1.DataBase_Room.TagEntity;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.myfragment1.LocationList_RecyclerView.SendingArrayList;
+
+import java.util.Collections;
 import java.util.List;
 
-public class TagRepository {
+public class TagAsyncTask {
     private TagEntity_Dao tagEntity_dao;
     private LiveData<List<TagEntity>> allTags;
     private TagEntity[] selectDismissTagEntities;
-    private int position;
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
 
-    public TagRepository(Application application) {
-        /*
-        TagDatabase tagDatabase = TagDatabase.getInstance(application);
-        tagEntity_dao = tagDatabase.tagEntity_dao();
-        allTags = tagEntity_dao.getAllData();
-        selectDismissTagEntities = tagEntity_dao.multipleSelectionByForeignKey(position);
-        
-         */
+    public TagAsyncTask(Application application) {
+//        TagDatabase tagDatabase = TagDatabase.getInstance(application);
+//        tagEntity_dao = tagDatabase.tagEntity_dao();
+//        allTags = tagEntity_dao.getAllData();
+        //selectDismissTagEntities = tagEntity_dao.multipleSelectionByForeignKey(position);
     }
-    /*
-    public static class InsertTagAsyncTask extends AsyncTask<TagEntity, Void, Void>{
+    public static class InsertTagAsyncTask extends AsyncTask<TagEntity, Void, Void> {
         private TagEntity_Dao tagEntity_dao;
         public InsertTagAsyncTask(TagEntity_Dao tagEntity_dao) {
             this.tagEntity_dao = tagEntity_dao;
@@ -38,14 +34,8 @@ public class TagRepository {
             return null;
         }
     }
-    public void insert(TagEntity tagEntity){
-        new InsertTagAsyncTask(tagEntity_dao).execute(tagEntity);
-    }
     public void update(TagEntity tagEntity){
         new UpdateTagAsyncTask(tagEntity_dao).execute(tagEntity);
-    }
-    public void delete(TagEntity... tagEntities){
-        new DeleteTagAsyncTask(tagEntity_dao).execute(tagEntities);
     }
 
     public static class UpdateTagAsyncTask extends AsyncTask<TagEntity, Void, Void>{
@@ -72,20 +62,28 @@ public class TagRepository {
             return null;
         }
     }
-    public static class MultipleSelectionAsyncTask extends AsyncTask<TagEntity, Void, Void>{
+    public static class SearchAboutLocationId extends AsyncTask<Integer, Void, List<TagEntity>>{
         private TagEntity_Dao tagEntity_dao;
-        private int position;
-        public MultipleSelectionAsyncTask(TagEntity_Dao tagEntity_dao, int position) {
+        public SearchAboutLocationId(TagEntity_Dao tagEntity_dao) {
             this.tagEntity_dao = tagEntity_dao;
-            this.position = position;
         }
 
         @Override
-        protected Void doInBackground(TagEntity... tagEntities) {
-            tagEntity_dao.multipleSelectionByForeignKey(position);
-            return null;
+        protected List<TagEntity> doInBackground(Integer... integer) {
+            return ((List<TagEntity>) new SendingArrayList().SendingArrayList(tagEntity_dao.multipleSelectionByForeignKey(integer[0])));
+        }
+    }
+    public static class DismissUsingLocationId extends AsyncTask<Integer, Void, TagEntity>{
+        private TagEntity_Dao tagEntity_dao;
+
+        public DismissUsingLocationId(TagEntity_Dao tagEntity_dao) {
+            this.tagEntity_dao = tagEntity_dao;
+        }
+
+        @Override
+        protected TagEntity[] doInBackground(Integer... integers) {
+            return tagEntity_dao.dismissUsingForeignKey(integers[0]);
         }
     }
 
-     */
 }

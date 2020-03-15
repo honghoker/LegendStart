@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,30 +26,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.myfragment1.DataBase_Room.LocationRoom.LocationDatabase;
 import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
-import com.example.myfragment1.DataBase_Room.LocationRoom.LocationViewModel;
+import com.example.myfragment1.DataBase_Room.Repository.LocationRepository;
+import com.example.myfragment1.LocationList_RecyclerView.LocationViewModel;
 import com.example.myfragment1.DataBase_Room.TagEntity.TagDatabase;
 import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity_Dao;
-import com.example.myfragment1.LocationList_RecyclerView.LocationList;
-import com.example.myfragment1.MSMain.LocationFragment;
 import com.example.myfragment1.MSMain.MainActivity;
 import com.example.myfragment1.R;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import static android.content.ContentValues.TAG;
 
@@ -323,11 +313,19 @@ public class AddMainActivity extends Activity {
 
         List<String> _hashTag = EPHashTag.getHashTagar();
         ////String location_Title, String location_Addr, String location_DetailAddr, String location_Phone, String location_Memo, String location_Latitude, String location_Longitude, String location_Timestamp
+        LocationRepository locationRepository = new LocationRepository(getApplication());
         LocationEntity locationEntity = new LocationEntity(title, address, detailAddr, number, comment, latitude, longitude, timestamp);
+        locationRepository.insert_Location(locationEntity);
+
+        /*
         LocationDatabase locationDatabase = Room.databaseBuilder(this, LocationDatabase.class, "LocationEntity").allowMainThreadQueries().build();
         locationDatabase.locationEntity_dao().insert(locationEntity);
         Log.d("tag","END Location insert ");
+
+
         locationDatabase.close();
+
+         */
 
         if(!_hashTag.isEmpty()) {
             TagDatabase tagDatabase = Room.databaseBuilder(this, TagDatabase.class, "Tag_Database").allowMainThreadQueries().build();

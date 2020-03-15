@@ -1,21 +1,18 @@
 package com.example.myfragment1.DataBase_Room.TagEntity;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
+import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
-
-@Database(entities = {TagEntity.class, LocationEntity.class}, version = 1)
+@Database(entities = {TagEntity.class}, version = 1)
 public abstract class TagDatabase extends RoomDatabase {
     public abstract TagEntity_Dao tagEntity_dao();
 
-    public TagDatabase() {
-    }
-/*
     private static TagDatabase instance;
     public static synchronized TagDatabase getInstance(Context context){
         if (instance == null) {
@@ -49,6 +46,5 @@ public abstract class TagDatabase extends RoomDatabase {
         }
     }
 
-     */
 }
 
