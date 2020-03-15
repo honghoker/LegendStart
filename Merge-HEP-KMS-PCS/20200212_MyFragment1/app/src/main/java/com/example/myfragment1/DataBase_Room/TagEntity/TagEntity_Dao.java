@@ -7,6 +7,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.myfragment1.LocationList_RecyclerView.SendingArrayList;
+
 import java.util.List;
 
 @Dao
@@ -24,7 +26,9 @@ public interface TagEntity_Dao {
     @Query("SELECT * FROM Tag_Database ORDER BY tag_id DESC")
     LiveData<List<TagEntity>> getAllData();
 
+    @Query("SELECT * FROM Tag_Database WHERE location_Foreign_id = :location_id")
+    TagEntity[] dismissUsingForeignKey(int location_id);
 
     @Query("SELECT * FROM Tag_Database WHERE location_Foreign_id = :location_id")
-    TagEntity[] multipleSelectionByForeignKey(int location_id);
+    List<TagEntity> multipleSelectionByForeignKey(int location_id);
 }

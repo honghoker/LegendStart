@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey;
 
 import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
 
+import java.util.List;
+
 @Entity(tableName = "Tag_Database")
 //        foreignKeys = {
 //                @ForeignKey(entity = LocationEntity.class,
@@ -42,6 +44,14 @@ public class TagEntity {
     public String getTag() {
         return tag;
     }
+
+    public TagEntity searchByLocationID(int position){
+        if(this.locationId == position)
+            return this;
+        else
+            return null;
+    }
+
 }
 
 
