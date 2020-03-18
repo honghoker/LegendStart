@@ -27,19 +27,12 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private LayoutInflater layoutInflater;
     static List<String> title;
-    //    private List<String> data;
-    //    private List<String> des_data;
-    private List<String[]> tag;
     Context mcontext;
-//    View view;
-//    List<View> test_view;
 
     private final int TYPE_HEADER = 0;
     private final int TYPE_ITEM = 1;
     private boolean recy_refresh_frag = false;
-//    AppDatabase db = Room.databaseBuilder(mcontext,AppDatabase.class,"directory_db").build();
 
-    ConstraintLayout recy_card_layout;
 
     @Override
     public int getItemViewType(int position) {
@@ -49,7 +42,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             return TYPE_ITEM;
     }
 
-    //    private String btn = "btn";
     public interface OnItemClickListener {
         void onItemClick(View v, int pos);
     }
@@ -65,16 +57,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         this.layoutInflater = LayoutInflater.from(context);
         this.title = data;
         mcontext = context;
-        Log.d("Search", "adapter 생성자확인");
-//        this.tag = Tag;
     }
-
-//    Adapter(Context context, List<String> des_data, List<String> data){
-//        this.layoutInflater = LayoutInflater.from(context);
-//        this.data = data;
-//        this.des_data = des_data;
-//        mcontext = context;
-//    }
 
     class HeaderViewHolder extends ViewHolder {
         HeaderViewHolder(View headerView) {
@@ -85,6 +68,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.d("1","확인111");
         Log.d("Search", "확인");
         RecyclerView.ViewHolder holder;
         View view;
@@ -95,54 +79,23 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recy_test, parent, false);
 //            MainActivity.test_view.add(view);
             holder = new ViewHolder(view);
-//            MainActivity.test_view.add(holder);
-//            view.setVisibility(View.GONE);
         }
         return (ViewHolder) holder;
-//        return new ViewHolder(view);
-
-//        View view = layoutInflater.inflate(R.layout.recy_test, parent, false);
-//        return new ViewHolder(view);
     }
 
     @Override
     public int getItemCount() {
-//        return 1;
         return title.size() + 1;
     }
 
-//    public void test(){
-//        if(MainActivity.recyFrag==false){
-////            int a = MainActivity.test_view.size();
-////            Log.d("1",Integer.toString(a));
-////            view.setVisibility(View.GONE);
-//        }
-//        else{
-////            view.setVisibility(View.VISIBLE);
-//        }
-//    }
-
-//    AppDatabase db = Room.databaseBuilder(mcontext,AppDatabase.class,"directory_db").build();
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        String Title = title.get(position);
-//        String des = des_data.get(position);
-//        String[] Tag_1 = tag.get(position);
-//        holder.textTitle.setText("실험");
-//        holder.textTitle.setText(Title);
-//        holder.textDescription.setText(des);
-
         if (holder instanceof HeaderViewHolder) {
-            //없어도 뜨네 ? ㅅㅂ 뭐지
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
         } else {
-//            Toast.makeText(mcontext,db.directoryDao().getAll().toString(),Toast.LENGTH_SHORT).show();
             String Title = title.get(position - 1);
             holder.textTitle.setText(Title);
         }
-
-//        holder.btnTitle.setText(btn);
     }
 
     // 비동기 처리를 위한 클래스
@@ -186,26 +139,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             textTitle = (TextView) itemView.findViewById(R.id.textView);
             Total = (TextView) itemView.findViewById(R.id.textView7);
             Log.d("Search", "4");
-//                Log.d("Search", "itemVIew####   " + itemView.toString());
-//                MainActivity.test_view.add(itemView);
-//                for(int i =0;i<5; i++){
-//                    MainActivity.test_view_2[i] = itemView;
-//                }
-//                itemView.setVisibility(View.GONE);
-
             // LiveData
             db.directoryDao().getAll().observe((LifecycleOwner) mcontext, new Observer<List<Directory>>() {
                 @Override
-                public void onChanged(List<Directory> directories) {==
+                public void onChanged(List<Directory> directories) {
                     if(recy_refresh_frag==true){
 //                        title.clear();
                         recy_refresh_frag = false;
 
                         title.add(directories.get(directories.size()-1).toString());
 
-//                        for(Directory D: directories){
-//                            title.add(D.toString());
-//                        }
                         ((MainActivity)mcontext).recy_test_view.setAdapter(Adapter.this);
                     }
                 }
@@ -240,6 +183,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                     recy_refresh_frag = true;
                                     Log.d("1", "여긴옴?");
 //                                    MainActivity.recyclerView.setAdapter(Adapter.this);
+
 
 //                                        Toast.makeText(mcontext,db.directoryDao().getAll().toString(),Toast.LENGTH_SHORT).show();
                                     dialog.dismiss(); // 모든 작업이 끝났으니 dialog를 닫어라
