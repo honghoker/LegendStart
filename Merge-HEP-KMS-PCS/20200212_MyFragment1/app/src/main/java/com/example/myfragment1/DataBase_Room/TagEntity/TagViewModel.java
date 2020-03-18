@@ -10,12 +10,12 @@ import java.util.List;
 
 public class TagViewModel extends AndroidViewModel {
 
-    private TagRepository tagRepository;
+    private TagAsyncTask tagAsyncTask;
     private LiveData<List<TagEntity>> allData;
     private int location_id;
     public TagViewModel(@NonNull Application application) {
         super(application);
-        tagRepository = new TagRepository(application);
+        tagAsyncTask = new TagAsyncTask(application);
 
     }
     /*

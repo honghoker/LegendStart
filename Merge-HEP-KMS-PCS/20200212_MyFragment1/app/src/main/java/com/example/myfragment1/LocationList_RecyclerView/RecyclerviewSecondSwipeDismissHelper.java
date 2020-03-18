@@ -11,17 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
-import com.example.myfragment1.DataBase_Room.LocationRoom.LocationViewModel;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagDatabase;
+import com.example.myfragment1.DataBase_Room.Repository.LocationRepository;
 import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.SimpleCallback {
     private LocationViewModel locationViewModel;
     private RecyclerAdapter recyclerAdapter;
     private LocationEntity locationEntity;
-    private TagViewModel tagViewModel;
 
     public RecyclerviewSecondSwipeDismissHelper(int dragDirs, int swipeDirs, RecyclerAdapter recyclerAdapter, LocationViewModel locationViewModel) {
         super(dragDirs, ItemTouchHelper.LEFT);
@@ -38,17 +35,18 @@ public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.Simple
     @Override
     public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
         //Undo
+        LocationRepository locationRepository
         locationEntity = locationViewModel.delete(recyclerAdapter.getLocationEntityAt(viewHolder.getAdapterPosition()));
-        final TagDatabase tagDatabase = Room.databaseBuilder(viewHolder.itemView.getContext(), TagDatabase.class, "Tag_Database").allowMainThreadQueries().build();
-        final TagEntity[] tagEntities = tagDatabase.tagEntity_dao().multipleSelectionByForeignKey(locationEntity.getId());
-        tagDatabase.tagEntity_dao().delete(tagEntities);
+
+        final TagEntity[] tagList = tagDatabase.tagEntity_dao().multipleSelectionByForeignKey(locationEntity.getId()).toArray(new TagEntity[0]);
+        tagDatabase.tagEntity_dao().delete(tagList);
         Log.d("tag","Successful dismiss Tag");
 
         Snackbar.make(viewHolder.itemView, "", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 locationViewModel.insert(locationEntity);
-                tagDatabase.tagEntity_dao().insert(tagEntities);
+                tagDatabase.tagEntity_dao().insert(tagList);
                 Log.d("tag","Successful Undo");
             }
         }).show();

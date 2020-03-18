@@ -1,14 +1,10 @@
 package com.example.myfragment1.LocationList_RecyclerView;
 
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,19 +14,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
-import com.example.myfragment1.HepAddActivity.AddMainActivity;
 import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
-import com.example.myfragment1.DataBase_Room.LocationRoom.LocationViewModel;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagDatabase;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagViewModel;
-import com.example.myfragment1.HepAddActivity.AddMainActivity;
 import com.example.myfragment1.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 ;
@@ -40,12 +28,9 @@ public class LocationList extends AppCompatActivity {
     private static final int GET_ADD_LOCATION_REQUEST_CODE = 200; //For intent
     private RecyclerAdapter recyclerAdapter;
     private LocationViewModel locationViewModel;
-    private TagViewModel tagViewModel;
     private RecyclerView recyclerView; //For recyclerview
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
     private FloatingActionButton floatingActionButton;
-    private TagDatabase tagDatabase;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +40,7 @@ public class LocationList extends AppCompatActivity {
         setRecyclerView();
 
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
-        locationViewModel.getAllData().observe(this, new Observer<List<LocationEntity>>() {
+        locationViewModel.getAllLocationData().observe(this, new Observer<List<LocationEntity>>() {
             @Override
             public void onChanged(List<LocationEntity> locationEntities) {
                 //Update RecyclerView
@@ -92,7 +77,6 @@ public class LocationList extends AppCompatActivity {
 
     private void init() {
 //
-        floatingActionButton = findViewById(R.id.floatingButton);
 //
 //        //recyclerViewSortingMethod(sortingCondition);
 //
@@ -104,7 +88,7 @@ public class LocationList extends AppCompatActivity {
     }
 
     public void setupSwipe() {
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+        recyclerView.addItemDecoration( new RecyclerView.ItemDecoration() {
             @Override
             public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 recyclerviewSwipeHelper.onDraw(c);
@@ -127,10 +111,43 @@ public class LocationList extends AppCompatActivity {
             }
         });
     }
-    public void AddOnClick(View view){
-        Intent intent = new Intent(LocationList.this, AddMainActivity.class);
-        startActivityForResult(intent, GET_ADD_LOCATION_REQUEST_CODE);
+    /*
+    public void storeLocation(){
+
+        Intent data = getIntent();
+        String title = data.getStringExtra(AddMainActivity.EXTRA_TITLE);
+        String address = data.getStringExtra(AddMainActivity.EXTRA_Addr);
+        String detailAddr = data.getStringExtra(AddMainActivity.EXTRA_DetailAddr);
+        String number = data.getStringExtra(AddMainActivity.EXTRA_Number);
+        String comment = data.getStringExtra(AddMainActivity.EXTRA_Comment);
+        String latitude = data.getStringExtra(AddMainActivity.EXTRA_Latitude);
+        String longitude = data.getStringExtra(AddMainActivity.EXTRA_Longitude);
+        String timestamp = data.getStringExtra(AddMainActivity.EXTRA_Timestamp);
+        ArrayList<String> hashTag = data.getStringArrayListExtra(AddMainActivity.EXTRA_HASHTAG);
+        LocationEntity locationEntity = new LocationEntity(title, address, detailAddr, number, comment, latitude, longitude, timestamp);
+        int location_id = locationViewModel.insert(locationEntity);
+        if(hashTag.isEmpty()){
+            tagDatabase = Room.databaseBuilder(this, TagDatabase.class, "Tag_Database").allowMainThreadQueries().build();
+            for(String tag : hashTag){
+                Log.d("Tag","TagData Store");
+                TagEntity tagEntity = new TagEntity(location_id, tag);
+                tagDatabase.tagEntity_dao().insert(tagEntity);
+            }
+            tagDatabase.close();
+        }
+
+
+        Toast.makeText(this, "Save",Toast.LENGTH_SHORT).show();
+    }else
+            Toast.makeText(this, "Not Save",Toast.LENGTH_SHORT).show();
     }
+
+
+     */
+
+    //Override onActivityResult. This is called when the Second Activity finishes. You can make sure that it is actually the Second Activity by checking the result code.
+    //(This is useful when you are starting multiple different activities from the same main activity.)
+    /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -164,4 +181,6 @@ public class LocationList extends AppCompatActivity {
         }else
             Toast.makeText(this, "Not Save",Toast.LENGTH_SHORT).show();
     }
+
+     */
 }

@@ -7,15 +7,19 @@ import androidx.room.PrimaryKey;
 
 import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
 
-@Entity(tableName = "Tag_Database",
-        foreignKeys = {
-                @ForeignKey(entity = LocationEntity.class,
-                        parentColumns = "id", childColumns = "location_id", onDelete = ForeignKey.CASCADE)})
+import java.util.List;
+
+@Entity(tableName = "Tag_Database")
+//        foreignKeys = {
+//                @ForeignKey(entity = LocationEntity.class,
+//                        parentColumns = "id", childColumns = "location_Foreign_id",
+//                        onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.SET_NULL)})
+// Foreign key not Recommand for resuorce
 public class TagEntity {
     @PrimaryKey(autoGenerate = true)
     private int tag_id;
 
-    @ColumnInfo(name = "location_id")
+    @ColumnInfo(name = "location_Foreign_id")
     private int locationId;
 
     private String tag;
@@ -40,4 +44,14 @@ public class TagEntity {
     public String getTag() {
         return tag;
     }
+
+    public TagEntity searchByLocationID(int position){
+        if(this.locationId == position)
+            return this;
+        else
+            return null;
+    }
+
 }
+
+

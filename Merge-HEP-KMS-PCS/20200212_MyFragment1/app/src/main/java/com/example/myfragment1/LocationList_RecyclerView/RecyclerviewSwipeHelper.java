@@ -14,15 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myfragment1.DataBase_Room.LocationRoom.LocationViewModel;
-
 enum ButtonsState {
     GONE,
     LEFT_VISIBLE,
     RIGHT_VISIBLE;
 }
 
-class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
+public class RecyclerviewSwipeHelper extends ItemTouchHelper.Callback {
 
     private SwipeActionInterface buttonsActions = null;
     private boolean swipeBack = false;

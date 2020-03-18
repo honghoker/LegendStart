@@ -27,9 +27,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.myfragment1.LocationList_RecyclerView.LocationList;
+import com.example.myfragment1.DataBase_Room.LocationRoom.LocationDatabase;
+import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
+import com.example.myfragment1.DataBase_Room.Repository.LocationRepository;
+import com.example.myfragment1.LocationList_RecyclerView.LocationViewModel;
+import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity;
+import com.example.myfragment1.MSMain.MainActivity;
 import com.example.myfragment1.R;
 
 import java.io.InputStream;
@@ -39,7 +45,7 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 public class AddMainActivity extends Activity {
-    private static final int GET_LOCATION_LIST_REQUEST_CODE = 100;
+    private static final int Main_Activity_Request_Code = 100;
     public static final String EXTRA_TITLE = "com.example.myfragment1.HepAddActivity.EXTRA_TITLE";
     public static final String EXTRA_Addr = "com.example.myfragment1.HepAddActivity.EXTRA_Addr";
     public static final String EXTRA_DetailAddr = "com.example.myfragment1.HepAddActivity.EXTRA_DetailAddr";
@@ -49,7 +55,9 @@ public class AddMainActivity extends Activity {
     public static final String EXTRA_Longitude = "com.example.myfragment1.HepAddActivity.EXTRA_Longitude";
     public static final String EXTRA_Timestamp = "com.example.myfragment1.HepAddActivity.EXTRA_Timestamp";
     public static final String EXTRA_HASHTAG = "com.example.myfragment1.HepAddActivity.EXTRA_HASHTAG";
-  
+
+    public static final String SET_STORE_FLAG = "com.example.myfragment1.HepAddActivity.AddMainActivity.SET_STORE_FLAG";
+
     EditText Location_Title; // 이름
     TextView Location_Address; // 주소
     EditText Location_DetailAddress; // 상세주소
@@ -57,6 +65,8 @@ public class AddMainActivity extends Activity {
     EditText Location_Comment; // 메모
 
     ViewPager viewPager; // 이미지
+
+    private LocationViewModel locationViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,37 +78,6 @@ public class AddMainActivity extends Activity {
         init();
         PermissionCheck();
 
-    }
-
-
-    private void saveLocation() {
-        if (Location_Title.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "이름을 입력하여 주십시오", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Intent data = new Intent(this, LocationList.class);
-        data.putExtra(EXTRA_TITLE, Location_Title.getText().toString());
-        data.putExtra(EXTRA_Addr, Location_Address.getText().toString());
-        data.putExtra(EXTRA_DetailAddr, Location_DetailAddress.getText().toString());
-        data.putExtra(EXTRA_Comment, Location_Comment.getText().toString());
-        data.putExtra(EXTRA_Number, Location_Number.getText().toString());
-
-        data.putExtra(EXTRA_Latitude, "");
-        data.putExtra(EXTRA_Longitude, "");
-
-        data.putExtra(EXTRA_Timestamp, Long.toString(System.currentTimeMillis()));
-        ArrayList<String> tempArray = EPHashTag.getHashTagar();
-        if(tempArray.isEmpty()){
-            data.putExtra(EXTRA_HASHTAG, tempArray);
-        }
-
-        setResult(RESULT_OK, data);
-        Log.d("tag","start");
-
-        EPHashTag.getHashTagar().clear();
-        startActivity(data);
-        finish();
     }
 
     public void PermissionCheck() {
@@ -145,6 +124,7 @@ public class AddMainActivity extends Activity {
             }
         });
         ((ScrollView) findViewById(R.id.Scroll_Main)).fullScroll(View.FOCUS_DOWN);
+//        locationViewModel = ViewModelProviders.of().get(LocationViewModel.class);
     }
 
     public void onButtonHashTagAddClicked(View v) {
@@ -183,8 +163,7 @@ public class AddMainActivity extends Activity {
     }
 
     public void btnSaveOnClick(View view) {
-        saveLocation();
-
+        storeData();
     }
 
     public void hashtext_set(String Hash) {
@@ -321,5 +300,41 @@ public class AddMainActivity extends Activity {
     public void listshowOnButton(View view) {
         finish();
     }
+    public void storeData(){
+        Log.d("tag","in storeDataMethod ");
+        String title = Location_Title.getText().toString();
+        String address = Location_Address.getText().toString();
+        String detailAddr = Location_DetailAddress.getText().toString();
+        String number = Location_Number.getText().toString();
+        String comment = Location_Comment.getText().toString();
+        String latitude = null;
+        String longitude = null;
+        String timestamp = Long.toString(System.currentTimeMillis());
 
+        List<String> _hashTag = EPHashTag.getHashTagar();
+        ////String location_Title, String location_Addr, String location_DetailAddr, String location_Phone, String location_Memo, String location_Latitude, String location_Longitude, String location_Timestamp
+        LocationRepository locationRepository = new LocationRepository(getApplication());
+        LocationEntity locationEntity = new LocationEntity(title, address, detailAddr, number, comment, latitude, longitude, timestamp);
+        locationRepository.insert_Location(locationEntity);
+
+        /*
+        LocationDatabase locationDatabase = Room.databaseBuilder(this, LocationDatabase.class, "LocationEntity").allowMainThreadQueries().build();
+        locationDatabase.locationEntity_dao().insert(locationEntity);
+        Log.d("tag","END Location insert ");
+
+
+        locationDatabase.close();
+
+         */
+
+        if(!_hashTag.isEmpty()) {
+            int location_id = locationEntity.getId();
+            for (String tag : _hashTag)
+                locationRepository.insert_Tag(new TagEntity(location_id, tag));
+        }
+        Intent mainActivityIntent = new Intent(this, MainActivity.class);
+        mainActivityIntent.putExtra(SET_STORE_FLAG, true);
+        setResult(MainActivity.ADD_MAIN_ACTIVITY_REPLY_CODE, mainActivityIntent);
+        finish();
+    }
 }
