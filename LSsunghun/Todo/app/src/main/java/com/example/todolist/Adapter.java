@@ -1,6 +1,7 @@
 package com.example.todolist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -87,24 +88,38 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 if(holder.itemName.isChecked()){
-                    Log.d("1","체크확인");
+                    Log.d("1",position+"  체크확인");
                 }
                 else{
-                    Log.d("1","체크해제");
+                    Log.d("1",position+"  체크해제");
                 }
             }
         });
-
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DeleteAsyncTask(db.todoDao()).execute(mtodos.get(position));
 //                ((MainActivity)mcontext).recyclerView.setAdapter(new Adapter(mcontext,listData,mtodos));
-                recy_refresh_frag=true;
+//                recy_refresh_frag=true;
                 Toast.makeText(mcontext,"삭제클릭",Toast.LENGTH_SHORT).show();
             }
         });
 
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Log.d("1", String.valueOf(db.todoDao().getTodo(String.valueOf(mtodos.get(position).getSeq()))));
+//                Log.d("1","intent전   "+db.todoDao().getAll().toString());
+                Intent intent = new Intent(mcontext,EditNoteActivity.class);
+                intent.putExtra("note_seq",mtodos.get(position).getSeq());
+                intent.putExtra("note_data",mtodos.get(position).getTitle());
+                Log.d("1", String.valueOf(mtodos.get(position).getSeq()));
+                ((MainActivity)mcontext).startActivityForResult(intent,MainActivity.UPDATE_CODE);
+
+                Log.d("1","열로오나??");
+                Toast.makeText(mcontext,"update클릭",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -119,34 +134,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            Log.d("1","Adapater 여긴옴?");
             // LiveData
-
             db.todoDao().getAll().observe((LifecycleOwner) mcontext, new Observer<List<Todo>>() {
                 @Override
                 public void onChanged(List<Todo> todos) {
                     Log.d("1","Adapter 확인2222");
-//                    if(recy_refresh_frag==true){
-//                        recy_refresh_frag = false;
-////                        listData.clear();
-//                        Log.d("1","Adapter 확인1111");
-////                        ((MainActivity)mcontext).recyclerView.setAdapter(Adapter.this);
-//                    }
                 }
             });
-
-//            db.todoDao().getAll().observe((LifecycleOwner) mcontext, new Observer<List<Todo>>() {
-//                @Override
-//                public void onChanged(List<Todo> todos) {
-//                    if(MainActivity.addFrag == true){
-//                        MainActivity.addFrag = false;
-////                        listData.clear();
-////                        Toast.makeText(mcontext,todos.get(todos.size()-1).toString(),Toast.LENGTH_LONG).show();
-////                        listData.add(todos.get(todos.size()-1).toString());
-////                        ((MainActivity)mcontext).recyclerView.setAdapter(Adapter.this);
-//                    }
-////                    listData.add(todos.get(i).toString());
-//                }
-//            });
 
             itemName = itemView.findViewById(R.id.cb_item);
             edit = itemView.findViewById(R.id.iv_edit);

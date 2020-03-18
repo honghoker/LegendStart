@@ -87,17 +87,25 @@
             android:text="Expose animation" />
     </LinearLayout>
 -->
-    <Button
-        android:id="@+id/Btn_todoadd"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Button" />
-
-    <ListView
-        android:id="@+id/bookings_listview"
+    <LinearLayout
+        android:id="@+id/listviewLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:visibility="gone" />
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/Btn_todoadd"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Button" />
+
+        <ListView
+            android:id="@+id/bookings_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
+    </LinearLayout>
 
 </LinearLayout>

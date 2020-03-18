@@ -14,6 +14,9 @@ public interface TodoDao {
     @Query("SELECT * FROM Todo")
     LiveData<List<Todo>> getAll();
 
+    @Query("SELECT * FROM Todo WHERE seq =:todoSeq")
+    LiveData<Todo> getTodo(String todoSeq);
+
     @Insert
     void insert(Todo todo);
 
