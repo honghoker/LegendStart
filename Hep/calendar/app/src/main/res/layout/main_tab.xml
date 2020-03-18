@@ -99,7 +99,8 @@
             android:id="@+id/Btn_todoadd"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="Button" />
+            android:background="@android:color/transparent"
+            android:text="일정 추가" />
 
         <ListView
             android:id="@+id/bookings_listview"

@@ -1,6 +1,7 @@
 package com.example.calendar;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -288,6 +289,10 @@ public class CompactCalendarTab extends Fragment {
         }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);  //마지막 boolean 값은 시간을 24시간으로 보일지 아닐지
 
         dialog.show();
+
+        Intent intent = new Intent(getContext(), TodoAdd.class);
+        startActivityForResult(intent, 100);
+
     }
 
     private List<Event> getEvents(final long timeInMillis, int hour, int min) {

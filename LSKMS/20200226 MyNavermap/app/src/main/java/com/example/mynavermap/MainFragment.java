@@ -2,6 +2,7 @@ package com.example.mynavermap;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -196,6 +197,14 @@ public class MainFragment extends Fragment implements OnMapReadyCallback, View.O
         NMap = naverMap; //전역에 naverMap 당겨옴
         NMap.setContentPadding(0, 100, 0, 50);
         setMapUI(NMap);
+
+        NMap.addOnCameraIdleListener(new NaverMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+                getLocationPosition(activity, NMap);
+                Log.d("MapMap", "onCameraIdle");
+            }
+        });
     }
 
     @Override
