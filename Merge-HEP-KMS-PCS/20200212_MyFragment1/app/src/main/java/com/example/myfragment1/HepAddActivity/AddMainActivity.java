@@ -30,10 +30,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.myfragment1.DataBase_Room.LocationRoom.LocationDatabase;
 import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
 import com.example.myfragment1.DataBase_Room.Repository.LocationRepository;
 import com.example.myfragment1.LocationList_RecyclerView.LocationViewModel;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagDatabase;
 import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity;
 import com.example.myfragment1.MSMain.MainActivity;
 import com.example.myfragment1.R;
@@ -328,11 +328,9 @@ public class AddMainActivity extends Activity {
          */
 
         if(!_hashTag.isEmpty()) {
-            TagDatabase tagDatabase = Room.databaseBuilder(this, TagDatabase.class, "Tag_Database").allowMainThreadQueries().build();
             int location_id = locationEntity.getId();
             for (String tag : _hashTag)
-                tagDatabase.tagEntity_dao().insert(new TagEntity(location_id, tag));
-            tagDatabase.close();
+                locationRepository.insert_Tag(new TagEntity(location_id, tag));
         }
         Intent mainActivityIntent = new Intent(this, MainActivity.class);
         mainActivityIntent.putExtra(SET_STORE_FLAG, true);

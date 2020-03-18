@@ -9,13 +9,21 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {LocationEntity.class}, version = 1
+import com.example.myfragment1.DataBase_Room.LocationTagEntity.LocationTagEntity;
+import com.example.myfragment1.DataBase_Room.LocationTagEntity.LocationTag_Dao;
+import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity;
+import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity_Dao;
+
+@Database(entities = {LocationEntity.class, LocationTagEntity.class, TagEntity.class}, version = 1
 //          get rid of warning
 //        ,exportSchema = false
 )
 public abstract class LocationDatabase extends RoomDatabase {
     private static LocationDatabase instance;
     public abstract LocationEntity_Dao locationEntity_dao();
+    public abstract TagEntity_Dao tagEntity_dao();
+    public abstract LocationTag_Dao locationTag_dao();
+
     public static synchronized LocationDatabase getInstance(Context context){
         if(instance == null){
             instance = Room.databaseBuilder(context.getApplicationContext().getApplicationContext(),
@@ -37,9 +45,12 @@ public abstract class LocationDatabase extends RoomDatabase {
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private LocationEntity_Dao locationEntity_dao;
-
+        private TagEntity_Dao tagEntity_dao;
+        private LocationTag_Dao locationTag_dao;
         private PopulateDbAsyncTask(LocationDatabase locationDatabase){
             locationEntity_dao = locationDatabase.locationEntity_dao();
+            tagEntity_dao = locationDatabase.tagEntity_dao();
+            locationTag_dao = locationDatabase.locationTag_dao();
         }
 
         @Override

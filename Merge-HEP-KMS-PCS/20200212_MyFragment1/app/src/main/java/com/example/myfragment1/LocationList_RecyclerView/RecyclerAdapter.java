@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListHolder> {
-    private Application application;
     private List<LocationEntity> locationEntities = new ArrayList<>();
     private List<TagEntity> tagEntities = new ArrayList<>();
 
