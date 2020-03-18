@@ -50,3 +50,5 @@ public class MainFragment extends Fragment {
         return rootView;
     }
 }
+
+// 조졌다 진짜로

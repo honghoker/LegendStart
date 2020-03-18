@@ -126,6 +126,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        recy_title.add("Four");
 //        recy_title.add("FIve");
 
+
+
 //        List<Directory> a = db.directoryDao().getAll().getValue();
 //        Log.d("1","db확인11"+ db.directoryDao().getAll().getValue());
 
@@ -150,8 +152,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-
-
                 toolbar.setTitle(recy_title.get(pos));
                 Toast.makeText(getApplicationContext(), recy_title.get(pos), Toast.LENGTH_SHORT).show();
                 Animation animationH = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translatehide);
