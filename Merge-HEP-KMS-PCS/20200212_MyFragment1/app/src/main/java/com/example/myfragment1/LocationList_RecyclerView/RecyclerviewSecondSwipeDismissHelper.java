@@ -35,7 +35,7 @@ public class RecyclerviewSecondSwipeDismissHelper extends ItemTouchHelper.Simple
     @Override
     public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
         //Undo
-        LocationRepository locationRepository
+        LocationRepository locationRepository = new LocationRepository()
         locationEntity = locationViewModel.delete(recyclerAdapter.getLocationEntityAt(viewHolder.getAdapterPosition()));
 
         final TagEntity[] tagList = tagDatabase.tagEntity_dao().multipleSelectionByForeignKey(locationEntity.getId()).toArray(new TagEntity[0]);
