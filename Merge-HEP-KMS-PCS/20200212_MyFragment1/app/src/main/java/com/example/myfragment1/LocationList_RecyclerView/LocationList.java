@@ -16,8 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagDatabase;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagViewModel;
 import com.example.myfragment1.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -30,12 +28,9 @@ public class LocationList extends AppCompatActivity {
     private static final int GET_ADD_LOCATION_REQUEST_CODE = 200; //For intent
     private RecyclerAdapter recyclerAdapter;
     private LocationViewModel locationViewModel;
-    private TagViewModel tagViewModel;
     private RecyclerView recyclerView; //For recyclerview
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
     private FloatingActionButton floatingActionButton;
-    private TagDatabase tagDatabase;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,7 +88,7 @@ public class LocationList extends AppCompatActivity {
     }
 
     public void setupSwipe() {
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+        recyclerView.addItemDecoration( new RecyclerView.ItemDecoration() {
             @Override
             public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 recyclerviewSwipeHelper.onDraw(c);

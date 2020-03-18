@@ -73,7 +73,7 @@ public class TagAsyncTask {
             return ((List<TagEntity>) new SendingArrayList().SendingArrayList(tagEntity_dao.multipleSelectionByForeignKey(integer[0])));
         }
     }
-    public static class DismissUsingLocationId extends AsyncTask<Integer, Void, TagEntity>{
+    public static class DismissUsingLocationId extends AsyncTask<Integer, Void, List<TagEntity>>{
         private TagEntity_Dao tagEntity_dao;
 
         public DismissUsingLocationId(TagEntity_Dao tagEntity_dao) {
@@ -81,8 +81,8 @@ public class TagAsyncTask {
         }
 
         @Override
-        protected TagEntity[] doInBackground(Integer... integers) {
-            return tagEntity_dao.dismissUsingForeignKey(integers[0]);
+        protected List<TagEntity> doInBackground(Integer... integers) {
+            return ((List<TagEntity>) new SendingArrayList().SendingArrayList(tagEntity_dao.dismissUsingForeignKey(integers[0])));
         }
     }
 

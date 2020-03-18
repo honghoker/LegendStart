@@ -10,9 +10,7 @@ import com.example.myfragment1.DataBase_Room.LocationRoom.Location_AsyncTask;
 import com.example.myfragment1.DataBase_Room.LocationTagEntity.LocationTagEntity;
 import com.example.myfragment1.DataBase_Room.LocationTagEntity.LocationTag_AsyncTask;
 import com.example.myfragment1.DataBase_Room.LocationTagEntity.LocationTag_Dao;
-import com.example.myfragment1.DataBase_Room.LocationTagEntity.LocationTag_DataBase;
 import com.example.myfragment1.DataBase_Room.TagEntity.TagAsyncTask;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagDatabase;
 import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity;
 import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity_Dao;
 
@@ -33,13 +31,12 @@ public class LocationRepository {
 
     public LocationRepository(Application application) {
         LocationDatabase locationDatabase = LocationDatabase.getInstance(application);
-        TagDatabase tagDatabase = TagDatabase.getInstance(application);
-        LocationTag_DataBase locationTag_dataBase= LocationTag_DataBase.getInstance(application);
+
 
 
         this.locationEntity_dao = locationDatabase.locationEntity_dao();
-        this.tagEntity_dao = tagDatabase.tagEntity_dao();
-        this.locationTag_dao = locationTag_dataBase.locationTag_dao();
+        this.tagEntity_dao = locationDatabase.tagEntity_dao();
+        this.locationTag_dao = locationDatabase.locationTag_dao();
 
         allLocations = locationEntity_dao.getAllData();
         allLocationTagData = locationTag_dao.getAllLocationTagData();

@@ -20,9 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
 import com.example.myfragment1.DataBase_Room.Repository.LocationRepository;
 import com.example.myfragment1.LocationList_RecyclerView.LocationViewModel;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagDatabase;
 import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity;
-import com.example.myfragment1.DataBase_Room.TagEntity.TagViewModel;
 import com.example.myfragment1.LocationList_RecyclerView.RecyclerAdapter;
 import com.example.myfragment1.LocationList_RecyclerView.RecyclerviewSecondSwipeDismissHelper;
 import com.example.myfragment1.LocationList_RecyclerView.RecyclerviewSecondSwipeToDoHelper;
@@ -38,11 +36,9 @@ public class LocationFragment extends Fragment {
     private static final int GET_ADD_LOCATION_REQUEST_CODE = 200; //For intent
     private RecyclerAdapter recyclerAdapter;
     private LocationViewModel locationViewModel;
-    private TagViewModel tagViewModel;
     private RecyclerView recyclerView; //For recyclerview
     private RecyclerviewSwipeHelper recyclerviewSwipeHelper = null;
     private FloatingActionButton floatingActionButton;
-    private TagDatabase tagDatabase;
     private ViewGroup rootView;
 
     @Override
@@ -79,7 +75,7 @@ public class LocationFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        recyclerAdapter = new RecyclerAdapter(getActivity().getApplication());
+        recyclerAdapter = new RecyclerAdapter();
         recyclerView.setAdapter(recyclerAdapter);
         sendTagData();
     }
