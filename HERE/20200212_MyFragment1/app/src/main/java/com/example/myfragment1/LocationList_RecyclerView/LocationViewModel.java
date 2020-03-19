@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.myfragment1.DataBase_Room.LocationTagEntity.LocationTagEntity;
 import com.example.myfragment1.DataBase_Room.Repository.LocationRepository;
 import com.example.myfragment1.DataBase_Room.LocationRoom.LocationEntity;
 import com.example.myfragment1.DataBase_Room.TagEntity.TagEntity;
@@ -23,17 +24,35 @@ public class LocationViewModel extends AndroidViewModel {
         allTagData = repository.getAllTags();
 
     }
-    public int insert(LocationEntity locationEntity){
+    public int location_insert(LocationEntity locationEntity){
         repository.insert_Location(locationEntity);
         return locationEntity.getId();
     }
-    public void update(LocationEntity locationEntity){
+    public void location_update(LocationEntity locationEntity){
         repository.update_Location(locationEntity);
     }
-    public LocationEntity delete(LocationEntity locationEntity){
+    public LocationEntity location_delete(LocationEntity locationEntity){
         repository.delete_Location(locationEntity);
         return locationEntity;
     }
+    public TagEntity[] tag_delete(TagEntity... tagEntities){
+        repository.delete_Tag(tagEntities);
+        return tagEntities;
+    }
+    public void tag_insert(TagEntity tagEntity){
+        repository.insert_Tag(tagEntity);
+    }
+    public void locationTag_insert(LocationTagEntity locationTagEntity){
+        repository.insert_LocationTag(locationTagEntity);
+    }
+    public LocationTagEntity[] locationTag_delete(LocationTagEntity... locationTagEntities){
+        repository.delete_LocationTag(locationTagEntities);
+        return locationTagEntities;
+    }
+    public List<LocationTagEntity> locationTag_FindLocationID(int locationId){
+        return repository.searchByLocationID_LocationTag(locationId);
+    }
+
     public void deleteAllDates(){
         repository.deleteAllDates();
     }
@@ -44,8 +63,8 @@ public class LocationViewModel extends AndroidViewModel {
         return allTagData;
     }
 
+
     public List<TagEntity> searchTagByLocationID(int position){
         return repository.searchAboutLocationId(position);
     }
-
 }
